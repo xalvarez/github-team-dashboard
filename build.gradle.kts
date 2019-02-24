@@ -19,6 +19,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut:micronaut-views")
 
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
