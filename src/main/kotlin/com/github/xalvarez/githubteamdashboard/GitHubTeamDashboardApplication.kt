@@ -1,12 +1,14 @@
 package com.github.xalvarez.githubteamdashboard
 
-class GitHubTeamDashboardApplication {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
-}
+import io.micronaut.runtime.Micronaut
 
-fun main() {
-    println(GitHubTeamDashboardApplication().greeting)
+object GitHubTeamDashboardApplication {
+
+    @JvmStatic
+    fun main() {
+        Micronaut.build()
+            .packages(GitHubTeamDashboardApplication::class.java.`package`.toString())
+            .mainClass(GitHubTeamDashboardApplication::class.java)
+            .start()
+    }
 }
