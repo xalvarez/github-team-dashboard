@@ -25,5 +25,5 @@ dependencies {
 }
 
 application {
-    mainClassName = "com.github.xalvarez.githubteamdashboard.GitHubTeamDashboardApplication"
+    mainClassName = "com.github.xalvarez.githubteamdashboard.Application"
 }
