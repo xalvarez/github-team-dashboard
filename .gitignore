@@ -1,0 +1,17 @@
+build/
+bin/
+out/
+.*
+!.gitignore
+!.github/
+gradle.properties
+
+# IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Package Files #
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
