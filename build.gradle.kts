@@ -32,7 +32,7 @@ dependencies {
     runtime("ch.qos.logback:logback-classic:1.2.3")
 
     testImplementation(kotlin("test"))
-    testImplementation(kotlin("test-junit"))
+    testImplementation(kotlin("test-junit5"))
 }
 
 application {
