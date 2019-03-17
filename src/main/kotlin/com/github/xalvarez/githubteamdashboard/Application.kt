@@ -8,7 +8,6 @@ object Application {
     fun main(args: Array<String>) {
         Micronaut.build()
             .packages("com.github.xalvarez.githubteamdashboard")
-//            .packages(Application::class.java.`package`.toString())
             .mainClass(Application.javaClass)
             .start()
     }

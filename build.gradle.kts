@@ -24,6 +24,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-views")
+    implementation("io.micronaut:micronaut-http-client")
 
     kapt("io.micronaut:micronaut-inject-java")
 

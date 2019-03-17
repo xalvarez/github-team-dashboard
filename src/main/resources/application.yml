@@ -1,3 +1,9 @@
 micronaut:
   application:
     name: github-team-dashboard
+
+github:
+  organization: ${GITHUB_ORGANIZATION}
+  team: ${GITHUB_TEAM}
+  token: ${GITHUB_TOKEN}
+  userAgent: github-team-dashboard
