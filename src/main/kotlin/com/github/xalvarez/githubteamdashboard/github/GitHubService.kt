@@ -1,13 +1,14 @@
 package com.github.xalvarez.githubteamdashboard.github
 
-import javax.inject.Singleton
+import io.micronaut.context.annotation.Prototype
 
-@Singleton
+@Prototype
 class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
 
-    fun fetchDashboardData(): String {
+    fun fetchDashboardData(): GithubDashboardData {
         val authorization = "Bearer ${gitHubConfiguration.token}"
-        return gitHubClient.fetchDashboardData(authorization, gitHubConfiguration.userAgent, buildQuery())
+        return gitHubClient.fetchDashboardData(authorization, gitHubConfiguration.userAgent, buildQuery()).blockingGet()
+
     }
 
     private fun buildQuery() = """

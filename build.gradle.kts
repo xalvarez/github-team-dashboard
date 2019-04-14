@@ -25,6 +25,7 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-views")
     implementation("io.micronaut:micronaut-http-client")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 
     kapt("io.micronaut:micronaut-inject-java")
 
