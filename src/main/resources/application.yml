@@ -1,6 +1,12 @@
 micronaut:
   application:
     name: github-team-dashboard
+  router:
+    static-resources:
+      webjars:
+        enabled: true
+        paths: classpath:META-INF/resources/webjars
+        mapping: /webjars/**
 
 github:
   organization: ${GITHUB_ORGANIZATION}

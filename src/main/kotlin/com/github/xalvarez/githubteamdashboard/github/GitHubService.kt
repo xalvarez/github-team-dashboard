@@ -15,7 +15,8 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
         {
           organization(login: "${gitHubConfiguration.organization}") {
             team(slug: "${gitHubConfiguration.team}") {
-              members(first: 100) {
+              name
+              members(first: 100, orderBy: { field: LOGIN, direction: ASC }) {
                 nodes {
                   login
                 }

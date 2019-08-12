@@ -13,6 +13,7 @@ class Organization(
 )
 
 class Team(
+    val name: String,
     val members: Members
 )
 
