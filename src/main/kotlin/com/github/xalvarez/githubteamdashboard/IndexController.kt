@@ -11,9 +11,5 @@ class IndexController(val gitHubService: GitHubService) {
 
     @View("index")
     @Get
-    fun index(): HttpResponse<Any> {
-        val response = gitHubService.fetchDashboardData()
-        // TODO: Do something with response
-        return HttpResponse.ok()
-    }
+    fun index(): HttpResponse<Any> = HttpResponse.ok(gitHubService.fetchDashboardData())
 }
