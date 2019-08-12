@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.21"
-    kotlin("kapt") version "1.3.21"
+    kotlin("jvm") version "1.3.41"
+    kotlin("kapt") version "1.3.41"
     application
     idea
-    id("io.spring.dependency-management") version "1.0.7.RELEASE"
+    id("io.spring.dependency-management") version "1.0.8.RELEASE"
 }
 
 repositories {
@@ -14,7 +14,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("io.micronaut:micronaut-bom:1.0.4")
+        mavenBom("io.micronaut:micronaut-bom:1.1.3")
     }
 }
 
@@ -25,7 +25,7 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-views")
     implementation("io.micronaut:micronaut-http-client")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.9")
 
     kapt("io.micronaut:micronaut-inject-java")
 
