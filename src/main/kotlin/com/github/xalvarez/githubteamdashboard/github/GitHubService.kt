@@ -21,7 +21,7 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
                   login
                 }
               }
-              repositories(first: 100) {
+              repositories(first: 100, orderBy: { field: NAME, direction: ASC }) {
                 nodes {
                   name
                   pullRequests(states: [OPEN], first: 100) {
