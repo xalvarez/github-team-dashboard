@@ -4,23 +4,23 @@ data class GithubDashboardData(
     val data: Data
 )
 
-class Data(
+data class Data(
     val organization: Organization
 )
 
-class Organization(
+data class Organization(
     val team: Team
 )
 
-class Team(
+data class Team(
     val name: String,
     val members: Members
 )
 
-class Members(
+data class Members(
     val nodes: List<MembersNode>
 )
 
-class MembersNode(
+data class MembersNode(
     val login: String
 )

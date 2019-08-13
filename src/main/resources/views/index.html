@@ -10,10 +10,10 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="card text-center">
-                <div class="card-header">Team <span th:text="${data.organization.team.name}"></span></div>
+                <div class="card-header">Team <span th:text="${team.name}"></span></div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush" th:each="member: ${data.organization.team.members.nodes}">
-                        <li class="list-group-item" th:text="${member.login}"></li>
+                    <ul class="list-group list-group-flush" th:each="member: ${team.members}">
+                        <li class="list-group-item" th:text="${member.username}"></li>
                     </ul>
                 </div>
             </div>
