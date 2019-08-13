@@ -27,6 +27,7 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
                   pullRequests(states: [OPEN], first: 100) {
                     nodes {
                       url
+                      createdAt
                     }
                   }
                 }
