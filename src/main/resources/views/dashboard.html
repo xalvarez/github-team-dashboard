@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container my-sm-5" th:fragment="content">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card text-center">
+                <div class="card-header">Team <span th:text="${team.name}"></span></div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" th:each="member: ${team.members}">
+                        <li class="list-group-item" th:text="${member.username}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
