@@ -13,6 +13,29 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-8">
+            <div class="card text-center">
+                <div class="card-header">Open Pull Requests</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">URL</th>
+                            <th scope="col">Creation Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pullRequest,iterStat : ${pullRequests}">
+                            <th scope="row" th:text="${iterStat.index + 1}"></th>
+                            <td><a th:href="${pullRequest.url}" th:text="${pullRequest.url}"></a></td>
+                            <td th:text="${pullRequest.createdAt}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
