@@ -43,5 +43,10 @@ data class PullRequests(
 
 data class PullRequestNode(
     val url: String,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val author: Author
+)
+
+data class Author(
+    val login: String
 )

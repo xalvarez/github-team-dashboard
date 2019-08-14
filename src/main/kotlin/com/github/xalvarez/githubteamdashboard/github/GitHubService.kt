@@ -28,6 +28,9 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
                     nodes {
                       url
                       createdAt
+                      author {
+                        login
+                      }
                     }
                   }
                 }
