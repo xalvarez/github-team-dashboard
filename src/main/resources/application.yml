@@ -9,6 +9,7 @@ micronaut:
         mapping: /webjars/**
 
 github:
+  apiurl: https://api.github.com/graphql
   organization: ${GITHUB_ORGANIZATION}
   team: ${GITHUB_TEAM}
   token: ${GITHUB_TOKEN}
