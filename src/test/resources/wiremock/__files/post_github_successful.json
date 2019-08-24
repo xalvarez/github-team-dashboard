@@ -1,0 +1,82 @@
+{
+  "data": {
+    "organization": {
+      "team": {
+        "name": "example_team",
+        "members": {
+          "nodes": [
+            {
+              "login": "example_team_member_1"
+            },
+            {
+              "login": "example_team_member_2"
+            }
+          ]
+        },
+        "repositories": {
+          "nodes": [
+            {
+              "name": "example_repo_1",
+              "pullRequests": {
+                "nodes": []
+              }
+            },
+            {
+              "name": "example_repo_2",
+              "pullRequests": {
+                "nodes": []
+              }
+            },
+            {
+              "name": "example_repo_3",
+              "pullRequests": {
+                "nodes": [
+                  {
+                    "url": "https://github.com/example_organization/example_repo_3/pull/75",
+                    "createdAt": "2019-08-23T09:02:51Z",
+                    "author": {
+                      "login": "example_team_member_1"
+                    }
+                  },
+                  {
+                    "url": "https://github.com/example_organization/example_repo_3/pull/76",
+                    "createdAt": "2019-08-23T13:24:13Z",
+                    "author": {
+                      "login": "example_team_member_1"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "example_repo_4",
+              "pullRequests": {
+                "nodes": [
+                  {
+                    "url": "https://github.com/example_organization/example_repo_4/pull/pull/128",
+                    "createdAt": "2019-08-23T11:19:57Z",
+                    "author": {
+                      "login": "example_team_member_2"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "plm_lead-qualification-frontend",
+              "pullRequests": {
+                "nodes": []
+              }
+            },
+            {
+              "name": "plm_lead-registration",
+              "pullRequests": {
+                "nodes": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

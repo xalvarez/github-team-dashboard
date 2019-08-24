@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.41"
-    kotlin("kapt") version "1.3.41"
+    kotlin("jvm") version "1.3.50"
+    kotlin("kapt") version "1.3.50"
     application
     idea
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
@@ -33,8 +33,13 @@ dependencies {
     runtime("org.webjars:bootstrap:4.3.1")
     runtime("ch.qos.logback:logback-classic:1.2.3")
 
-    testImplementation(kotlin("test"))
+    kaptTest("io.micronaut:micronaut-inject-java")
+
     testImplementation(kotlin("test-junit5"))
+    testImplementation("io.micronaut.test:micronaut-test-junit5:1.1.0")
+    testImplementation("com.github.tomakehurst:wiremock:2.24.1")
+
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.1.0")
 }
 
 application {
