@@ -39,7 +39,7 @@ dependencies {
     testImplementation("io.micronaut.test:micronaut-test-junit5:1.1.0")
     testImplementation("com.github.tomakehurst:wiremock:2.24.1")
 
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.1.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.2")
 }
 
 application {
