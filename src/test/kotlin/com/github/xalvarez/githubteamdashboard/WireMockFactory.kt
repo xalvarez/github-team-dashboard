@@ -1,4 +1,4 @@
-package com.github.xalvarez.githubteamdashboard.github
+package com.github.xalvarez.githubteamdashboard
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
@@ -19,9 +19,7 @@ class WireMockFactory {
             .port(wireMockPort.toInt())
             .usingFilesUnderClasspath(WIREMOCK_CLASSPATH)
 
-        val wireMockServer = WireMockServer(wireMockConfiguration)
-        wireMockServer.start()
-        return wireMockServer
+        return WireMockServer(wireMockConfiguration)
     }
 }
 

@@ -7,7 +7,9 @@ micronaut:
         enabled: true
         paths: classpath:META-INF/resources/webjars
         mapping: /webjars/**
-
+  views:
+    handlebars:
+      enabled: false
 github:
   apiurl: https://api.github.com/graphql
   organization: ${GITHUB_ORGANIZATION}
