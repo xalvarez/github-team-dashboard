@@ -3,9 +3,9 @@ package com.github.xalvarez.githubteamdashboard.github
 import io.micronaut.context.annotation.Prototype
 
 @Prototype
-class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
+open class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
 
-    fun fetchDashboardData(): GithubDashboardData {
+    open fun fetchDashboardData(): GithubDashboardData {
         val authorization = "Bearer ${gitHubConfiguration.token}"
         return gitHubClient.fetchDashboardData(authorization, gitHubConfiguration.userAgent, buildQuery()).blockingGet()
 

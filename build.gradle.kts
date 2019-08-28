@@ -22,6 +22,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation(kotlin("reflect"))
+    implementation(kotlin("allopen"))
+    //org.jetbrains.kotlin:kotlin-allopen
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-views")
     implementation("io.micronaut:micronaut-http-client")
@@ -38,6 +40,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("io.micronaut.test:micronaut-test-junit5:1.1.0")
     testImplementation("com.github.tomakehurst:wiremock:2.24.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:3.0.0")
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.2")
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Controller
-class IndexController(val gitHubService: GitHubService) {
+class IndexController(private val gitHubService: GitHubService) {
 
     @View("index")
     @Get
