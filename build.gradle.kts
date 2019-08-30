@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.3.50"
     kotlin("kapt") version "1.3.50"
+    kotlin("plugin.allopen") version "1.3.50"
     application
     idea
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
@@ -18,15 +19,18 @@ dependencyManagement {
     }
 }
 
+allOpen {
+    annotation("io.micronaut.aop.Around")
+}
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation(kotlin("reflect"))
-    implementation(kotlin("allopen"))
-    //org.jetbrains.kotlin:kotlin-allopen
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-views")
     implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.9")
 
     kapt("io.micronaut:micronaut-inject-java")
