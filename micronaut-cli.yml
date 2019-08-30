@@ -1,5 +1,0 @@
-profile: service
-defaultPackage: com.github.xalvarez.githubteamdashboard
----
-testFramework: junit
-sourceLanguage: kotlin
