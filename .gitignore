@@ -4,7 +4,6 @@ out/
 .*
 !.gitignore
 !.github/
-gradle.properties
 
 # IntelliJ IDEA
 .idea
