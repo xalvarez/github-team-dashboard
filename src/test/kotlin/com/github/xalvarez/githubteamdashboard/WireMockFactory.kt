@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class WireMockFactory {
 
     @Value("\${wiremock.port}")
-    private lateinit var wireMockPort : String
+    private lateinit var wireMockPort: String
 
     @Singleton
     fun wireMockServer(): WireMockServer {
