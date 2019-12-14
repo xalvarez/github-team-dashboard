@@ -29,7 +29,7 @@ dependencies {
     implementation 'io.micronaut:micronaut-views'
     implementation 'io.micronaut:micronaut-http-client'
     implementation 'io.micronaut:micronaut-validation'
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.9'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.1'
 
     kapt 'io.micronaut:micronaut-inject-java'
 
