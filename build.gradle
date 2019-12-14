@@ -34,7 +34,7 @@ dependencies {
     kapt 'io.micronaut:micronaut-inject-java'
 
     runtimeOnly 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
-    runtimeOnly 'org.webjars:bootstrap:4.3.1'
+    runtimeOnly 'org.webjars:bootstrap:4.4.1'
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 
     kaptTest 'io.micronaut:micronaut-inject-java'
