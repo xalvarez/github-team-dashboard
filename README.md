@@ -1,6 +1,6 @@
 # GitHub Team Dashboard
 
-Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably Visualize
+Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualize
 useful information related to your GitHub team.
 
 ## Starting the application
@@ -23,7 +23,7 @@ Once you've set all the environment variables above you can start the applicatio
 
     ./gradlew run
 
-Thanks to incremental annotation processing, startup time will improve significantlythe next time you run the command
+Thanks to incremental annotation processing, startup time will improve significantly the next time you run the command
 above.
 
 Once the application is started you'll find it under [localhost:8080](http://localhost:8080).
