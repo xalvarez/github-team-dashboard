@@ -35,9 +35,9 @@ dependencies {
 
     kapt("io.micronaut:micronaut-inject-java")
 
-    runtime("org.thymeleaf:thymeleaf:3.0.11.RELEASE")
-    runtime("org.webjars:bootstrap:4.3.1")
-    runtime("ch.qos.logback:logback-classic:1.2.3")
+    runtimeOnly("org.thymeleaf:thymeleaf:3.0.11.RELEASE")
+    runtimeOnly("org.webjars:bootstrap:4.3.1")
+    runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
     kaptTest("io.micronaut:micronaut-inject-java")
 
@@ -46,7 +46,7 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock:2.24.1")
     testImplementation("org.mockito:mockito-junit-jupiter:3.0.0")
 
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
 }
 
 application {
