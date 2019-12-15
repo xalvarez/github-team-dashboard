@@ -60,7 +60,8 @@ class IndexControllerTest {
         com.github.xalvarez.githubteamdashboard.github.models.PullRequest(
             "http://example.com/1",
             buildHumanReadebleDateTime(LocalDateTime.MIN),
-            "example_team_member_1"
+            "example_team_member_1",
+            "Add cool feature"
         )
     )
 
@@ -70,7 +71,7 @@ class IndexControllerTest {
 
     private fun buildSuccessfulGitHubDashboardData(): GithubDashboardData {
         val author = Author("example_team_member_1")
-        val pullRequests = PullRequests(listOf(PullRequestNode("http://example.com/1", LocalDateTime.MIN, author)))
+        val pullRequests = PullRequests(listOf(PullRequestNode("http://example.com/1", LocalDateTime.MIN, author, "Add cool feature")))
         val repositories = Repositories(listOf(Repository("example_repo_1", pullRequests)))
         val members = Members(listOf(MembersNode("example_team_member_1")))
         val team = Team("example_team", members, repositories)

@@ -22,7 +22,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Author</th>
-                            <th scope="col">URL</th>
+                            <th scope="col">Title</th>
                             <th scope="col">Creation Date</th>
                         </tr>
                         </thead>
@@ -30,7 +30,7 @@
                         <tr th:each="pullRequest,iterStat : ${pullRequests}">
                             <th scope="row" th:text="${iterStat.index + 1}"></th>
                             <td th:text="${pullRequest.author}"></td>
-                            <td><a th:href="${pullRequest.url}" th:text="${pullRequest.url}"></a></td>
+                            <td><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
                             <td th:text="${pullRequest.createdAt}"></td>
                         </tr>
                         </tbody>

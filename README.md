@@ -9,7 +9,7 @@ Before starting your application you need to set the following environment varia
 
     GITHUB_ORGANIZATION=<your github organization>
     GITHUB_TEAM=<your github team within that organization>
-    GITHUB_TOKEN<your personal access token>
+    GITHUB_TOKEN=<your personal access token>
 
 You can generate a GitHub personal access token in GitHub's settings menu, under _Developer settings_. The token
 requires these permissions:
