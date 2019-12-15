@@ -8,7 +8,6 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
     open fun fetchDashboardData(): GithubDashboardData {
         val authorization = "Bearer ${gitHubConfiguration.token}"
         return gitHubClient.fetchDashboardData(authorization, gitHubConfiguration.userAgent, buildQuery()).blockingGet()
-
     }
 
     private fun buildQuery() = """
@@ -31,6 +30,7 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
                       author {
                         login
                       }
+                      title
                     }
                   }
                 }

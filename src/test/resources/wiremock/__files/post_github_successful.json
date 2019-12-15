@@ -36,14 +36,16 @@
                     "createdAt": "2019-08-23T09:02:51Z",
                     "author": {
                       "login": "example_team_member_1"
-                    }
+                    },
+                    "title": "Add cool feature"
                   },
                   {
                     "url": "https://github.com/example_organization/example_repo_3/pull/76",
                     "createdAt": "2019-08-23T13:24:13Z",
                     "author": {
                       "login": "example_team_member_1"
-                    }
+                    },
+                    "title": "Add another cool feature"
                   }
                 ]
               }
@@ -57,7 +59,8 @@
                     "createdAt": "2019-08-23T11:19:57Z",
                     "author": {
                       "login": "example_team_member_2"
-                    }
+                    },
+                    "title": "fix a bug"
                   }
                 ]
               }

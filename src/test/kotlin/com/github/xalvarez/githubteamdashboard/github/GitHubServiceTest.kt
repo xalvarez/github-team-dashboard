@@ -28,7 +28,7 @@ class GitHubServiceTest : AbstractWireMockTest() {
                 .filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
                 .all { repository ->
                     repository.pullRequests.nodes.all {
-                        it.url.isNotEmpty() && it.author.login.isNotEmpty()
+                        it.url.isNotEmpty() && it.author.login.isNotEmpty() && it.title.isNotEmpty()
                     }
                 }
         }

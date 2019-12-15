@@ -44,7 +44,8 @@ data class PullRequests(
 data class PullRequestNode(
     val url: String,
     val createdAt: LocalDateTime,
-    val author: Author
+    val author: Author,
+    val title: String
 )
 
 data class Author(
