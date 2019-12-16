@@ -36,7 +36,7 @@ class IndexController(private val gitHubService: GitHubService) {
             .filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
             .flatMap { repository ->
                 repository.pullRequests.nodes.map {
-                    PullRequest(it.url, toHumanReadableDatetime(it.createdAt), it.author.login, it.title)
+                    PullRequest(it.url, toHumanReadableDatetime(it.createdAt), it.author.login, it.title, repository.name)
                 }
             }
 
