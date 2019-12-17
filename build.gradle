@@ -15,11 +15,14 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://dl.bintray.com/micronaut/core-releases-local'
+    }
 }
 
 dependencyManagement {
     imports {
-        mavenBom('io.micronaut:micronaut-bom:1.2.7')
+        mavenBom('io.micronaut:micronaut-bom:1.2.8')
     }
 }
 
