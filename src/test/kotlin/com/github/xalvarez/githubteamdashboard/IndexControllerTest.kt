@@ -1,18 +1,8 @@
 package com.github.xalvarez.githubteamdashboard
 
-import com.github.xalvarez.githubteamdashboard.github.Author
-import com.github.xalvarez.githubteamdashboard.github.Data
-import com.github.xalvarez.githubteamdashboard.github.GitHubService
-import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
-import com.github.xalvarez.githubteamdashboard.github.Members
-import com.github.xalvarez.githubteamdashboard.github.MembersNode
-import com.github.xalvarez.githubteamdashboard.github.Organization
-import com.github.xalvarez.githubteamdashboard.github.PullRequestNode
-import com.github.xalvarez.githubteamdashboard.github.PullRequests
-import com.github.xalvarez.githubteamdashboard.github.Repositories
-import com.github.xalvarez.githubteamdashboard.github.Repository
-import com.github.xalvarez.githubteamdashboard.github.Team
+import com.github.xalvarez.githubteamdashboard.github.*
 import com.github.xalvarez.githubteamdashboard.github.models.Member
+import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,6 +12,8 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 @MicronautTest
@@ -44,11 +36,21 @@ class IndexControllerTest {
         val expectedTeamModel = givenExpectedTeamModel()
         val expectedPullRequestsModel = givenExpectedPullRequestsModel()
 
-        val response = indexController.index()
-        val responseBody = response.body() as HashMap<*, *>
+        val modelAndView = indexController.dashboard()
+        val view = modelAndView.view.get()
+        val model = modelAndView.model.get()
 
-        assertTrue((responseBody["team"] as com.github.xalvarez.githubteamdashboard.github.models.Team) == expectedTeamModel)
-        assertTrue((responseBody["pullRequests"] as List<*>) == expectedPullRequestsModel)
+        assertTrue(view == "dashboard")
+        assertEquals(model["team"], expectedTeamModel)
+        assertEquals(model["pullRequests"], expectedPullRequestsModel)
+        assertNotNull(model["lastUpdate"])
+    }
+
+    @Test
+    fun `should load homepage`() {
+        val response = indexController.index()
+
+        assertEquals(response.status(), OK)
     }
 
     private fun givenExpectedTeamModel() = com.github.xalvarez.githubteamdashboard.github.models.Team(
