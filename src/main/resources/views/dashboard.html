@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container my-sm-5" th:fragment="content">
+<div class="container-fluid my-sm-5 px-5" th:fragment="content">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="card text-center">
                 <div class="card-header">Team <span th:text="${team.name}"></span></div>
                 <div class="card-body">
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             <div class="card text-center">
                 <div class="card-header">Open Pull Requests</div>
                 <div class="card-body">
@@ -21,6 +21,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Repository</th>
                             <th scope="col">Author</th>
                             <th scope="col">Title</th>
                             <th scope="col">Creation Date</th>
@@ -29,6 +30,7 @@
                         <tbody>
                         <tr th:each="pullRequest,iterStat : ${pullRequests}">
                             <th scope="row" th:text="${iterStat.index + 1}"></th>
+                            <td th:text="${pullRequest.repositoryName}"></td>
                             <td th:text="${pullRequest.author}"></td>
                             <td><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
                             <td th:text="${pullRequest.createdAt}"></td>

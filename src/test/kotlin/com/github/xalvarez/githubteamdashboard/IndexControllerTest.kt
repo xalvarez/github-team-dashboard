@@ -61,7 +61,8 @@ class IndexControllerTest {
             "http://example.com/1",
             buildHumanReadebleDateTime(LocalDateTime.MIN),
             "example_team_member_1",
-            "Add cool feature"
+            "Add cool feature",
+            "example_repo_1"
         )
     )
 
