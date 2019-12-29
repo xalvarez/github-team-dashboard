@@ -8,9 +8,12 @@ import com.github.xalvarez.githubteamdashboard.github.models.Team
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.views.ModelAndView
 import io.micronaut.views.View
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 
 @Controller
 class IndexController(private val gitHubService: GitHubService) {
@@ -18,11 +21,21 @@ class IndexController(private val gitHubService: GitHubService) {
     @View("index")
     @Get
     fun index(): HttpResponse<Any> {
+        return HttpResponse.ok()
+    }
+
+    @Get("/dashboard")
+    fun dashboard(): ModelAndView<HashMap<String, Any>> {
+        return ModelAndView("dashboard", buildModel())
+    }
+
+    private fun buildModel(): HashMap<String, Any> {
         val githubDashboardData = gitHubService.fetchDashboardData()
         val model = HashMap<String, Any>()
         model["team"] = buildTeam(githubDashboardData)
         model["pullRequests"] = buildPullRequests((githubDashboardData))
-        return HttpResponse.ok(model)
+        model["lastUpdate"] = ZonedDateTime.now().format(ISO_ZONED_DATE_TIME)
+        return model
     }
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
@@ -36,7 +49,13 @@ class IndexController(private val gitHubService: GitHubService) {
             .filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
             .flatMap { repository ->
                 repository.pullRequests.nodes.map {
-                    PullRequest(it.url, toHumanReadableDatetime(it.createdAt), it.author.login, it.title, repository.name)
+                    PullRequest(
+                        it.url,
+                        toHumanReadableDatetime(it.createdAt),
+                        it.author.login,
+                        it.title,
+                        repository.name
+                    )
                 }
             }
 

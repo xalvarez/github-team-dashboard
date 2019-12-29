@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>GitHub Team Dashboard</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+  <meta charset="UTF-8">
+  <title>GitHub Team Dashboard</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:insert="dashboard :: content"></div>
-<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+  <div id="dashboard">
+    <div class="container-fluid my-sm-5 px-5">
+      <div class="row">
+        <div class="col">
+          <div class="card text-center">
+            <div class="card-header">Fetching GitHub data...</span></div>
+            <div class="card-body">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+  <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+  <script>
+    const REFRESH_INTERVAL = 3000
+
+    function refreshDashboard() {
+      fetch("/dashboard")
+        .then(response => response.text())
+        .then(responseBody => dashboard.innerHTML = responseBody)
+      setTimeout(refreshDashboard, REFRESH_INTERVAL);
+    }
+
+    refreshDashboard()
+  </script>
 </body>
+
 </html>

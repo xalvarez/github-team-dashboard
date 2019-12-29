@@ -2,6 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container-fluid my-sm-5 px-5" th:fragment="content">
+    <div class="row mb-2">
+        <div class="col">
+            <div class="text-right"><small>Last update: <span th:text="${lastUpdate}"></span></small></div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-3">
             <div class="card text-center">
