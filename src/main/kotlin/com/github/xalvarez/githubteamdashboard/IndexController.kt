@@ -8,7 +8,6 @@ import com.github.xalvarez.githubteamdashboard.github.models.Team
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
-import io.micronaut.views.ModelAndView
 import io.micronaut.views.View
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
@@ -18,18 +17,19 @@ import java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 @Controller
 class IndexController(private val gitHubService: GitHubService) {
 
-    @View("index")
     @Get
+    @View("index")
     fun index(): HttpResponse<Any> {
         return HttpResponse.ok()
     }
 
     @Get("/dashboard")
-    fun dashboard(): ModelAndView<HashMap<String, Any>> {
-        return ModelAndView("dashboard", buildModel())
+    @View("dashboard")
+    fun dashboard(): HttpResponse<Any> {
+        return HttpResponse.ok(buildDashboardModel())
     }
 
-    private fun buildModel(): HashMap<String, Any> {
+    private fun buildDashboardModel(): HashMap<String, Any> {
         val githubDashboardData = gitHubService.fetchDashboardData()
         val model = HashMap<String, Any>()
         model["team"] = buildTeam(githubDashboardData)
