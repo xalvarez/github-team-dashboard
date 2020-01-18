@@ -8,7 +8,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 @MicronautTest
-class GitHubServiceTest : AbstractWireMockTest() {
+internal class GitHubServiceTest : AbstractWireMockTest() {
 
     @Inject
     private lateinit var gitHubService: GitHubService

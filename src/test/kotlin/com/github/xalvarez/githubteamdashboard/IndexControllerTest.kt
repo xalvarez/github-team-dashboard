@@ -14,10 +14,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 @MicronautTest
-class IndexControllerTest {
+internal class IndexControllerTest {
 
     @InjectMocks
     lateinit var indexController: IndexController
@@ -26,9 +25,7 @@ class IndexControllerTest {
     lateinit var gitHubService: GitHubService
 
     @BeforeEach
-    fun setup() {
-        initMocks(this)
-    }
+    fun setup() = initMocks(this)
 
     @Test
     fun `should build model`() {
@@ -36,11 +33,10 @@ class IndexControllerTest {
         val expectedTeamModel = givenExpectedTeamModel()
         val expectedPullRequestsModel = givenExpectedPullRequestsModel()
 
-        val modelAndView = indexController.dashboard()
-        val view = modelAndView.view.get()
-        val model = modelAndView.model.get()
+        val response = indexController.dashboard()
+        val model = response.body() as HashMap<*, *>
 
-        assertTrue(view == "dashboard")
+        assertEquals(response.status(), OK)
         assertEquals(model["team"], expectedTeamModel)
         assertEquals(model["pullRequests"], expectedPullRequestsModel)
         assertNotNull(model["lastUpdate"])
@@ -74,7 +70,9 @@ class IndexControllerTest {
 
     private fun buildSuccessfulGitHubDashboardData(): GithubDashboardData {
         val author = Author("example_team_member_1")
-        val pullRequests = PullRequests(listOf(PullRequestNode("http://example.com/1", LocalDateTime.MIN, author, "Add cool feature")))
+        val pullRequests = PullRequests(
+            listOf(PullRequestNode("http://example.com/1", LocalDateTime.MIN, author, "Add cool feature"))
+        )
         val repositories = Repositories(listOf(Repository("example_repo_1", pullRequests)))
         val members = Members(listOf(MembersNode("example_team_member_1")))
         val team = Team("example_team", members, repositories)

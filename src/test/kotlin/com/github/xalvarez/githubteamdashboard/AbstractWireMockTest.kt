@@ -1,9 +1,9 @@
 package com.github.xalvarez.githubteamdashboard
 
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import com.github.tomakehurst.wiremock.client.WireMock.post
-import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock.*
+import io.micronaut.http.HttpHeaders.CONTENT_TYPE
+import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.MediaType.APPLICATION_JSON
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -37,8 +37,8 @@ abstract class AbstractWireMockTest {
         wireMockServer.stubFor(
             post(urlPathEqualTo("/graphql")).willReturn(
                 aResponse()
-                    .withStatus(200)
-                    .withHeader("Content-Type", APPLICATION_JSON)
+                    .withStatus(OK.code)
+                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
                     .withBodyFile(GITHUB_SUCCESSFUL_REQUEST_STUB_FILE)
             )
         )
