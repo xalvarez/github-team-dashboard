@@ -31,4 +31,4 @@ style you see.
 
 This project follows
 [Kotlin's official coding convention](https://kotlinlang.org/docs/reference/coding-conventions.html)
-as enforced in [gradle.properties](gradle.properties)
+as enforced in [gradle.properties](gradle.properties).

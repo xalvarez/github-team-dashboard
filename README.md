@@ -33,3 +33,8 @@ Once the application is started you'll find it under [localhost:8080](http://loc
 The following command runs all checks:
 
     ./gradlew check
+
+## Contributing to GitHub Team Dashboard
+
+Should you want to contribute to **GitHub Team Dashboard** please have a look at
+[CONTRIBUTING.md](CONTRIBUTING.md).
