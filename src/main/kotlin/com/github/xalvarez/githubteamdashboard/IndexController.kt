@@ -58,6 +58,7 @@ class IndexController(private val gitHubService: GitHubService) {
                     )
                 }
             }
+            .sortedBy { it.createdAt }
 
     private fun toHumanReadableDatetime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
