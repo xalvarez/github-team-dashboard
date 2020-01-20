@@ -27,18 +27,7 @@
   <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
   <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
-  <script>
-    const REFRESH_INTERVAL = 300000
-
-    function refreshDashboard() {
-      fetch("/dashboard")
-        .then(response => response.text())
-        .then(responseBody => dashboard.innerHTML = responseBody)
-      setTimeout(refreshDashboard, REFRESH_INTERVAL);
-    }
-
-    refreshDashboard()
-  </script>
+  <script th:src="@{/dashboard.js}"></script>
 </body>
 
 </html>
