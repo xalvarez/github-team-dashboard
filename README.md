@@ -39,7 +39,7 @@ The following command runs all checks:
 Should you want to contribute to **GitHub Team Dashboard** please have a look at
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Running with Docker
+## Running on Docker
 
 Build the jar
     
