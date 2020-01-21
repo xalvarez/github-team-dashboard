@@ -34,11 +34,6 @@ The following command runs all checks:
 
     ./gradlew check
 
-## Contributing to GitHub Team Dashboard
-
-Should you want to contribute to **GitHub Team Dashboard** please have a look at
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
 ## Running on Docker
 
 Build the jar
@@ -54,3 +49,8 @@ Run the docker container
     docker run -d -p 8080:8080 \
         -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
         github-team-dashboard
+
+## Contributing to GitHub Team Dashboard
+
+Should you want to contribute to **GitHub Team Dashboard** please have a look at
+[CONTRIBUTING.md](CONTRIBUTING.md).
