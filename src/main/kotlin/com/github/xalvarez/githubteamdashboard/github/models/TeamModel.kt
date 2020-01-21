@@ -1,6 +1,6 @@
 package com.github.xalvarez.githubteamdashboard.github.models
 
-data class Team(
+data class TeamModel(
     val name: String,
     val members: List<Member>
 )

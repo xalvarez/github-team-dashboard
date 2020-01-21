@@ -1,6 +1,6 @@
 package com.github.xalvarez.githubteamdashboard.github.models
 
-data class PullRequest(
+data class PullRequestModel(
     val url: String,
     val createdAt: String,
     val author: String,
