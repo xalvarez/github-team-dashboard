@@ -3,8 +3,8 @@ package com.github.xalvarez.githubteamdashboard
 import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.models.Member
-import com.github.xalvarez.githubteamdashboard.github.models.PullRequest
-import com.github.xalvarez.githubteamdashboard.github.models.Team
+import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -39,7 +39,7 @@ class IndexController(private val gitHubService: GitHubService) {
     }
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
-        Team(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))
+        TeamModel(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))
 
     private fun buildMembers(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.members.nodes.map { Member(it.login) }
@@ -49,7 +49,7 @@ class IndexController(private val gitHubService: GitHubService) {
             .filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
             .flatMap { repository ->
                 repository.pullRequests.nodes.map {
-                    PullRequest(
+                    PullRequestModel(
                         it.url,
                         toHumanReadableDatetime(it.createdAt),
                         it.author.login,

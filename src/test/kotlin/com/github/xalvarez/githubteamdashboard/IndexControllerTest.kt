@@ -2,6 +2,8 @@ package com.github.xalvarez.githubteamdashboard
 
 import com.github.xalvarez.githubteamdashboard.github.*
 import com.github.xalvarez.githubteamdashboard.github.models.Member
+import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.BeforeEach
@@ -11,9 +13,12 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
 import java.time.LocalDateTime
+import java.time.LocalDateTime.MIN
+import java.time.Month.JANUARY
 import java.time.format.DateTimeFormatter
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 @MicronautTest
 internal class IndexControllerTest {
@@ -31,14 +36,18 @@ internal class IndexControllerTest {
     fun `should build model`() {
         givenSuccessfulGitHubServiceResponse()
         val expectedTeamModel = givenExpectedTeamModel()
-        val expectedPullRequestsModel = givenExpectedPullRequestsModel()
+        val expectedAmountOfPullRequests = 3
 
         val response = indexController.dashboard()
         val model = response.body() as HashMap<*, *>
+        val pullRequests = model["pullRequests"] as List<*>
 
         assertEquals(response.status(), OK)
         assertEquals(model["team"], expectedTeamModel)
-        assertEquals(model["pullRequests"], expectedPullRequestsModel)
+        assertEquals(pullRequests.size, expectedAmountOfPullRequests)
+        assertTrue { (pullRequests[0] as PullRequestModel).repositoryName == "example_repo_3" }
+        assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
+        assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
         assertNotNull(model["lastUpdate"])
     }
 
@@ -49,15 +58,15 @@ internal class IndexControllerTest {
         assertEquals(response.status(), OK)
     }
 
-    private fun givenExpectedTeamModel() = com.github.xalvarez.githubteamdashboard.github.models.Team(
+    private fun givenExpectedTeamModel() = TeamModel(
         "example_team",
         listOf(Member("example_team_member_1"))
     )
 
     private fun givenExpectedPullRequestsModel() = listOf(
-        com.github.xalvarez.githubteamdashboard.github.models.PullRequest(
+        PullRequestModel(
             "http://example.com/1",
-            buildHumanReadebleDateTime(LocalDateTime.MIN),
+            buildHumanReadebleDateTime(MIN),
             "example_team_member_1",
             "Add cool feature",
             "example_repo_1"
@@ -70,10 +79,14 @@ internal class IndexControllerTest {
 
     private fun buildSuccessfulGitHubDashboardData(): GithubDashboardData {
         val author = Author("example_team_member_1")
-        val pullRequests = PullRequests(
-            listOf(PullRequestNode("http://example.com/1", LocalDateTime.MIN, author, "Add cool feature"))
+        val repositories = Repositories(
+            listOf(
+                Repository("example_repo_1", buildPullRequests(author, 2010)),
+                Repository("example_repo_2", buildPullRequests(author, 2012)),
+                Repository("example_repo_3", buildPullRequests(author, 2008))
+            )
         )
-        val repositories = Repositories(listOf(Repository("example_repo_1", pullRequests)))
+
         val members = Members(listOf(MembersNode("example_team_member_1")))
         val team = Team("example_team", members, repositories)
         val data = Data(Organization(team))
@@ -82,4 +95,14 @@ internal class IndexControllerTest {
 
     private fun buildHumanReadebleDateTime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+    private fun buildPullRequests(author: Author, year: Int) =
+        PullRequests(
+            listOf(
+                PullRequestNode("http://example.com/1", createLocalDateTime(year), author, "Add cool feature")
+            )
+        )
+
+    private fun createLocalDateTime(year: Int) =
+        LocalDateTime.of(year, JANUARY, 1, 1, 1, 1)
 }
