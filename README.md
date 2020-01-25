@@ -5,7 +5,11 @@
 Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualize
 useful information related to your GitHub team.
 
-## Starting the application
+## Running the application
+
+### Building the latest version
+
+#### Gradle
 
 Before starting your application you need to set the following environment variables:
 
@@ -30,13 +34,7 @@ above.
 
 Once the application is started you'll find it under [localhost:8080](http://localhost:8080).
 
-## Running tests
-
-The following command runs all checks:
-
-    ./gradlew check
-
-## Running on Docker
+#### Docker
 
 Build the jar
     
@@ -51,6 +49,12 @@ Run the docker container
     docker run -d -p 8080:8080 \
         -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
         github-team-dashboard
+
+## Running tests
+
+The following command runs all checks:
+
+    ./gradlew check
 
 ## Contributing to GitHub Team Dashboard
 
