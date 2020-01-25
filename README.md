@@ -1,5 +1,7 @@
 # GitHub Team Dashboard
 
+![Build](https://github.com/xalvarez/github-team-dashboard/workflows/Build/badge.svg?branch=master)
+
 Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualize
 useful information related to your GitHub team.
 
