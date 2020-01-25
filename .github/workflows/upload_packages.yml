@@ -26,4 +26,4 @@ jobs:
         VERSION=$(date +%s)
         docker login docker.pkg.github.com --username xalvarez --password ${{ secrets.GITHUB_TOKEN }}
         docker build . --file Dockerfile --tag docker.pkg.github.com/xalvarez/github-team-dashboard/github-team.dashboard:${VERSION}
-        docker push ddocker.pkg.github.com/xalvarez/github-team-dashboard/github-team.dashboard:${VERSION}
+        docker push docker.pkg.github.com/xalvarez/github-team-dashboard/github-team.dashboard:${VERSION}
