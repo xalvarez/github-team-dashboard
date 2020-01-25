@@ -1,4 +1,4 @@
-name: Upload packages
+name: Build
 
 on:
   push:
