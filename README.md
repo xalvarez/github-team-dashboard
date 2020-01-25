@@ -7,9 +7,7 @@ useful information related to your GitHub team.
 
 ## Running the application
 
-### Building the latest version
-
-#### Gradle
+### Gradle
 
 Before starting your application you need to set the following environment variables:
 
@@ -34,17 +32,20 @@ above.
 
 Once the application is started you'll find it under [localhost:8080](http://localhost:8080).
 
-#### Docker
+### Docker
 
-Build the jar
+You can either download the [project's latest docker image](https://github.com/xalvarez/github-team-dashboard/packages/113658)
+or build it yourself as follows:
+
+Build the jar:
     
     ./gradlew build
     
-Build the docker container
+Build the docker container:
     
     docker build -t github-team-dashboard .
-    
-Run the docker container
+
+Whether you download the image or you build yourself, afterwards you'll need to start the corresponding docker container:
     
     docker run -d -p 8080:8080 \
         -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
