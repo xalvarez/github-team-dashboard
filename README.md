@@ -3,6 +3,9 @@
 Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualize
 useful information related to your GitHub team.
 
+Example screenshot:
+![Dashboard Example](dashboard_example.png)
+
 ## Running the application
 
 In order to use this application you need to generate a GitHub personal access token in
