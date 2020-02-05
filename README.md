@@ -51,7 +51,11 @@ After setting the environment variables above you can start the application as f
 Thanks to incremental annotation processing, startup time will improve significantly the next time you run the command
 above.
 
-Once the application is started you'll find it under [localhost:8080](http://localhost:8080).
+By default, once the application is started you'll find it under [localhost:8080](http://localhost:8080). If you
+want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a a different port
+before starting the application, e.g.:
+
+    export MICRONAUT_SERVER_PORT=10000
 
 ## Running tests
 
