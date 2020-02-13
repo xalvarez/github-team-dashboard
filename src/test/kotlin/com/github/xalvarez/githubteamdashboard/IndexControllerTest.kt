@@ -75,10 +75,11 @@ internal class IndexControllerTest {
         val repositories = Repositories(
             listOf(
                 Repository("example_repo_1", buildPullRequests(
-                    author = author, year = 2010, approvedReviews = Review(1)
+                    author = author, year = 2010, review = Review(listOf(ReviewNode(APPROVED.name)))
                 )),
                 Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, approvedReviews = Review(1), declinedReviews = Review(1))),
+                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(DECLINED.name)))
+                )),
                 Repository("example_repo_3", buildPullRequests(author, 2008))
             )
         )
@@ -92,12 +93,7 @@ internal class IndexControllerTest {
     private fun buildHumanReadebleDateTime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    private fun buildPullRequests(
-        author: Author,
-        year: Int,
-        approvedReviews: Review = Review(0),
-        declinedReviews: Review = Review(0)
-    ) =
+    private fun buildPullRequests(author: Author, year: Int, review: Review = Review(emptyList())) =
         PullRequests(
             listOf(
                 PullRequestNode(
@@ -105,8 +101,7 @@ internal class IndexControllerTest {
                     createLocalDateTime(year),
                     author,
                     "Add cool feature",
-                    approvedReviews,
-                    declinedReviews
+                    review
                 )
             )
         )

@@ -38,11 +38,8 @@
                       "login": "example_team_member_1"
                     },
                     "title": "Add cool feature",
-                    "approvedReviews": {
-                      "totalCount": 0
-                    },
-                    "declinedReviews": {
-                      "totalCount": 0
+                    "reviews": {
+                      "nodes": []
                     }
                   },
                   {
@@ -52,11 +49,15 @@
                       "login": "example_team_member_1"
                     },
                     "title": "Add another cool feature",
-                    "approvedReviews": {
-                      "totalCount": 2
-                    },
-                    "declinedReviews": {
-                      "totalCount": 1
+                    "reviews": {
+                      "nodes": [
+                        {
+                          "state": "APPROVED"
+                        },
+                        {
+                          "state": "DECLINED"
+                        }
+                      ]
                     }
                   }
                 ]
@@ -73,11 +74,12 @@
                       "login": "example_team_member_2"
                     },
                     "title": "fix a bug",
-                    "approvedReviews": {
-                      "totalCount": 1
-                    },
-                    "declinedReviews": {
-                      "totalCount": 0
+                    "reviews": {
+                      "nodes": [
+                        {
+                          "state": "APPROVED"
+                        }
+                      ]
                     }
                   }
                 ]

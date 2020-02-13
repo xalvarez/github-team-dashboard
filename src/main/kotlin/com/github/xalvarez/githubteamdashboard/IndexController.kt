@@ -58,7 +58,7 @@ class IndexController(private val gitHubService: GitHubService) {
                         it.author.login,
                         it.title,
                         repository.name,
-                        toReviewState(it.approvedReviews, it.declinedReviews)
+                        toReviewState(it.reviews)
                     )
                 }
             }
@@ -67,13 +67,18 @@ class IndexController(private val gitHubService: GitHubService) {
     private fun toHumanReadableDatetime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    private fun toReviewState(approvedReviews: Review, declinedReviews: Review): ReviewState {
-        if (declinedReviews.totalCount > 0) {
-            return DECLINED
-        }
-        else if (approvedReviews.totalCount > 0) {
-            return APPROVED
-        }
-        return PENDING
+    private fun toReviewState(reviews: Review): ReviewState {
+        var reviewState = PENDING
+
+        reviews.nodes
+            .forEach {
+                if (it.state == DECLINED.name) {
+                    return DECLINED
+                }
+                else if (it.state == APPROVED.name) {
+                    reviewState = APPROVED
+                }
+            }
+        return reviewState
     }
 }

@@ -46,8 +46,7 @@ data class PullRequestNode(
     val createdAt: LocalDateTime,
     val author: Author,
     val title: String,
-    val approvedReviews: Review,
-    val declinedReviews: Review
+    val reviews: Review
 )
 
 data class Author(
@@ -55,5 +54,9 @@ data class Author(
 )
 
 data class Review(
-    val totalCount: Int
+    val nodes: List<ReviewNode>
+)
+
+data class ReviewNode(
+    val state: String
 )
