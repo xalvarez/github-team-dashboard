@@ -29,6 +29,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Review</th>
                             <th scope="col">Repository</th>
                             <th scope="col">Author</th>
                             <th scope="col">Title</th>
@@ -37,11 +38,15 @@
                         </thead>
                         <tbody>
                         <tr th:each="pullRequest,iterStat : ${pullRequests}">
-                            <th scope="row" th:text="${iterStat.index + 1}"></th>
-                            <td th:text="${pullRequest.repositoryName}"></td>
-                            <td th:text="${pullRequest.author}"></td>
-                            <td><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
-                            <td th:text="${pullRequest.createdAt}"></td>
+                            <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                            <td class="align-middle" th:switch="${pullRequest.state.name}">
+                                <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
+                                <img th:case="'DECLINED'" src="icons/x-circle.svg" alt="Declined" />
+                            </td>
+                            <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
+                            <td class="align-middle" th:text="${pullRequest.author}"></td>
+                            <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
+                            <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
                         </tr>
                         </tbody>
                     </table>

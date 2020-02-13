@@ -45,9 +45,15 @@ data class PullRequestNode(
     val url: String,
     val createdAt: LocalDateTime,
     val author: Author,
-    val title: String
+    val title: String,
+    val approvedReviews: Review,
+    val declinedReviews: Review
 )
 
 data class Author(
     val login: String
+)
+
+data class Review(
+    val totalCount: Int
 )

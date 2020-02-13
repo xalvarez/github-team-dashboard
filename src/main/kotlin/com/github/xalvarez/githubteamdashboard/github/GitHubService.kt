@@ -31,6 +31,12 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
                         login
                       }
                       title
+                      approvedReviews: reviews(first: 10, states: [APPROVED]) {
+                        totalCount
+                      }
+                      declinedReviews: reviews(first: 10, states: [CHANGES_REQUESTED]) {
+                        totalCount
+                      }
                     }
                   }
                 }

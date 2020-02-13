@@ -3,6 +3,7 @@ package com.github.xalvarez.githubteamdashboard
 import com.github.xalvarez.githubteamdashboard.github.*
 import com.github.xalvarez.githubteamdashboard.github.models.Member
 import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
@@ -13,7 +14,6 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
 import java.time.LocalDateTime
-import java.time.LocalDateTime.MIN
 import java.time.Month.JANUARY
 import java.time.format.DateTimeFormatter
 import kotlin.test.assertEquals
@@ -46,8 +46,11 @@ internal class IndexControllerTest {
         assertEquals(model["team"], expectedTeamModel)
         assertEquals(pullRequests.size, expectedAmountOfPullRequests)
         assertTrue { (pullRequests[0] as PullRequestModel).repositoryName == "example_repo_3" }
+        assertTrue { (pullRequests[0] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
+        assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
+        assertTrue { (pullRequests[2] as PullRequestModel).state == DECLINED }
         assertNotNull(model["lastUpdate"])
     }
 
@@ -63,16 +66,6 @@ internal class IndexControllerTest {
         listOf(Member("example_team_member_1"))
     )
 
-    private fun givenExpectedPullRequestsModel() = listOf(
-        PullRequestModel(
-            "http://example.com/1",
-            buildHumanReadebleDateTime(MIN),
-            "example_team_member_1",
-            "Add cool feature",
-            "example_repo_1"
-        )
-    )
-
     private fun givenSuccessfulGitHubServiceResponse() {
         given(gitHubService.fetchDashboardData()).willReturn(buildSuccessfulGitHubDashboardData())
     }
@@ -81,8 +74,11 @@ internal class IndexControllerTest {
         val author = Author("example_team_member_1")
         val repositories = Repositories(
             listOf(
-                Repository("example_repo_1", buildPullRequests(author, 2010)),
-                Repository("example_repo_2", buildPullRequests(author, 2012)),
+                Repository("example_repo_1", buildPullRequests(
+                    author = author, year = 2010, approvedReviews = Review(1)
+                )),
+                Repository("example_repo_2", buildPullRequests(
+                    author = author, year = 2012, approvedReviews = Review(1), declinedReviews = Review(1))),
                 Repository("example_repo_3", buildPullRequests(author, 2008))
             )
         )
@@ -96,10 +92,22 @@ internal class IndexControllerTest {
     private fun buildHumanReadebleDateTime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    private fun buildPullRequests(author: Author, year: Int) =
+    private fun buildPullRequests(
+        author: Author,
+        year: Int,
+        approvedReviews: Review = Review(0),
+        declinedReviews: Review = Review(0)
+    ) =
         PullRequests(
             listOf(
-                PullRequestNode("http://example.com/1", createLocalDateTime(year), author, "Add cool feature")
+                PullRequestNode(
+                    "http://example.com/1",
+                    createLocalDateTime(year),
+                    author,
+                    "Add cool feature",
+                    approvedReviews,
+                    declinedReviews
+                )
             )
         )
 
