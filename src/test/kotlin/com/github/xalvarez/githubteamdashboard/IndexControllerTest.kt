@@ -75,7 +75,9 @@ internal class IndexControllerTest {
         val repositories = Repositories(
             listOf(
                 Repository("example_repo_1", buildPullRequests(
-                    author = author, year = 2010, review = Review(listOf(ReviewNode(APPROVED.name)))
+                    author = author, year = 2010, review = Review(listOf(
+                        ReviewNode(PENDING.name), ReviewNode(APPROVED.name), ReviewNode(PENDING.name)
+                    ))
                 )),
                 Repository("example_repo_2", buildPullRequests(
                     author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(DECLINED.name)))
