@@ -2,8 +2,11 @@ package com.github.xalvarez.githubteamdashboard
 
 import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
+import com.github.xalvarez.githubteamdashboard.github.Review
 import com.github.xalvarez.githubteamdashboard.github.models.Member
 import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
@@ -54,7 +57,8 @@ class IndexController(private val gitHubService: GitHubService) {
                         toHumanReadableDatetime(it.createdAt),
                         it.author.login,
                         it.title,
-                        repository.name
+                        repository.name,
+                        toReviewState(it.reviews)
                     )
                 }
             }
@@ -62,4 +66,19 @@ class IndexController(private val gitHubService: GitHubService) {
 
     private fun toHumanReadableDatetime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+    private fun toReviewState(reviews: Review): ReviewState {
+        var reviewState = PENDING
+
+        reviews.nodes
+            .forEach {
+                if (it.state == DECLINED.name) {
+                    return DECLINED
+                }
+                else if (it.state == APPROVED.name) {
+                    reviewState = APPROVED
+                }
+            }
+        return reviewState
+    }
 }

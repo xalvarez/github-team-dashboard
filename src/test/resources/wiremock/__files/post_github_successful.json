@@ -37,7 +37,10 @@
                     "author": {
                       "login": "example_team_member_1"
                     },
-                    "title": "Add cool feature"
+                    "title": "Add cool feature",
+                    "reviews": {
+                      "nodes": []
+                    }
                   },
                   {
                     "url": "https://github.com/example_organization/example_repo_3/pull/76",
@@ -45,7 +48,17 @@
                     "author": {
                       "login": "example_team_member_1"
                     },
-                    "title": "Add another cool feature"
+                    "title": "Add another cool feature",
+                    "reviews": {
+                      "nodes": [
+                        {
+                          "state": "APPROVED"
+                        },
+                        {
+                          "state": "DECLINED"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -60,7 +73,14 @@
                     "author": {
                       "login": "example_team_member_2"
                     },
-                    "title": "fix a bug"
+                    "title": "fix a bug",
+                    "reviews": {
+                      "nodes": [
+                        {
+                          "state": "APPROVED"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
