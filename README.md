@@ -23,7 +23,24 @@ variable _MICRONAUT_SERVER_PORT_ to a a different port.
 
 You can either download the project's latest official image 
 [from the releases section](https://github.com/xalvarez/github-team-dashboard/releases)
-or build the latest version yourself as follows:
+or build the latest version yourself.
+
+#### Running the downloaded docker image
+
+After downloading the project's latest official image
+[from the releases section](https://github.com/xalvarez/github-team-dashboard/releases), you can start it as follows:
+
+    docker run -d -p 8080:8080 \
+        -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
+        docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:<docker_image_tag>
+
+Example:
+
+    docker run -d -p 8080:8080 \
+        -e GITHUB_TOKEN=1234567890 -e GITHUB_TEAM=example_team -e GITHUB_ORGANIZATION=example_organization \
+        docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:1.1.0
+
+#### Building the docker image yourself
 
 Build the jar:
     
