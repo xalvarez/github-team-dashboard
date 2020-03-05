@@ -15,7 +15,6 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
 import java.time.LocalDateTime
 import java.time.Month.JANUARY
-import java.time.format.DateTimeFormatter
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -91,9 +90,6 @@ internal class IndexControllerTest {
         val data = Data(Organization(team))
         return GithubDashboardData(data)
     }
-
-    private fun buildHumanReadebleDateTime(datetime: LocalDateTime) =
-        datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     private fun buildPullRequests(author: Author, year: Int, review: Review = Review(emptyList())) =
         PullRequests(
