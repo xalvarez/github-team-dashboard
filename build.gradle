@@ -102,6 +102,13 @@ compileTestKotlin {
     }
 }
 
+kapt {
+    arguments {
+        arg("micronaut.processing.incremental", true)
+        arg("micronaut.processing.annotations", "com.github.xalvarez.githubteamdashboard.*")
+    }
+}
+
 shadowJar {
     mergeServiceFiles()
 }
