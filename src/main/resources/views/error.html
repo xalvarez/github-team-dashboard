@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>GitHub Team Dashboard</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
-</head>
+<head th:replace="always :: header"></head>
 
 <body>
 <div id="dashboard">
@@ -22,9 +18,7 @@
         </div>
     </div>
 </div>
-<script th:src="@{/webjars/jquery/3.4.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+<div th:replace="always :: footer"></div>
 </body>
 
 </html>
