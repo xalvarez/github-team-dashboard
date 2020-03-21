@@ -22,6 +22,9 @@ internal class GitHubServiceTest : AbstractWireMockTest() {
         assertNotNull(githubDashboardData.data.organization.team.name)
         assertTrue { githubDashboardData.data.organization.team.members.nodes.all { it.login.isNotEmpty() } }
         assertTrue { githubDashboardData.data.organization.team.repositories.nodes.all { it.name.isNotEmpty() } }
+        assertTrue { githubDashboardData.data.organization.team.repositories.nodes.all { it.url.isNotEmpty() }}
+        assertTrue { githubDashboardData.data.organization.team.repositories.nodes.all { it.alertsUrl.isNotEmpty() }}
+        assertNotNull(githubDashboardData.data.organization.team.repositories.nodes.all { it.vulnerabilityAlerts.arePresent})
         assertNotNull(githubDashboardData.data.organization.team.repositories.nodes.map { it.pullRequests.nodes })
         assertTrue {
             githubDashboardData.data.organization.team.repositories.nodes

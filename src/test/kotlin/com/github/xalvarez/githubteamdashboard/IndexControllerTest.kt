@@ -4,6 +4,7 @@ import com.github.xalvarez.githubteamdashboard.github.*
 import com.github.xalvarez.githubteamdashboard.github.models.Member
 import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
+import com.github.xalvarez.githubteamdashboard.github.models.SecurityAlert
 import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
@@ -40,6 +41,7 @@ internal class IndexControllerTest {
         val response = indexController.dashboard()
         val model = response.body() as HashMap<*, *>
         val pullRequests = model["pullRequests"] as List<*>
+        val securityAlerts = model["securityAlerts"] as List<*>
 
         assertEquals(response.status(), OK)
         assertEquals(model["team"], expectedTeamModel)
@@ -50,6 +52,9 @@ internal class IndexControllerTest {
         assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
         assertTrue { (pullRequests[2] as PullRequestModel).state == DECLINED }
+        assertEquals(securityAlerts.size, 1)
+        assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
+        assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
         assertNotNull(model["lastUpdate"])
     }
 
@@ -77,11 +82,12 @@ internal class IndexControllerTest {
                     author = author, year = 2010, review = Review(listOf(
                         ReviewNode(PENDING.name), ReviewNode(APPROVED.name), ReviewNode(PENDING.name)
                     ))
-                )),
+                ), "example.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
                     author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(DECLINED.name)))
-                )),
-                Repository("example_repo_3", buildPullRequests(author, 2008))
+                ), "example.com", VulnerabilityAlerts(arePresent = true)),
+                Repository("example_repo_3", buildPullRequests(author, 2008),
+                    "example.com", VulnerabilityAlerts(arePresent = false))
             )
         )
 

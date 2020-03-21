@@ -3,11 +3,8 @@ package com.github.xalvarez.githubteamdashboard
 import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Review
-import com.github.xalvarez.githubteamdashboard.github.models.Member
-import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
-import com.github.xalvarez.githubteamdashboard.github.models.ReviewState
+import com.github.xalvarez.githubteamdashboard.github.models.*
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
-import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -36,7 +33,8 @@ class IndexController(private val gitHubService: GitHubService) {
         val githubDashboardData = gitHubService.fetchDashboardData()
         val model = HashMap<String, Any>()
         model["team"] = buildTeam(githubDashboardData)
-        model["pullRequests"] = buildPullRequests((githubDashboardData))
+        model["pullRequests"] = buildPullRequests(githubDashboardData)
+        model["securityAlerts"] = buildSecurityAlerts(githubDashboardData)
         model["lastUpdate"] = ZonedDateTime.now().format(ISO_ZONED_DATE_TIME)
         return model
     }
@@ -63,6 +61,12 @@ class IndexController(private val gitHubService: GitHubService) {
                 }
             }
             .sortedBy { it.createdAt }
+
+    private fun buildSecurityAlerts(githubDashboardData: GithubDashboardData) =
+        githubDashboardData.data.organization.team.repositories.nodes
+            .filter { it.vulnerabilityAlerts.arePresent }
+            .map { SecurityAlert(it.name, it.alertsUrl) }
+            .sortedBy { it.repository }
 
     private fun toHumanReadableDatetime(datetime: LocalDateTime) =
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))

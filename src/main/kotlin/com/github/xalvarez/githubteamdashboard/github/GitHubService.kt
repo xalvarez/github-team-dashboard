@@ -23,6 +23,10 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
               repositories(first: 100, orderBy: { field: NAME, direction: ASC }) {
                 nodes {
                   name
+                  url
+                  vulnerabilityAlerts(first: 1) {
+                    totalCount
+                  }
                   pullRequests(states: [OPEN], first: 100) {
                     nodes {
                       url
