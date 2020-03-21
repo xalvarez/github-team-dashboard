@@ -1,5 +1,8 @@
 package com.github.xalvarez.githubteamdashboard.github
 
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonFormat.Shape.NUMBER
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
 
 data class GithubDashboardData(
@@ -34,7 +37,17 @@ data class Repositories(
 
 data class Repository(
     val name: String,
-    val pullRequests: PullRequests
+    val pullRequests: PullRequests,
+    val url: String,
+    val vulnerabilityAlerts: VulnerabilityAlerts
+) {
+    val alertsUrl: String by lazy { url +  ALERTS_URL_SUFFIX }
+}
+
+data class VulnerabilityAlerts(
+    @JsonProperty("totalCount")
+    @JsonFormat(shape = NUMBER)
+    val arePresent: Boolean
 )
 
 data class PullRequests(
@@ -60,3 +73,5 @@ data class Review(
 data class ReviewNode(
     val state: String
 )
+
+const val ALERTS_URL_SUFFIX = "/network/alerts"

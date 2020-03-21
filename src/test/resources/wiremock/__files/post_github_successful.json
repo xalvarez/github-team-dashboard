@@ -17,18 +17,30 @@
           "nodes": [
             {
               "name": "example_repo_1",
+              "url": "https://github.com/example_organization/example_repo_1",
+              "vulnerabilityAlerts": {
+                "totalCount": 1
+              },
               "pullRequests": {
                 "nodes": []
               }
             },
             {
               "name": "example_repo_2",
+              "url": "https://github.com/example_organization/example_repo_2",
+              "vulnerabilityAlerts": {
+                "totalCount": 0
+              },
               "pullRequests": {
                 "nodes": []
               }
             },
             {
               "name": "example_repo_3",
+              "url": "https://github.com/example_organization/example_repo_3",
+              "vulnerabilityAlerts": {
+                "totalCount": 0
+              },
               "pullRequests": {
                 "nodes": [
                   {
@@ -65,6 +77,10 @@
             },
             {
               "name": "example_repo_4",
+              "url": "https://github.com/example_organization/example_repo_4",
+              "vulnerabilityAlerts": {
+                "totalCount": 1
+              },
               "pullRequests": {
                 "nodes": [
                   {
@@ -86,13 +102,21 @@
               }
             },
             {
-              "name": "plm_lead-qualification-frontend",
+              "name": "example_repo_5",
+              "url": "https://github.com/example_organization/example_repo_5",
+              "vulnerabilityAlerts": {
+                "totalCount": 0
+              },
               "pullRequests": {
                 "nodes": []
               }
             },
             {
-              "name": "plm_lead-registration",
+              "name": "example_repo_6",
+              "url": "https://github.com/example_organization/example_repo_6",
+              "vulnerabilityAlerts": {
+                "totalCount": 0
+              },
               "pullRequests": {
                 "nodes": []
               }
