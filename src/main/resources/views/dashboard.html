@@ -15,8 +15,10 @@
             <div class="card text-center">
                 <div class="card-header">Team <span th:text="${team.name}"></span></div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush" th:each="member: ${team.members}">
-                        <li class="list-group-item" th:text="${member.username}"></li>
+                    <ul class="list-group list-group-flush">
+                        <th:block th:each="member: ${team.members}">
+                            <li class="list-group-item" th:text="${member.username}"></li>
+                        </th:block>
                     </ul>
                 </div>
             </div>
@@ -64,8 +66,10 @@
                     </div>
                     <div th:unless="${securityAlerts.empty}">
                         <p>These repositories contain security alerts:</p>
-                        <ul class="list-group list-group-flush" th:each="alert: ${securityAlerts}">
-                            <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" target="_blank"></a></li>
+                        <ul class="list-group list-group-flush">
+                            <th:block th:each="alert: ${securityAlerts}">
+                                <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" target="_blank"></a></li>
+                            </th:block>
                         </ul>
                     </div>
                 </div>
