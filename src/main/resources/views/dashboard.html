@@ -22,6 +22,22 @@
                     </ul>
                 </div>
             </div>
+            <div class="card text-center my-sm-5">
+                <div class="card-header">Security Alerts</div>
+                <div class="card-body">
+                    <div th:if="${securityAlerts.empty}">
+                        <span>There are no security alerts at the moment</span>
+                    </div>
+                    <div th:unless="${securityAlerts.empty}">
+                        <p>These repositories contain security alerts:</p>
+                        <ul class="list-group list-group-flush">
+                            <th:block th:each="alert: ${securityAlerts}">
+                                <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" target="_blank"></a></li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-sm-9">
             <div class="card text-center">
@@ -52,26 +68,6 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row my-sm-5">
-        <div class="col-sm-3">
-            <div class="card text-center">
-                <div class="card-header">Security Alerts</div>
-                <div class="card-body">
-                    <div th:if="${securityAlerts.empty}">
-                        <span>There are no security alerts at the moment</span>
-                    </div>
-                    <div th:unless="${securityAlerts.empty}">
-                        <p>These repositories contain security alerts:</p>
-                        <ul class="list-group list-group-flush">
-                            <th:block th:each="alert: ${securityAlerts}">
-                                <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" target="_blank"></a></li>
-                            </th:block>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
