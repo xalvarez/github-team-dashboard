@@ -5,10 +5,7 @@ import io.micronaut.context.annotation.Prototype
 @Prototype
 open class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
 
-    open fun fetchDashboardData(): GithubDashboardData {
-        val authorization = "Bearer ${gitHubConfiguration.token}"
-        return gitHubClient.fetchDashboardData(authorization, gitHubConfiguration.userAgent, buildQuery()).blockingGet()
-    }
+    open fun fetchDashboardData(): GithubDashboardData = gitHubClient.fetchDashboardData(buildQuery()).blockingGet()
 
     private fun buildQuery() = """
         {

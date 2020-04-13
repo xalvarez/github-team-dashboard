@@ -2,7 +2,7 @@ wiremock:
   port: 10909
 
 github:
-  apiurl: http://localhost:${wiremock.port}/graphql
+  apiUrl: http://localhost:${wiremock.port}/graphql
   organization: example_organization
   team: example_team
   token: example_token
