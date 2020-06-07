@@ -40,6 +40,7 @@ dependencies {
     runtimeOnly 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
     runtimeOnly 'org.webjars:bootstrap:4.5.0'
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+    runtimeOnly 'com.fasterxml.jackson.module:jackson-module-kotlin'
 
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
     kaptTest 'io.micronaut:micronaut-inject-java'
