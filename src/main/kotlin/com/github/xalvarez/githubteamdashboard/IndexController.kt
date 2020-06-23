@@ -76,8 +76,8 @@ class IndexController(private val gitHubService: GitHubService) {
 
         reviews.nodes
             .forEach {
-                if (it.state == DECLINED.name) {
-                    return DECLINED
+                if (it.state == CHANGES_REQUESTED.name) {
+                    return CHANGES_REQUESTED
                 }
                 else if (it.state == APPROVED.name) {
                     reviewState = APPROVED

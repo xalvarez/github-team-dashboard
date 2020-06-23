@@ -1,4 +1,6 @@
 micronaut:
+  server:
+    port: -1
   application:
     name: github-team-dashboard
   router:
