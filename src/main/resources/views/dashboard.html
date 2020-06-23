@@ -59,7 +59,7 @@
                             <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
                             <td class="align-middle" th:switch="${pullRequest.state.name}">
                                 <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
-                                <img th:case="'DECLINED'" src="icons/x-circle.svg" alt="Declined" />
+                                <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
                             </td>
                             <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
                             <td class="align-middle" th:text="${pullRequest.author}"></td>

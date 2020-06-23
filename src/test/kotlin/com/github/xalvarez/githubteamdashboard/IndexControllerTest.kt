@@ -51,7 +51,7 @@ internal class IndexControllerTest {
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
         assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
-        assertTrue { (pullRequests[2] as PullRequestModel).state == DECLINED }
+        assertTrue { (pullRequests[2] as PullRequestModel).state == CHANGES_REQUESTED }
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
         assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
@@ -84,7 +84,7 @@ internal class IndexControllerTest {
                     ))
                 ), "example.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(DECLINED.name)))
+                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(CHANGES_REQUESTED.name)))
                 ), "example.com", VulnerabilityAlerts(arePresent = true)),
                 Repository("example_repo_3", buildPullRequests(author, 2008),
                     "example.com", VulnerabilityAlerts(arePresent = false))

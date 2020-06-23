@@ -67,7 +67,7 @@
                           "state": "APPROVED"
                         },
                         {
-                          "state": "DECLINED"
+                          "state": "CHANGES_REQUESTED"
                         }
                       ]
                     }
