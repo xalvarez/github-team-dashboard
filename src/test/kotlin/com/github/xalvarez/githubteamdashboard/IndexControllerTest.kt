@@ -33,7 +33,7 @@ internal class IndexControllerTest {
     fun `should build model`() {
         givenSuccessfulGitHubServiceResponse()
         val expectedTeamModel = givenExpectedTeamModel()
-        val expectedAmountOfPullRequests = 3
+        val expectedAmountOfPullRequests = 7
 
         val response = indexController.dashboard()
         val model = response.body() as HashMap<*, *>
@@ -52,6 +52,18 @@ internal class IndexControllerTest {
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
         assertTrue { (pullRequests[2] as PullRequestModel).state == CHANGES_REQUESTED }
         assertTrue { (pullRequests[2] as PullRequestModel).checkState == CheckState.NONE }
+        assertTrue { (pullRequests[3] as PullRequestModel).repositoryName == "example_repo_4" }
+        assertTrue { (pullRequests[3] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[3] as PullRequestModel).checkState == CheckState.EXPECTED }
+        assertTrue { (pullRequests[4] as PullRequestModel).repositoryName == "example_repo_5" }
+        assertTrue { (pullRequests[4] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[4] as PullRequestModel).checkState == CheckState.PENDING }
+        assertTrue { (pullRequests[5] as PullRequestModel).repositoryName == "example_repo_6" }
+        assertTrue { (pullRequests[5] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[5] as PullRequestModel).checkState == CheckState.SUCCESS }
+        assertTrue { (pullRequests[6] as PullRequestModel).repositoryName == "example_repo_7" }
+        assertTrue { (pullRequests[6] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[6] as PullRequestModel).checkState == CheckState.NONE }
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
         assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
@@ -95,6 +107,26 @@ internal class IndexControllerTest {
                     isDraft = false, commits = Commits(listOf(
                     CommitNode(Commit(CommitStatusCheckState("FAILURE")))
                 ))),
+                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                Repository("example_repo_4", buildPullRequests(author, 2013,
+                    isDraft = false, commits = Commits(listOf(
+                        CommitNode(Commit(CommitStatusCheckState("EXPECTED")))
+                    ))),
+                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                Repository("example_repo_5", buildPullRequests(author, 2014,
+                    isDraft = false, commits = Commits(listOf(
+                        CommitNode(Commit(CommitStatusCheckState("PENDING")))
+                    ))),
+                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                Repository("example_repo_6", buildPullRequests(author, 2015,
+                    isDraft = false, commits = Commits(listOf(
+                        CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
+                    ))),
+                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                Repository("example_repo_7", buildPullRequests(author, 2016,
+                    isDraft = false, commits = Commits(listOf(
+                        CommitNode(Commit(CommitStatusCheckState("UNEXPECTED_STATE")))
+                    ))),
                     "example.com", VulnerabilityAlerts(arePresent = false))
             )
         )

@@ -92,7 +92,7 @@ class IndexController(private val gitHubService: GitHubService) {
         if (isDraft) {
             return CheckState.DRAFT
         }
-        commit.statusCheckRollup?.state ?: return CheckState.NONE
+        commit.statusCheckRollup ?: return CheckState.NONE
 
         return when (commit.statusCheckRollup.state) {
             CheckState.ERROR.name -> CheckState.ERROR
