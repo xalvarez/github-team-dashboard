@@ -1,11 +1,8 @@
 package com.github.xalvarez.githubteamdashboard
 
 import com.github.xalvarez.githubteamdashboard.github.*
-import com.github.xalvarez.githubteamdashboard.github.models.Member
-import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.*
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
-import com.github.xalvarez.githubteamdashboard.github.models.SecurityAlert
-import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.BeforeEach
@@ -48,10 +45,13 @@ internal class IndexControllerTest {
         assertEquals(pullRequests.size, expectedAmountOfPullRequests)
         assertTrue { (pullRequests[0] as PullRequestModel).repositoryName == "example_repo_3" }
         assertTrue { (pullRequests[0] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[0] as PullRequestModel).checkState == CheckState.FAILURE }
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
         assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
+        assertTrue { (pullRequests[1] as PullRequestModel).checkState == CheckState.DRAFT }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
         assertTrue { (pullRequests[2] as PullRequestModel).state == CHANGES_REQUESTED }
+        assertTrue { (pullRequests[2] as PullRequestModel).checkState == CheckState.NONE }
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
         assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
@@ -81,12 +81,20 @@ internal class IndexControllerTest {
                 Repository("example_repo_1", buildPullRequests(
                     author = author, year = 2010, review = Review(listOf(
                         ReviewNode(PENDING.name), ReviewNode(APPROVED.name), ReviewNode(PENDING.name)
+                    )), isDraft = true, commits = Commits(listOf(
+                        CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
                     ))
                 ), "example.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(CHANGES_REQUESTED.name)))
+                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(CHANGES_REQUESTED.name)
+                    )), isDraft = false, commits = Commits(listOf(
+                        CommitNode(Commit(null))
+                    ))
                 ), "example.com", VulnerabilityAlerts(arePresent = true)),
-                Repository("example_repo_3", buildPullRequests(author, 2008),
+                Repository("example_repo_3", buildPullRequests(author, 2008,
+                    isDraft = false, commits = Commits(listOf(
+                    CommitNode(Commit(CommitStatusCheckState("FAILURE")))
+                ))),
                     "example.com", VulnerabilityAlerts(arePresent = false))
             )
         )
@@ -97,7 +105,7 @@ internal class IndexControllerTest {
         return GithubDashboardData(data)
     }
 
-    private fun buildPullRequests(author: Author, year: Int, review: Review = Review(emptyList())) =
+    private fun buildPullRequests(author: Author, year: Int, review: Review = Review(emptyList()), isDraft: Boolean, commits: Commits) =
         PullRequests(
             listOf(
                 PullRequestNode(
@@ -105,7 +113,9 @@ internal class IndexControllerTest {
                     createLocalDateTime(year),
                     author,
                     "Add cool feature",
-                    review
+                    review,
+                    isDraft,
+                    commits
                 )
             )
         )

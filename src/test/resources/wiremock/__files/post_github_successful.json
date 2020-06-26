@@ -52,6 +52,16 @@
                     "title": "Add cool feature",
                     "reviews": {
                       "nodes": []
+                    },
+                    "isDraft": true,
+                    "commits": {
+                      "nodes": [
+                        {
+                          "commit": {
+                            "statusCheckRollup": null
+                          }
+                        }
+                      ]
                     }
                   },
                   {
@@ -68,6 +78,18 @@
                         },
                         {
                           "state": "CHANGES_REQUESTED"
+                        }
+                      ]
+                    },
+                    "isDraft": false,
+                    "commits": {
+                      "nodes": [
+                        {
+                          "commit": {
+                            "statusCheckRollup": {
+                              "state": "SUCCESS"
+                            }
+                          }
                         }
                       ]
                     }
@@ -94,6 +116,18 @@
                       "nodes": [
                         {
                           "state": "APPROVED"
+                        }
+                      ]
+                    },
+                    "isDraft": false,
+                    "commits": {
+                      "nodes": [
+                        {
+                          "commit": {
+                            "statusCheckRollup": {
+                              "state": "ERROR"
+                            }
+                          }
                         }
                       ]
                     }
