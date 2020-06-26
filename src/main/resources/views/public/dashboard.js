@@ -1,4 +1,4 @@
-const REFRESH_INTERVAL = 300000
+const REFRESH_INTERVAL = 3000000
 
 function refreshDashboard() {
   fetch("/dashboard")

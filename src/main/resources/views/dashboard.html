@@ -55,17 +55,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="pullRequest,iterStat : ${pullRequests}">
-                            <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
-                            <td class="align-middle" th:switch="${pullRequest.state.name}">
-                                <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
-                                <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
-                            </td>
-                            <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
-                            <td class="align-middle" th:text="${pullRequest.author}"></td>
-                            <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
-                            <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
-                        </tr>
+                        <th:block th:each="pullRequest,iterStat : ${pullRequests}">
+                            <th:block th:switch="${pullRequest.checkState.name}">
+                                <tr th:case="'NONE'">
+                                <tr th:case="'DRAFT'" class="alert-dark">
+                                <tr th:case="'ERROR'" class="alert-danger">
+                                <tr th:case="'EXPECTED'" class="alert-warning">
+                                <tr th:case="'FAILURE'" class="alert-danger">
+                                <tr th:case="'PENDING'" class="alert-warning">
+                                <tr th:case="'SUCCESS'" class="alert-success">
+                            </th:block>
+                                    <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <td class="align-middle" th:switch="${pullRequest.state.name}">
+                                        <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
+                                        <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
+                                    </td>
+                                    <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
+                                    <td class="align-middle" th:text="${pullRequest.author}"></td>
+                                    <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
+                                    <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
+                                </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>
