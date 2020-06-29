@@ -60,27 +60,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="pullRequest,iterStat : ${pullRequests}">
-                            <tr>
-                                <th:block th:switch="${pullRequest.checkState.name}">
-                                    <th th:case="'NONE'" class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'DRAFT'" class="align-middle alert-dark" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'ERROR'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'EXPECTED'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'FAILURE'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'PENDING'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <th th:case="'SUCCESS'" class="align-middle alert-success" scope="row" th:text="${iterStat.index + 1}"></th>
-                                </th:block>
-                                    <td class="align-middle" th:switch="${pullRequest.state.name}">
-                                        <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
-                                        <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
-                                    </td>
-                                    <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
-                                    <td class="align-middle" th:text="${pullRequest.author}"></td>
-                                    <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
-                                    <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
-                                </tr>
-                        </th:block>
+                            <tr th:each="pullRequest,iterStat : ${pullRequests}">
+                            <th:block th:switch="${pullRequest.checkState.name}">
+                                <th th:case="'NONE'" class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'DRAFT'" class="align-middle alert-dark" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'ERROR'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'EXPECTED'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'FAILURE'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'PENDING'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'SUCCESS'" class="align-middle alert-success" scope="row" th:text="${iterStat.index + 1}"></th>
+                            </th:block>
+                                <td class="align-middle" th:switch="${pullRequest.state.name}">
+                                    <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
+                                    <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
+                                </td>
+                                <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
+                                <td class="align-middle" th:text="${pullRequest.author}"></td>
+                                <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
+                                <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
+                            </tr>
                         </tbody>
                     </table>
                     <div th:if="${#lists.size(pullRequests) > 10}">
