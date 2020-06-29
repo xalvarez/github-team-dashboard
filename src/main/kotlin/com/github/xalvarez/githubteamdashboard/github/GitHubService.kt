@@ -37,6 +37,16 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
                           state
                         }
                       }
+                      isDraft
+                      commits(last: 1) {
+                        nodes {
+                          commit {
+                            statusCheckRollup {
+                              state
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }

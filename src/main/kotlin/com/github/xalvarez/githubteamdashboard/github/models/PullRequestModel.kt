@@ -6,5 +6,6 @@ data class PullRequestModel(
     val author: String,
     val title: String,
     val repositoryName: String,
-    val state: ReviewState
+    val state: ReviewState,
+    val checkState: CheckState
 )

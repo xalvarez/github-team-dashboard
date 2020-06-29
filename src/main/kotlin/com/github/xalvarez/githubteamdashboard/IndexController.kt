@@ -1,5 +1,6 @@
 package com.github.xalvarez.githubteamdashboard
 
+import com.github.xalvarez.githubteamdashboard.github.Commit
 import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Review
@@ -56,7 +57,8 @@ class IndexController(private val gitHubService: GitHubService) {
                         it.author.login,
                         it.title,
                         repository.name,
-                        toReviewState(it.reviews)
+                        toReviewState(it.reviews),
+                        toCheckState(it.isDraft, it.commits.nodes.first().commit)
                     )
                 }
             }
@@ -84,5 +86,21 @@ class IndexController(private val gitHubService: GitHubService) {
                 }
             }
         return reviewState
+    }
+
+    private fun toCheckState(isDraft: Boolean, commit: Commit): CheckState {
+        if (isDraft) {
+            return CheckState.DRAFT
+        }
+        commit.statusCheckRollup ?: return CheckState.NONE
+
+        return when (commit.statusCheckRollup.state) {
+            CheckState.ERROR.name -> CheckState.ERROR
+            CheckState.EXPECTED.name -> CheckState.EXPECTED
+            CheckState.FAILURE.name -> CheckState.FAILURE
+            CheckState.PENDING.name -> CheckState.PENDING
+            CheckState.SUCCESS.name -> CheckState.SUCCESS
+            else -> CheckState.NONE
+        }
     }
 }

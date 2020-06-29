@@ -43,6 +43,11 @@
             <div class="card text-center">
                 <div class="card-header">Open Pull Requests</div>
                 <div class="card-body">
+                    <span class="badge badge-secondary">Draft</span>
+                    <span class="badge badge-light">No check</span>
+                    <span class="badge badge-success">Successful check</span>
+                    <span class="badge badge-warning">Pending check</span>
+                    <span class="badge badge-danger">Failed check</span>
                     <table class="table">
                         <thead>
                         <tr>
@@ -55,19 +60,34 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="pullRequest,iterStat : ${pullRequests}">
-                            <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
-                            <td class="align-middle" th:switch="${pullRequest.state.name}">
-                                <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
-                                <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
-                            </td>
-                            <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
-                            <td class="align-middle" th:text="${pullRequest.author}"></td>
-                            <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
-                            <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
-                        </tr>
+                            <tr th:each="pullRequest,iterStat : ${pullRequests}">
+                            <th:block th:switch="${pullRequest.checkState.name}">
+                                <th th:case="'NONE'" class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'DRAFT'" class="align-middle alert-dark" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'ERROR'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'EXPECTED'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'FAILURE'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'PENDING'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                <th th:case="'SUCCESS'" class="align-middle alert-success" scope="row" th:text="${iterStat.index + 1}"></th>
+                            </th:block>
+                                <td class="align-middle" th:switch="${pullRequest.state.name}">
+                                    <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
+                                    <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
+                                </td>
+                                <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
+                                <td class="align-middle" th:text="${pullRequest.author}"></td>
+                                <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
+                                <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div th:if="${#lists.size(pullRequests) > 10}">
+                        <span class="badge badge-secondary">Draft</span>
+                        <span class="badge badge-light">No check</span>
+                        <span class="badge badge-success">Successful check</span>
+                        <span class="badge badge-warning">Pending check</span>
+                        <span class="badge badge-danger">Failed check</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -59,7 +59,9 @@ data class PullRequestNode(
     val createdAt: LocalDateTime,
     val author: Author,
     val title: String,
-    val reviews: Review
+    val reviews: Review,
+    val isDraft: Boolean,
+    val commits: Commits
 )
 
 data class Author(
@@ -72,6 +74,22 @@ data class Review(
 
 data class ReviewNode(
     val state: String
+)
+
+data class Commits(
+     val nodes: List<CommitNode>
+)
+
+data class CommitNode(
+      val commit: Commit
+)
+
+data class Commit(
+      val statusCheckRollup: CommitStatusCheckState?
+)
+
+data class CommitStatusCheckState(
+      val state: String
 )
 
 const val ALERTS_URL_SUFFIX = "/network/alerts"
