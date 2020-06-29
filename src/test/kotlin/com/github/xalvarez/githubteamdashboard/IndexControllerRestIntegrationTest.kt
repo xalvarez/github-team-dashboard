@@ -4,8 +4,8 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.MediaType.TEXT_HTML_TYPE
 import io.micronaut.test.annotation.MicronautTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 @MicronautTest
 internal class IndexControllerRestIntegrationTest : AbstractRestIntegrationTest() {
