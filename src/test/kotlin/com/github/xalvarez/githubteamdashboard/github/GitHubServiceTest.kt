@@ -2,10 +2,10 @@ package com.github.xalvarez.githubteamdashboard.github
 
 import com.github.xalvarez.githubteamdashboard.AbstractWireMockTest
 import io.micronaut.test.annotation.MicronautTest
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 @MicronautTest
 internal class GitHubServiceTest : AbstractWireMockTest() {

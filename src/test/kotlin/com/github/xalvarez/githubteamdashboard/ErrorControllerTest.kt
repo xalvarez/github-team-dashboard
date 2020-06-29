@@ -2,12 +2,12 @@ package com.github.xalvarez.githubteamdashboard
 
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.MockitoAnnotations.initMocks
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 @MicronautTest
 internal class ErrorControllerTest {

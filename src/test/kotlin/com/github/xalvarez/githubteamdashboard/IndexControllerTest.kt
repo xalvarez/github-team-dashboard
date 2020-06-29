@@ -5,6 +5,7 @@ import com.github.xalvarez.githubteamdashboard.github.models.*
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -13,9 +14,6 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
 import java.time.LocalDateTime
 import java.time.Month.JANUARY
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 @MicronautTest
 internal class IndexControllerTest {
