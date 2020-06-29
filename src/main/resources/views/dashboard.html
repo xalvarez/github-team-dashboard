@@ -61,16 +61,16 @@
                         </thead>
                         <tbody>
                         <th:block th:each="pullRequest,iterStat : ${pullRequests}">
-                            <th:block th:switch="${pullRequest.checkState.name}">
-                                <tr th:case="'NONE'">
-                                <tr th:case="'DRAFT'" class="alert-dark">
-                                <tr th:case="'ERROR'" class="alert-danger">
-                                <tr th:case="'EXPECTED'" class="alert-warning">
-                                <tr th:case="'FAILURE'" class="alert-danger">
-                                <tr th:case="'PENDING'" class="alert-warning">
-                                <tr th:case="'SUCCESS'" class="alert-success">
-                            </th:block>
-                                    <th class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                            <tr>
+                                <th:block th:switch="${pullRequest.checkState.name}">
+                                    <th th:case="'NONE'" class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'DRAFT'" class="align-middle alert-dark" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'ERROR'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'EXPECTED'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'FAILURE'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'PENDING'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <th th:case="'SUCCESS'" class="align-middle alert-success" scope="row" th:text="${iterStat.index + 1}"></th>
+                                </th:block>
                                     <td class="align-middle" th:switch="${pullRequest.state.name}">
                                         <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
                                         <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
