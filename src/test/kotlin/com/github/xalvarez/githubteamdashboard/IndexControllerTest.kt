@@ -6,16 +6,17 @@ import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations.initMocks
+import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDateTime
 import java.time.Month.JANUARY
 
 @MicronautTest
+@ExtendWith(MockitoExtension::class)
 internal class IndexControllerTest {
 
     @InjectMocks
@@ -23,9 +24,6 @@ internal class IndexControllerTest {
 
     @Mock
     lateinit var gitHubService: GitHubService
-
-    @BeforeEach
-    fun setup() = initMocks(this)
 
     @Test
     fun `should build model`() {
