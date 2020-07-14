@@ -4,19 +4,17 @@ import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
-import org.mockito.MockitoAnnotations.initMocks
+import org.mockito.junit.jupiter.MockitoExtension
 
 @MicronautTest
+@ExtendWith(MockitoExtension::class)
 internal class ErrorControllerTest {
 
     @InjectMocks
     lateinit var errorController: ErrorController
-
-    @BeforeEach
-    fun setup() = initMocks(this)
 
     @Test
     fun `should build model`() {
