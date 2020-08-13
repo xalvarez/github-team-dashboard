@@ -16,8 +16,8 @@ GitHub's settings menu, under _Developer settings_. The token requires these per
 
 Make sure you store this token somewhere, as you can only see it once.
 
-By default the application will run in port 8080. If you ant it to run on a different port, set the environment
-variable _MICRONAUT_SERVER_PORT_ to a a different port.
+By default, the application will run in port 8080. If you ant it to run on a different port, set the environment
+variable _MICRONAUT_SERVER_PORT_ to a different port.
 
 ### Docker
 
@@ -50,11 +50,18 @@ After setting the environment variables above you can start the application as f
 Thanks to incremental annotation processing, startup time will improve significantly the next time you run the command
 above.
 
-Once the application is started you'll find it under [localhost:8080](http://localhost:8080). If you
-want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a a different port
+Once the application starts you'll find it under [localhost:8080](http://localhost:8080). If you
+want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a different port
 before starting the application, e.g.:
 
     export MICRONAUT_SERVER_PORT=10000
+    
+#### Watching for changes
+
+If you want the application to restart automatically after modifying code you should start it as
+like this:
+
+    ./gradlew run --continuous
 
 ## Running tests
 
