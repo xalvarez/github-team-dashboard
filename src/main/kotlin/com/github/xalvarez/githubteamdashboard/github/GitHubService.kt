@@ -32,7 +32,7 @@ open class GitHubService(private val gitHubClient: GitHubClient, private val git
                         login
                       }
                       title
-                      reviews(first: 10, states: [APPROVED, CHANGES_REQUESTED]) {
+                      reviews(last: 1, states: [APPROVED, CHANGES_REQUESTED]) {
                         nodes {
                           state
                         }

@@ -74,18 +74,17 @@ class IndexController(private val gitHubService: GitHubService) {
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     private fun toReviewState(reviews: Review): ReviewState {
-        var reviewState = PENDING
-
         reviews.nodes
             .forEach {
                 if (it.state == CHANGES_REQUESTED.name) {
                     return CHANGES_REQUESTED
                 }
                 else if (it.state == APPROVED.name) {
-                    reviewState = APPROVED
+                    return APPROVED
                 }
             }
-        return reviewState
+
+        return PENDING
     }
 
     private fun toCheckState(isDraft: Boolean, commit: Commit): CheckState {
