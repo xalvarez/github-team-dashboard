@@ -52,8 +52,6 @@ dependencies {
 }
 
 test.classpath += configurations.developmentOnly
-run.classpath += configurations.developmentOnly
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 
 mainClassName = 'com.github.xalvarez.githubteamdashboard.Application'
 
@@ -92,6 +90,18 @@ kapt {
 
 shadowJar {
     mergeServiceFiles()
+}
+
+tasks.withType(JavaExec) {
+    classpath += configurations.developmentOnly
+    jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+    if (gradle.startParameter.continuous) {
+        systemProperties(
+                'micronaut.io.watch.restart':'true',
+                'micronaut.io.watch.enabled':'true',
+                "micronaut.io.watch.paths":"src/main"
+        )
+    }
 }
 
 jacocoTestReport {
