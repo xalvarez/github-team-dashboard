@@ -94,7 +94,7 @@ internal class IndexControllerTest {
                     ))
                 ), "example.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, review = Review(listOf(ReviewNode(APPROVED.name), ReviewNode(CHANGES_REQUESTED.name)
+                    author = author, year = 2012, review = Review(listOf(ReviewNode(CHANGES_REQUESTED.name)
                     )), isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(null))
                     ))

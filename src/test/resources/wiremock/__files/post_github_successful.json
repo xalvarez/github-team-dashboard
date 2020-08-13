@@ -74,9 +74,6 @@
                     "reviews": {
                       "nodes": [
                         {
-                          "state": "APPROVED"
-                        },
-                        {
                           "state": "CHANGES_REQUESTED"
                         }
                       ]
