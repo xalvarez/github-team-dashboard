@@ -86,6 +86,8 @@ kapt {
     arguments {
         arg("micronaut.processing.incremental", true)
         arg("micronaut.processing.annotations", "com.github.xalvarez.githubteamdashboard.*")
+        arg("micronaut.processing.group", "com.github.xalvarez.githubteamdashboard")
+        arg("micronaut.processing.module", "githubTeamDashboard")
     }
 }
 

@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: github-team-dashboard
+    name: githubTeamDashboard
   router:
     static-resources:
       webjars:
