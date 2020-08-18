@@ -6,6 +6,7 @@ on:
       - '**.png'
       - '**.svg'
       - '**.md'
+      - 'Dockerfile'
 
 jobs:
   build:
