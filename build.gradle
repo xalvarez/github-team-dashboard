@@ -14,6 +14,7 @@ repositories {
     maven {
         url 'https://dl.bintray.com/micronaut/core-releases-local'
     }
+    jcenter()
 }
 
 configurations {
@@ -43,17 +44,17 @@ dependencies {
     kaptTest 'io.micronaut:micronaut-inject-java'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
     testImplementation 'io.micronaut.test:micronaut-test-junit5'
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.27.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.5.0'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    testRuntimeOnly 'org.hamcrest:hamcrest:2.2'
 }
 
 test.classpath += configurations.developmentOnly
 
-mainClassName = 'com.github.xalvarez.githubteamdashboard.Application'
+mainClassName = 'com.github.xalvarez.githubteamdashboard.ApplicationKt'
 
 test {
     useJUnitPlatform()
