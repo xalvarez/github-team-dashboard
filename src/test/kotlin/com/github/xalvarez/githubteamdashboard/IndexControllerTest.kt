@@ -5,6 +5,7 @@ import com.github.xalvarez.githubteamdashboard.github.models.*
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.annotation.MockBean
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -150,4 +151,7 @@ internal class IndexControllerTest {
 
     private fun createLocalDateTime(year: Int) =
         LocalDateTime.of(year, JANUARY, 1, 1, 1, 1)
+
+    @MockBean
+    fun gitHubService() = gitHubService
 }

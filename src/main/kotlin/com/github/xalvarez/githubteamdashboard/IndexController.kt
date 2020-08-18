@@ -20,15 +20,11 @@ class IndexController(private val gitHubService: GitHubService) {
 
     @Get
     @View("index")
-    fun index(): HttpResponse<Any> {
-        return HttpResponse.ok()
-    }
+    fun index(): HttpResponse<Any> = HttpResponse.ok()
 
     @Get("/dashboard")
     @View("dashboard")
-    fun dashboard(): HttpResponse<Any> {
-        return HttpResponse.ok(buildDashboardModel())
-    }
+    fun dashboard(): HttpResponse<Any> = HttpResponse.ok(buildDashboardModel())
 
     private fun buildDashboardModel(): HashMap<String, Any> {
         val githubDashboardData = gitHubService.fetchDashboardData()
