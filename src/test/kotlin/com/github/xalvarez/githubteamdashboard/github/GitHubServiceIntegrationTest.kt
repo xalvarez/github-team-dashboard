@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
 @MicronautTest
-internal class GitHubServiceTest : AbstractWireMockTest() {
+internal class GitHubServiceIntegrationTest : AbstractWireMockTest() {
 
     @Inject
     private lateinit var gitHubService: GitHubService

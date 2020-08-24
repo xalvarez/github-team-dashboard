@@ -1,9 +1,9 @@
 package com.github.xalvarez.githubteamdashboard
 
-import io.micronaut.runtime.Micronaut
+import io.micronaut.runtime.Micronaut.build
 
 fun main(args: Array<String>) {
-    Micronaut.build()
+    build()
         .args(*args)
         .packages("com.github.xalvarez.githubteamdashboard")
         .start()
