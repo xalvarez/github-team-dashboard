@@ -1,0 +1,21 @@
+name: Publish Docker image
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout git branch
+        uses: actions/checkout@v2
+      - name: Build and push docker image
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: xalvarez/github-team-dashboard/github-team-dashboard
+          tag_with_ref: true
