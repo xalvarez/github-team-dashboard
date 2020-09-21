@@ -20,7 +20,7 @@ jobs:
         with:
           arguments: clean build
       - name: Build and push docker image
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
