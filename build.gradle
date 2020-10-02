@@ -1,99 +1,75 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
-    id 'org.jetbrains.kotlin.kapt' version "$kotlinVersion"
-    id 'org.jetbrains.kotlin.plugin.allopen' version "$kotlinVersion"
-    id 'application'
-    id 'idea'
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
-    id 'org.sonarqube' version "3.0"
-    id 'jacoco'
+    id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
+    id "org.jetbrains.kotlin.kapt" version "$kotlinVersion"
+    id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
+    id "io.micronaut.application" version "1.0.3"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+    id "org.sonarqube" version "3.0"
+    id "jacoco"
 }
 
 repositories {
     mavenCentral()
     jcenter()
-    maven {
-        url 'https://dl.bintray.com/micronaut/core-releases-local'
+}
+
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+    processing {
+        incremental false
+        annotations "com.github.xalvarez.githubteamdashboard.*"
     }
 }
 
-configurations {
-    developmentOnly
-}
-
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation 'io.micronaut:micronaut-http-server-netty'
-    implementation 'io.micronaut:micronaut-runtime'
-    implementation 'io.micronaut.views:micronaut-views-thymeleaf'
-    implementation 'io.micronaut:micronaut-http-client'
-    implementation 'io.micronaut:micronaut-validation'
-    implementation 'io.micronaut:micronaut-inject'
+    implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
+    implementation "io.micronaut.views:micronaut-views-thymeleaf"
+    implementation "io.micronaut:micronaut-http-client"
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
 
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kapt 'io.micronaut:micronaut-inject-java'
-    kapt 'io.micronaut:micronaut-validation'
+    kapt "io.micronaut:micronaut-inject-java"
+    kapt "io.micronaut:micronaut-validation"
 
-    runtimeOnly 'org.webjars:bootstrap:4.5.2'
-    runtimeOnly 'ch.qos.logback:logback-classic'
-    runtimeOnly 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    runtimeOnly "ch.qos.logback:logback-classic"
+    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
+    runtimeOnly "org.webjars:bootstrap:4.5.2"
+
+    testImplementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.5.13"
 
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kaptTest 'io.micronaut:micronaut-inject-java'
+    kaptTest "io.micronaut:micronaut-inject-java"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
-    testImplementation 'io.micronaut.test:micronaut-test-junit5'
-    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.27.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:3.5.13'
-
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
 
-test.classpath += configurations.developmentOnly
-
-mainClassName = 'com.github.xalvarez.githubteamdashboard.ApplicationKt'
-
-test {
-    useJUnitPlatform()
-}
+mainClassName = "com.github.xalvarez.githubteamdashboard.ApplicationKt"
 
 java {
-    sourceCompatibility = JavaVersion.toVersion('11')
+    sourceCompatibility = JavaVersion.toVersion("11")
 }
 
 allOpen {
-    annotation('io.micronaut.aop.Around')
+    annotation("io.micronaut.context.annotation.Prototype")
 }
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = '11'
-        javaParameters = true
+        jvmTarget = "11"
     }
 }
-
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = '11'
-        javaParameters = true
-    }
-}
-
-shadowJar {
-    mergeServiceFiles()
-}
-
-tasks.withType(JavaExec) {
-    classpath += configurations.developmentOnly
-    jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
-    if (gradle.startParameter.continuous) {
-        systemProperties(
-                'micronaut.io.watch.restart':'true',
-                'micronaut.io.watch.enabled':'true',
-                "micronaut.io.watch.paths":"src/main"
-        )
+        jvmTarget = "11"
     }
 }
 
@@ -104,3 +80,7 @@ jacocoTestReport {
 }
 
 project.tasks["sonarqube"].dependsOn "jacocoTestReport"
+
+dockerfile {
+    baseImage = "openjdk:14-alpine"
+}
