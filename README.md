@@ -16,19 +16,15 @@ GitHub's settings menu, under _Developer settings_. The token requires these per
 
 Make sure you store this token somewhere, as you can only see it once.
 
-By default, the application will run in port 8080. If you ant it to run on a different port, set the environment
+By default, the application will run in port 8080. If you want it to run on a different port, set the environment
 variable _MICRONAUT_SERVER_PORT_ to a different port.
 
 ### Docker
 
-Build the jar:
+Build docker image:
     
-    ./gradlew build
+    ./gradlew dockerBuild
     
-Build the docker container:
-    
-    docker build -t github-team-dashboard .
-
 Start the corresponding docker container:
     
     docker run -d -p 8080:8080 \

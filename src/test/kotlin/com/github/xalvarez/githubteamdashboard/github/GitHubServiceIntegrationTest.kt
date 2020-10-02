@@ -1,7 +1,7 @@
 package com.github.xalvarez.githubteamdashboard.github
 
 import com.github.xalvarez.githubteamdashboard.AbstractWireMockTest
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

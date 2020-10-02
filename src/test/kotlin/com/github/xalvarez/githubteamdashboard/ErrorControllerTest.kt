@@ -1,7 +1,7 @@
 package com.github.xalvarez.githubteamdashboard
 
 import io.micronaut.http.HttpStatus.OK
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test

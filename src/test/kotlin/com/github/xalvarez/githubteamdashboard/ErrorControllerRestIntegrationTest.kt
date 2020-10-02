@@ -9,7 +9,7 @@ import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.HttpStatus.UNAUTHORIZED
 import io.micronaut.http.MediaType.APPLICATION_JSON
 import io.micronaut.http.MediaType.TEXT_HTML_TYPE
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
