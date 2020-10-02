@@ -58,6 +58,10 @@ java {
     sourceCompatibility = JavaVersion.toVersion("11")
 }
 
+allOpen {
+    annotation("io.micronaut.context.annotation.Prototype")
+}
+
 compileKotlin {
     kotlinOptions {
         jvmTarget = "11"
