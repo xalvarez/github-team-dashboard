@@ -38,7 +38,7 @@ dependencies {
 
     runtimeOnly "ch.qos.logback:logback-classic"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
-    runtimeOnly "org.webjars:bootstrap:4.5.2"
+    runtimeOnly "org.webjars:bootstrap:4.5.3"
 
     testImplementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
