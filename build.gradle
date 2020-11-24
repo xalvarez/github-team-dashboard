@@ -88,3 +88,10 @@ project.tasks["sonarqube"].dependsOn "jacocoTestReport"
 dockerfile {
     baseImage = "openjdk:14-alpine"
 }
+
+dockerBuild {
+    images = [
+            "docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:$project.version",
+            "docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:latest"
+    ]
+}
