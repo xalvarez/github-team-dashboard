@@ -22,6 +22,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push docker image
-          uses: eskatos/gradle-command-action@v1
-          with:
-            arguments: clean dockerPush
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: clean dockerPush
