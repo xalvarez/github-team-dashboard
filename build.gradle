@@ -52,7 +52,9 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
 
-mainClassName = "com.github.xalvarez.githubteamdashboard.ApplicationKt"
+application {
+    mainClass.set("com.github.xalvarez.githubteamdashboard.ApplicationKt")
+}
 
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
@@ -62,14 +64,16 @@ allOpen {
     annotation("io.micronaut.context.annotation.Prototype")
 }
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "11"
+tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
     }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "11"
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
     }
 }
 
