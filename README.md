@@ -35,9 +35,9 @@ Start the corresponding docker container:
 
 Before starting your application you need to set the following environment variables:
 
-    GITHUB_ORGANIZATION=<your github organization>
-    GITHUB_TEAM=<your github team within that organization>
-    GITHUB_TOKEN=<your personal access token>
+    GITHUB_DASHBOARD_ORGANIZATION=<your github organization>
+    GITHUB_DASHBOARD_TEAM=<your github team within that organization>
+    GITHUB_DASHBOARD_TOKEN=<your personal access token>
 
 After setting the environment variables above you can start the application as follows:
 

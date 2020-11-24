@@ -13,7 +13,7 @@ micronaut:
         paths: classpath:views/public
 github:
   apiUrl: https://api.github.com/graphql
-  organization: ${GITHUB_ORGANIZATION}
-  team: ${GITHUB_TEAM}
-  token: ${GITHUB_TOKEN}
+  organization: ${GITHUB_DASHBOARD_ORGANIZATION}
+  team: ${GITHUB_DASHBOARD_TEAM}
+  token: ${GITHUB_DASHBOARD_TOKEN}
   userAgent: github-team-dashboard
