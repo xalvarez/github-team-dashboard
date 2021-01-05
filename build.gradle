@@ -44,7 +44,7 @@ dependencies {
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testImplementation "org.mockito:mockito-junit-jupiter:3.6.28"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.7.0"
 
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
     kaptTest "io.micronaut:micronaut-inject-java"
