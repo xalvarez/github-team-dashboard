@@ -21,11 +21,13 @@ variable _MICRONAUT_SERVER_PORT_ to a different port.
 
 ### Docker
 
-Build docker image:
+You can pull the latest docker image available here: [GitHub Container Registry](https://github.com/users/xalvarez/packages/container/package/github-team-dashboard)
+
+Alternatively you may build it yourself:
     
     ./gradlew dockerBuild
     
-Start the corresponding docker container:
+Afterwards the corresponding container can be started as folows:
     
     docker run -d -p 8080:8080 \
         -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
