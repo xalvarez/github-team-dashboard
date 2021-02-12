@@ -28,10 +28,20 @@ Alternatively you may build it yourself:
     ./gradlew dockerBuild
     
 Afterwards the corresponding container can be started as folows:
-    
+
     docker run -d -p 8080:8080 \
-        -e GITHUB_TOKEN=<your_token> -e GITHUB_TEAM=<your_team> -e GITHUB_ORGANIZATION=<your_org> \
-        github-team-dashboard
+        -e GITHUB_DASHBOARD_TOKEN=<your_token> \
+        -e GITHUB_DASHBOARD_TEAM=<your_team> \
+        -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
+        <docker_image>
+        
+E.g.:
+
+    docker run -d -p 8080:8080 \
+        -e GITHUB_DASHBOARD_TOKEN=<your_token> \
+        -e GITHUB_DASHBOARD_TEAM=<your_team> \
+        -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
+        ghcr.io/xalvarez/github-team-dashboard:2.1.1
 
 ### Gradle
 
