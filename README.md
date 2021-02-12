@@ -33,6 +33,7 @@ Afterwards the corresponding container can be started as folows:
         -e GITHUB_DASHBOARD_TOKEN=<your_token> \
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
+        --name github-team-dashboard \
         <docker_image>
         
 E.g.:
@@ -41,6 +42,7 @@ E.g.:
         -e GITHUB_DASHBOARD_TOKEN=<your_token> \
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
+        --name github-team-dashboard \
         ghcr.io/xalvarez/github-team-dashboard:2.1.1
 
 ### Gradle

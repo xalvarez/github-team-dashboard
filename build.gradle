@@ -93,7 +93,6 @@ dockerfile {
 
 dockerBuild {
     images = [
-            "docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:$project.version",
-            "docker.pkg.github.com/xalvarez/github-team-dashboard/github-team-dashboard:latest"
+            "ghcr.io/xalvarez/github-team-dashboard:$project.version"
     ]
 }
