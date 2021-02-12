@@ -59,6 +59,10 @@ like this:
 
     ./gradlew run --continuous
 
+### Health endpoint
+
+The application exposes a `/health` endpoint which you can use to see if it's running.
+
 ## Running tests
 
 The following command runs all checks:
