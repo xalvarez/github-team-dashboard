@@ -11,6 +11,19 @@ micronaut:
         enabled: true
         mapping: /**
         paths: classpath:views/public
+
+endpoints:
+  beans:
+    enabled: false
+  info:
+    enabled: false
+  refresh:
+    enabled: false
+  routes:
+    enabled: false
+  env:
+    enabled: false
+
 github:
   apiUrl: https://api.github.com/graphql
   organization: ${GITHUB_DASHBOARD_ORGANIZATION}
