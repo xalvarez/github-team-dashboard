@@ -21,20 +21,16 @@ variable _MICRONAUT_SERVER_PORT_ to a different port.
 
 ### Docker
 
-You can pull the latest docker image available here: [GitHub Container Registry](https://github.com/users/xalvarez/packages/container/package/github-team-dashboard)
+You can find all available docker images here: [GitHub Container Registry](https://github.com/users/xalvarez/packages/container/package/github-team-dashboard)
 
-Alternatively you may build it yourself:
-    
-    ./gradlew dockerBuild
-    
-Afterwards the corresponding container can be started as folows:
+Copy a docker image tag and start a container as follows:
 
     docker run -d -p 8080:8080 \
         -e GITHUB_DASHBOARD_TOKEN=<your_token> \
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
         --name github-team-dashboard \
-        <docker_image>
+        <docker_image_tag>
         
 E.g.:
 
@@ -43,9 +39,13 @@ E.g.:
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
         --name github-team-dashboard \
-        ghcr.io/xalvarez/github-team-dashboard:2.1.1
+        ghcr.io/xalvarez/github-team-dashboard:3.0.0
+
+The application will then be available under [http://localhost:8080](http://localhost:8080).
 
 ### Gradle
+
+**Important: The application requires JDK 15 to run.** 
 
 Before starting your application you need to set the following environment variables:
 
@@ -60,8 +60,8 @@ After setting the environment variables above you can start the application as f
 Thanks to incremental annotation processing, startup time will improve significantly the next time you run the command
 above.
 
-Once the application starts you'll find it under [localhost:8080](http://localhost:8080). If you
-want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a different port
+Once the application starts you'll find it under [http://localhost:8080](http://localhost:8080).
+If you want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a different port
 before starting the application, e.g.:
 
     export MICRONAUT_SERVER_PORT=10000

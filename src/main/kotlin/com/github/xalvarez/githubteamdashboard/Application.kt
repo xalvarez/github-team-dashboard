@@ -6,5 +6,6 @@ fun main(args: Array<String>) {
     build()
         .args(*args)
         .packages("com.github.xalvarez.githubteamdashboard")
+        .banner(false)
         .start()
 }
