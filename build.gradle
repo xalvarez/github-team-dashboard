@@ -23,35 +23,21 @@ micronaut {
 }
 
 dependencies {
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "io.micronaut.views:micronaut-views-thymeleaf"
     implementation "io.micronaut:micronaut-http-client"
-    implementation "io.micronaut:micronaut-inject"
     implementation "io.micronaut:micronaut-runtime"
     implementation "io.micronaut:micronaut-validation"
     implementation "io.micronaut:micronaut-management"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-
-    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kapt "io.micronaut:micronaut-inject-java"
-    kapt "io.micronaut:micronaut-validation"
 
     runtimeOnly "ch.qos.logback:logback-classic"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
     runtimeOnly "org.webjars:bootstrap:4.6.0"
     runtimeOnly "org.webjars:jquery:3.5.1"
 
-    testImplementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
-    testImplementation "io.micronaut.test:micronaut-test-junit5"
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "org.mockito:mockito-junit-jupiter:3.7.7"
-
-    kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kaptTest "io.micronaut:micronaut-inject-java"
-
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
 
 application {
@@ -59,7 +45,7 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.toVersion("15")
 }
 
 allOpen {
@@ -69,12 +55,12 @@ allOpen {
 tasks {
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "15"
         }
     }
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "15"
         }
     }
 }
@@ -88,7 +74,7 @@ jacocoTestReport {
 project.tasks["sonarqube"].dependsOn "jacocoTestReport"
 
 dockerfile {
-    baseImage = "adoptopenjdk/openjdk14:jdk-14.0.2_12-alpine-slim"
+    baseImage = "adoptopenjdk/openjdk15:jdk-15.0.2_7-alpine-slim"
 }
 
 dockerBuild {
