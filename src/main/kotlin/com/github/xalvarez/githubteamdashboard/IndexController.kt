@@ -26,14 +26,12 @@ class IndexController(private val gitHubService: GitHubService) {
     @View("dashboard")
     fun dashboard(): HttpResponse<Any> = HttpResponse.ok(buildDashboardModel())
 
-    private fun buildDashboardModel(): HashMap<String, Any> {
-        val githubDashboardData = gitHubService.fetchDashboardData()
-        val model = HashMap<String, Any>()
-        model["team"] = buildTeam(githubDashboardData)
-        model["pullRequests"] = buildPullRequests(githubDashboardData)
-        model["securityAlerts"] = buildSecurityAlerts(githubDashboardData)
-        model["lastUpdate"] = ZonedDateTime.now().format(ISO_ZONED_DATE_TIME)
-        return model
+    private fun buildDashboardModel(): Map<String, Any> = gitHubService.fetchDashboardData().let {
+        mapOf(
+            Pair("team", buildTeam(it)),
+            Pair("pullRequests", buildPullRequests(it)),
+            Pair("securityAlerts", buildSecurityAlerts(it)),
+            Pair("lastUpdate", ZonedDateTime.now().format(ISO_ZONED_DATE_TIME)))
     }
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
