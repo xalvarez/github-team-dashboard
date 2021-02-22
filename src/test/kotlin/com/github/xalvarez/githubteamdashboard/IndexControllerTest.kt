@@ -6,7 +6,8 @@ import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
@@ -64,7 +65,6 @@ internal class IndexControllerTest {
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
         assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
-        assertNotNull(model["lastUpdate"])
     }
 
     @Test

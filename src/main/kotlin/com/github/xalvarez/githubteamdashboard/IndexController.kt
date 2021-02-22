@@ -11,9 +11,7 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.views.View
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 
 @Controller
 class IndexController(private val gitHubService: GitHubService) {
@@ -30,8 +28,7 @@ class IndexController(private val gitHubService: GitHubService) {
         mapOf(
             Pair("team", buildTeam(it)),
             Pair("pullRequests", buildPullRequests(it)),
-            Pair("securityAlerts", buildSecurityAlerts(it)),
-            Pair("lastUpdate", ZonedDateTime.now().format(ISO_ZONED_DATE_TIME)))
+            Pair("securityAlerts", buildSecurityAlerts(it)))
     }
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
