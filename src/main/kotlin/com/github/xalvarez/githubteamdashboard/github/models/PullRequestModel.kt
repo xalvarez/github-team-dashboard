@@ -2,6 +2,7 @@ package com.github.xalvarez.githubteamdashboard.github.models
 
 data class PullRequestModel(
     val url: String,
+    val repositoryUrl: String,
     val createdAt: String,
     val author: String,
     val title: String,

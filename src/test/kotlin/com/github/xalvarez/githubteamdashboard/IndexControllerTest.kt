@@ -44,27 +44,34 @@ internal class IndexControllerTest {
         assertTrue { (pullRequests[0] as PullRequestModel).repositoryName == "example_repo_3" }
         assertTrue { (pullRequests[0] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[0] as PullRequestModel).checkState == CheckState.FAILURE }
+        assertTrue { (pullRequests[0] as PullRequestModel).repositoryUrl == "example3.com" }
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
         assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
         assertTrue { (pullRequests[1] as PullRequestModel).checkState == CheckState.DRAFT }
+        assertTrue { (pullRequests[1] as PullRequestModel).repositoryUrl == "example1.com" }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
         assertTrue { (pullRequests[2] as PullRequestModel).state == CHANGES_REQUESTED }
         assertTrue { (pullRequests[2] as PullRequestModel).checkState == CheckState.NONE }
+        assertTrue { (pullRequests[2] as PullRequestModel).repositoryUrl == "example2.com" }
         assertTrue { (pullRequests[3] as PullRequestModel).repositoryName == "example_repo_4" }
         assertTrue { (pullRequests[3] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[3] as PullRequestModel).checkState == CheckState.EXPECTED }
+        assertTrue { (pullRequests[3] as PullRequestModel).repositoryUrl == "example4.com" }
         assertTrue { (pullRequests[4] as PullRequestModel).repositoryName == "example_repo_5" }
         assertTrue { (pullRequests[4] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[4] as PullRequestModel).checkState == CheckState.PENDING }
+        assertTrue { (pullRequests[4] as PullRequestModel).repositoryUrl == "example5.com" }
         assertTrue { (pullRequests[5] as PullRequestModel).repositoryName == "example_repo_6" }
         assertTrue { (pullRequests[5] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[5] as PullRequestModel).checkState == CheckState.SUCCESS }
+        assertTrue { (pullRequests[5] as PullRequestModel).repositoryUrl == "example6.com" }
         assertTrue { (pullRequests[6] as PullRequestModel).repositoryName == "example_repo_7" }
         assertTrue { (pullRequests[6] as PullRequestModel).state == PENDING }
         assertTrue { (pullRequests[6] as PullRequestModel).checkState == CheckState.NONE }
+        assertTrue { (pullRequests[6] as PullRequestModel).repositoryUrl == "example7.com" }
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
-        assertEquals((securityAlerts[0] as SecurityAlert).url, "example.com/network/alerts")
+        assertEquals((securityAlerts[0] as SecurityAlert).url, "example2.com/network/alerts")
     }
 
     @Test
@@ -93,38 +100,38 @@ internal class IndexControllerTest {
                     )), isDraft = true, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
                     ))
-                ), "example.com", VulnerabilityAlerts(arePresent = false)),
+                ), "example1.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
                     author = author, year = 2012, review = Review(listOf(ReviewNode(CHANGES_REQUESTED.name)
                     )), isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(null))
                     ))
-                ), "example.com", VulnerabilityAlerts(arePresent = true)),
+                ), "example2.com", VulnerabilityAlerts(arePresent = true)),
                 Repository("example_repo_3", buildPullRequests(author, 2008,
                     isDraft = false, commits = Commits(listOf(
                     CommitNode(Commit(CommitStatusCheckState("FAILURE")))
                 ))),
-                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                    "example3.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_4", buildPullRequests(author, 2013,
                     isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("EXPECTED")))
                     ))),
-                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                    "example4.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_5", buildPullRequests(author, 2014,
                     isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("PENDING")))
                     ))),
-                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                    "example5.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_6", buildPullRequests(author, 2015,
                     isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
                     ))),
-                    "example.com", VulnerabilityAlerts(arePresent = false)),
+                    "example6.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_7", buildPullRequests(author, 2016,
                     isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("UNEXPECTED_STATE")))
                     ))),
-                    "example.com", VulnerabilityAlerts(arePresent = false))
+                    "example7.com", VulnerabilityAlerts(arePresent = false))
             )
         )
 
