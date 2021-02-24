@@ -70,9 +70,9 @@
                                     <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
                                     <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
                                 </td>
-                                <td class="align-middle" th:text="${pullRequest.repositoryName}"></td>
+                                <td class="align-middle"><a th:href="${pullRequest.repositoryUrl}" th:text="${pullRequest.repositoryName}" target="_blank"></a></td>
                                 <td class="align-middle" th:text="${pullRequest.author}"></td>
-                                <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}"></a></td>
+                                <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}" target="_blank"></a></td>
                                 <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
                             </tr>
                         </tbody>

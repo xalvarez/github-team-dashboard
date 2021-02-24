@@ -44,6 +44,7 @@ class IndexController(private val gitHubService: GitHubService) {
                 repository.pullRequests.nodes.map {
                     PullRequestModel(
                         it.url,
+                        repository.url,
                         toHumanReadableDatetime(it.createdAt),
                         it.author.login,
                         it.title,
