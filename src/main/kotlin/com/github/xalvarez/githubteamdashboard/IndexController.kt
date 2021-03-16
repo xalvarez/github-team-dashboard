@@ -4,8 +4,15 @@ import com.github.xalvarez.githubteamdashboard.github.Commit
 import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Review
-import com.github.xalvarez.githubteamdashboard.github.models.*
-import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
+import com.github.xalvarez.githubteamdashboard.github.models.CheckState
+import com.github.xalvarez.githubteamdashboard.github.models.Member
+import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.APPROVED
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.CHANGES_REQUESTED
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.PENDING
+import com.github.xalvarez.githubteamdashboard.github.models.SecurityAlert
+import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -66,26 +73,24 @@ class IndexController(private val gitHubService: GitHubService) {
         datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     private fun toReviewState(reviews: Review): ReviewState {
-        reviews.nodes
-            .forEach {
-                if (it.state == CHANGES_REQUESTED.name) {
-                    return CHANGES_REQUESTED
-                }
-                else if (it.state == APPROVED.name) {
-                    return APPROVED
-                }
-            }
+        val state = reviews.nodes
+            .map { it.state }
+            .find { CHANGES_REQUESTED.name == it || APPROVED.name == it }
+            .orEmpty()
 
-        return PENDING
+        return when (state) {
+            CHANGES_REQUESTED.name -> CHANGES_REQUESTED
+            APPROVED.name -> APPROVED
+            else -> PENDING
+        }
     }
 
     private fun toCheckState(isDraft: Boolean, commit: Commit): CheckState {
         if (isDraft) {
             return CheckState.DRAFT
         }
-        commit.statusCheckRollup ?: return CheckState.NONE
 
-        return when (commit.statusCheckRollup.state) {
+        return when (commit.statusCheckRollup?.state) {
             CheckState.ERROR.name -> CheckState.ERROR
             CheckState.EXPECTED.name -> CheckState.EXPECTED
             CheckState.FAILURE.name -> CheckState.FAILURE
