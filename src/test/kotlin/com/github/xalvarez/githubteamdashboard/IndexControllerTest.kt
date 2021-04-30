@@ -6,25 +6,25 @@ import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito.given
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDateTime
 import java.time.Month.JANUARY
 
 @MicronautTest
-@ExtendWith(MockitoExtension::class)
+@ExtendWith(MockKExtension::class)
 internal class IndexControllerTest {
 
-    @InjectMocks
+    @InjectMockKs
     lateinit var indexController: IndexController
 
-    @Mock
+    @MockK
     lateinit var gitHubService: GitHubService
 
     @Test
@@ -87,7 +87,7 @@ internal class IndexControllerTest {
     )
 
     private fun givenSuccessfulGitHubServiceResponse() {
-        given(gitHubService.fetchDashboardData()).willReturn(buildSuccessfulGitHubDashboardData())
+        every { gitHubService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
     }
 
     private fun buildSuccessfulGitHubDashboardData(): GithubDashboardData {

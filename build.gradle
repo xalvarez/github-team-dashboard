@@ -37,7 +37,7 @@ dependencies {
     runtimeOnly "org.webjars:bootstrap:4.6.0-1"
 
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
-    testImplementation "org.mockito:mockito-junit-jupiter:3.9.0"
+    testImplementation "io.mockk:mockk:1.10.6"
 }
 
 application {
