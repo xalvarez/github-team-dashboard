@@ -18,7 +18,7 @@ micronaut {
     runtime "netty"
     testRuntime "junit5"
     processing {
-        incremental false
+        incremental true
         annotations "com.github.xalvarez.githubteamdashboard.*"
     }
 }
@@ -45,7 +45,7 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("15")
+    sourceCompatibility = JavaVersion.toVersion("14")
 }
 
 allOpen {
@@ -55,12 +55,12 @@ allOpen {
 tasks {
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "14"
         }
     }
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "14"
         }
     }
 }
@@ -74,7 +74,7 @@ jacocoTestReport {
 project.tasks["sonarqube"].dependsOn "jacocoTestReport"
 
 dockerfile {
-    baseImage = "adoptopenjdk/openjdk15:jre-15.0.2_7-alpine"
+    baseImage = "adoptopenjdk/openjdk14:jre-14.0.2_12-alpine"
 }
 
 dockerBuild {
