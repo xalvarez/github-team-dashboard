@@ -2,18 +2,18 @@ package com.github.xalvarez.githubteamdashboard
 
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
-import org.mockito.junit.jupiter.MockitoExtension
 
 @MicronautTest
-@ExtendWith(MockitoExtension::class)
+@ExtendWith(MockKExtension::class)
 internal class ErrorControllerTest {
 
-    @InjectMocks
+    @InjectMockKs
     lateinit var errorController: ErrorController
 
     @Test
