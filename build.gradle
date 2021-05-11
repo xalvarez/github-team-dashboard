@@ -34,7 +34,7 @@ dependencies {
 
     runtimeOnly "ch.qos.logback:logback-classic"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
-    runtimeOnly "org.webjars:bootstrap:4.6.0-1"
+    runtimeOnly "org.webjars:bootstrap:5.0.0"
 
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
     testImplementation "io.mockk:mockk:1.11.0"
