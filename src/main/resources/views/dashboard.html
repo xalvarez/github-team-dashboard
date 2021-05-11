@@ -4,8 +4,8 @@
 <div class="container-fluid my-sm-5 px-5" th:fragment="content">
     <div class="row">
         <div class="col">
-            <div class="text-right">
-                <small><strong>Last update:</strong> <span id="#lastupdatetime"></span>
+            <div class="text-end fs-6">
+                <small><span class="fw-bold">Last update:</span> <span id="#lastupdatetime"></span>
                 <span>(updates every 10 minutes)</span></small>
             </div>
         </div>
@@ -32,7 +32,7 @@
                         <p>These repositories contain security alerts:</p>
                         <ul class="list-group list-group-flush">
                             <th:block th:each="alert: ${securityAlerts}">
-                                <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" target="_blank"></a></li>
+                                <li class="list-group-item"><a th:href="${alert.url}" th:text="${alert.repository}" class="text-decoration-none" target="_blank"></a></li>
                             </th:block>
                         </ul>
                     </div>
@@ -44,39 +44,41 @@
                 <div class="card-header">Open Pull Requests</div>
                 <div class="card-body">
                     <div th:replace="legend :: legend"></div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Review</th>
-                            <th scope="col">Repository</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Creation Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="pullRequest,iterStat : ${pullRequests}">
-                            <th:block th:switch="${pullRequest.checkState.name}">
-                                <th th:case="'NONE'" class="align-middle" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'DRAFT'" class="align-middle alert-dark" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'ERROR'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'EXPECTED'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'FAILURE'" class="align-middle alert-danger" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'PENDING'" class="align-middle alert-warning" scope="row" th:text="${iterStat.index + 1}"></th>
-                                <th th:case="'SUCCESS'" class="align-middle alert-success" scope="row" th:text="${iterStat.index + 1}"></th>
-                            </th:block>
-                                <td class="align-middle" th:switch="${pullRequest.state.name}">
-                                    <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
-                                    <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
-                                </td>
-                                <td class="align-middle"><a th:href="${pullRequest.repositoryUrl}" th:text="${pullRequest.repositoryName}" target="_blank"></a></td>
-                                <td class="align-middle" th:text="${pullRequest.author}"></td>
-                                <td class="align-middle"><a th:href="${pullRequest.url}" th:text="${pullRequest.title}" target="_blank"></a></td>
-                                <td class="align-middle" th:text="${pullRequest.createdAt}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="border-bottom" scope="col">#</th>
+                                    <th class="border-bottom" scope="col">Review</th>
+                                    <th class="border-bottom" scope="col">Repository</th>
+                                    <th class="border-bottom" scope="col">Author</th>
+                                    <th class="border-bottom" scope="col">Title</th>
+                                    <th class="border-bottom" scope="col">Creation Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pullRequest,iterStat : ${pullRequests}">
+                                <th:block th:switch="${pullRequest.checkState.name}">
+                                    <td th:case="'NONE'" class="fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'DRAFT'" class="table-secondary fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'ERROR'" class="table-danger fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'EXPECTED'" class="table-warning fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'FAILURE'" class="table-danger fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'PENDING'" class="table-warning fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                    <td th:case="'SUCCESS'" class="table-success fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
+                                </th:block>
+                                    <td class="align-middle" th:switch="${pullRequest.state.name}">
+                                        <img th:case="'APPROVED'" src="icons/check-circle.svg" alt="Approved" />
+                                        <img th:case="'CHANGES_REQUESTED'" src="icons/x-circle.svg" alt="Declined" />
+                                    </td>
+                                    <td><a th:href="${pullRequest.repositoryUrl}" th:text="${pullRequest.repositoryName}" class="text-decoration-none" target="_blank"></a></td>
+                                    <td th:text="${pullRequest.author}"></td>
+                                    <td><a th:href="${pullRequest.url}" th:text="${pullRequest.title}" class="text-decoration-none" target="_blank"></a></td>
+                                    <td th:text="${pullRequest.createdAt}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div th:insert="legend :: legend" th:if="${#lists.size(pullRequests) > 10}"></div>
                 </div>
             </div>
