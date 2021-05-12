@@ -20,7 +20,7 @@ jobs:
         distribution: 'adopt'
         java-version: '14'
     - name: Run all tests
-      uses: eskatos/gradle-command-action@v1
+      uses: eskatos/gradle-command-action@v1.3.3
       with:
         arguments: clean build sonarqube
       env:
