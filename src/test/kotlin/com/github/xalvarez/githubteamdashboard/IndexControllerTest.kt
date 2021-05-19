@@ -141,8 +141,13 @@ internal class IndexControllerTest {
         return GithubDashboardData(data)
     }
 
-    private fun buildPullRequests(author: Author, year: Int, review: Review = Review(emptyList()), isDraft: Boolean, commits: Commits) =
-        PullRequests(
+    private fun buildPullRequests(
+        author: Author,
+        year: Int,
+        review: Review = Review(emptyList()),
+        isDraft: Boolean,
+        commits: Commits
+    ) = PullRequests(
             listOf(
                 PullRequestNode(
                     "http://example.com/1",
