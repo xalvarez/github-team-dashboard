@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 @MicronautTest
-internal class ErrorControllerRestIntegrationTest : AbstractRestIntegrationTest() {
+internal class ErrorControllerRestIntegrationTest : RestIntegrationTest() {
 
     @Test
     fun `should show error page if github request fails`() {

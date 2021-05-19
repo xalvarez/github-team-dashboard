@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 @MicronautTest
-internal class IndexControllerRestIntegrationTest : AbstractRestIntegrationTest() {
+internal class IndexControllerRestIntegrationTest : RestIntegrationTest() {
 
     @Test
     fun `should build index`() {

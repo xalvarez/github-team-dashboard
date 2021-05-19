@@ -5,6 +5,8 @@ import com.github.tomakehurst.wiremock.client.WireMock.*
 import io.micronaut.http.HttpHeaders.CONTENT_TYPE
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.MediaType.APPLICATION_JSON
+import io.micronaut.http.client.RxHttpClient
+import io.micronaut.runtime.server.EmbeddedServer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -13,7 +15,12 @@ import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import javax.inject.Inject
 
 @TestInstance(PER_CLASS)
-abstract class AbstractWireMockTest {
+open class RestIntegrationTest {
+
+    protected val client: RxHttpClient by lazy { RxHttpClient.create(server.url) }
+
+    @Inject
+    private lateinit var server: EmbeddedServer
 
     @Inject
     protected lateinit var wireMockServer: WireMockServer
