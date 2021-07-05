@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.time.LocalDateTime
-import java.time.Month.JANUARY
+import java.time.ZoneId.systemDefault
+import java.time.ZonedDateTime
 
 @MicronautTest
 @ExtendWith(MockKExtension::class)
@@ -151,7 +151,7 @@ internal class IndexControllerTest {
             listOf(
                 PullRequestNode(
                     "http://example.com/1",
-                    createLocalDateTime(year),
+                    createZonedDateTime(year),
                     author,
                     "Add cool feature",
                     review,
@@ -161,8 +161,8 @@ internal class IndexControllerTest {
             )
         )
 
-    private fun createLocalDateTime(year: Int) =
-        LocalDateTime.of(year, JANUARY, 1, 1, 1, 1)
+    private fun createZonedDateTime(year: Int) =
+        ZonedDateTime.of(year, 1, 1, 1, 1, 1, 0, systemDefault())
 
     @MockBean
     fun gitHubService() = gitHubService

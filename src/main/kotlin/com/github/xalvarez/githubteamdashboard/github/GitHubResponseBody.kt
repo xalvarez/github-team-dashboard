@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonFormat.Shape.NUMBER
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 data class GithubDashboardData(
     val data: Data
@@ -56,7 +57,7 @@ data class PullRequests(
 
 data class PullRequestNode(
     val url: String,
-    val createdAt: LocalDateTime,
+    val createdAt: ZonedDateTime,
     val author: Author,
     val title: String,
     val reviews: Review,

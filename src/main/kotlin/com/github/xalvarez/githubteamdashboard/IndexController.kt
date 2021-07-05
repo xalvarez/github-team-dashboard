@@ -17,7 +17,8 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.views.View
-import java.time.LocalDateTime
+import java.time.ZoneId.systemDefault
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Controller
@@ -69,8 +70,8 @@ class IndexController(private val gitHubService: GitHubService) {
             .map { SecurityAlert(it.name, it.alertsUrl) }
             .sortedBy { it.repository }
 
-    private fun toHumanReadableDatetime(datetime: LocalDateTime) =
-        datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    private fun toHumanReadableDatetime(datetime: ZonedDateTime) =
+        datetime.withZoneSameInstant(systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     private fun toReviewState(reviews: Review): ReviewState {
         val state = reviews.nodes
