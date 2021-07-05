@@ -2,11 +2,8 @@ name: Test
 
 on:
   pull_request:
-    paths-ignore:
-      - '**.png'
-      - '**.svg'
-      - '**.md'
-      - 'Dockerfile'
+    branches:
+      - main
 
 jobs:
   build:
@@ -22,7 +19,6 @@ jobs:
     - name: Run all tests
       uses: eskatos/gradle-command-action@v1.3.3
       with:
-        arguments: clean build sonarqube
+        arguments: clean build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
