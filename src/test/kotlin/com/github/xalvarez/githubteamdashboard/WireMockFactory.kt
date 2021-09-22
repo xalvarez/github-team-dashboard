@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Value
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Factory
 class WireMockFactory {

@@ -5,19 +5,19 @@ import com.github.tomakehurst.wiremock.client.WireMock.*
 import io.micronaut.http.HttpHeaders.CONTENT_TYPE
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.MediaType.APPLICATION_JSON
-import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
+import jakarta.inject.Inject
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
-import javax.inject.Inject
 
 @TestInstance(PER_CLASS)
 open class RestIntegrationTest {
 
-    protected val client: RxHttpClient by lazy { RxHttpClient.create(server.url) }
+    protected val client: HttpClient by lazy { HttpClient.create(server.url) }
 
     @Inject
     private lateinit var server: EmbeddedServer

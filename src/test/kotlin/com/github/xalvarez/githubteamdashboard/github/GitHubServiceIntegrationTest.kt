@@ -2,10 +2,10 @@ package com.github.xalvarez.githubteamdashboard.github
 
 import com.github.xalvarez.githubteamdashboard.RestIntegrationTest
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 
 @MicronautTest
 internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
