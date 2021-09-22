@@ -9,7 +9,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 micronaut {
@@ -64,7 +63,7 @@ tasks {
 }
 
 dockerfile {
-    baseImage = "adoptopenjdk/openjdk14:jre-14.0.2_12-alpine"
+    baseImage("adoptopenjdk/openjdk14:jre-14.0.2_12-alpine")
 }
 
 dockerBuild {

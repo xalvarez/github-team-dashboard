@@ -3,7 +3,6 @@ package com.github.xalvarez.githubteamdashboard.github
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonFormat.Shape.NUMBER
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 data class GithubDashboardData(
