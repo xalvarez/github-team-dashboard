@@ -1,3 +1,12 @@
+import static org.gradle.api.JavaVersion.VERSION_17
+
+buildscript {
+    ext {
+        kotlinVersion = '1.6.0'
+        micronautVersion = '3.2.3'
+    }
+}
+
 plugins {
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.kapt" version "$kotlinVersion"
@@ -41,9 +50,7 @@ application {
     mainClass.set("com.github.xalvarez.githubteamdashboard.ApplicationKt")
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion("14")
-}
+java.sourceCompatibility(VERSION_17)
 
 allOpen {
     annotation("io.micronaut.context.annotation.Prototype")
@@ -52,18 +59,18 @@ allOpen {
 tasks {
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "14"
+            jvmTarget = "17"
         }
     }
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "14"
+            jvmTarget = "17"
         }
     }
 }
 
 dockerfile {
-    baseImage("adoptopenjdk/openjdk14:jre-14.0.2_12-alpine")
+    baseImage("azul/zulu-openjdk-alpine:17.0.1-17.30.15-jre")
 }
 
 dockerBuild {
