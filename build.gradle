@@ -69,7 +69,7 @@ tasks {
 }
 
 dockerfile {
-    baseImage("azul/zulu-openjdk-alpine:17.0.1-17.30.15-jre")
+    baseImage("eclipse-temurin:17.0.2_8-jre-alpine")
 }
 
 dockerBuild {
