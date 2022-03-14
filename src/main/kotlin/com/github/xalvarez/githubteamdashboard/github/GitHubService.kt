@@ -21,7 +21,7 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
                 nodes {
                   name
                   url
-                  vulnerabilityAlerts(first: 1) {
+                  vulnerabilityAlerts(first: 1, states: [OPEN]) {
                     totalCount
                   }
                   pullRequests(states: [OPEN], first: 100) {
