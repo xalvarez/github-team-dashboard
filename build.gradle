@@ -3,7 +3,7 @@ import static org.gradle.api.JavaVersion.VERSION_17
 buildscript {
     ext {
         kotlinVersion = '1.7.10'
-        micronautVersion = '3.2.3'
+        micronautVersion = '3.5.1'
     }
 }
 
@@ -11,7 +11,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.kapt" version "$kotlinVersion"
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
-    id "io.micronaut.application" version "3.5.1"
+    id "io.micronaut.application" version "$micronautVersion"
     id "com.github.johnrengelman.shadow" version "7.1.2"
     id "io.gitlab.arturbosch.detekt" version "1.21.0"
 }
@@ -34,8 +34,8 @@ dependencies {
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "io.micronaut.views:micronaut-views-thymeleaf"
     implementation "io.micronaut:micronaut-http-client"
-    implementation "io.micronaut:micronaut-runtime"
     implementation "io.micronaut:micronaut-management"
+    implementation "io.micronaut:micronaut-runtime"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
 
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
@@ -70,7 +70,7 @@ tasks {
 }
 
 dockerfile {
-    baseImage("eclipse-temurin:17.0.4_8-jre-alpine")
+    baseImage("eclipse-temurin:17.0.4.1_1-jre-alpine")
 }
 
 dockerBuild {
