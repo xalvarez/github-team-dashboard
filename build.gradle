@@ -43,7 +43,7 @@ dependencies {
     runtimeOnly "org.webjars:popper.js:2.9.3"
 
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.34.0"
-    testImplementation "io.mockk:mockk:1.13.1"
+    testImplementation "io.mockk:mockk:1.13.2"
 }
 
 application {
