@@ -13,7 +13,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
     id "io.micronaut.application" version "$micronautVersion"
     id "com.github.johnrengelman.shadow" version "7.1.2"
-    id "io.gitlab.arturbosch.detekt" version "1.21.0"
+    id "io.gitlab.arturbosch.detekt" version "1.22.0"
 }
 
 repositories {

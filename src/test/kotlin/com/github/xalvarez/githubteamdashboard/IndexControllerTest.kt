@@ -1,8 +1,30 @@
 package com.github.xalvarez.githubteamdashboard
 
-import com.github.xalvarez.githubteamdashboard.github.*
-import com.github.xalvarez.githubteamdashboard.github.models.*
-import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.*
+import com.github.xalvarez.githubteamdashboard.github.Author
+import com.github.xalvarez.githubteamdashboard.github.Commit
+import com.github.xalvarez.githubteamdashboard.github.CommitNode
+import com.github.xalvarez.githubteamdashboard.github.CommitStatusCheckState
+import com.github.xalvarez.githubteamdashboard.github.Commits
+import com.github.xalvarez.githubteamdashboard.github.Data
+import com.github.xalvarez.githubteamdashboard.github.GitHubService
+import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
+import com.github.xalvarez.githubteamdashboard.github.Members
+import com.github.xalvarez.githubteamdashboard.github.MembersNode
+import com.github.xalvarez.githubteamdashboard.github.Organization
+import com.github.xalvarez.githubteamdashboard.github.PullRequestNode
+import com.github.xalvarez.githubteamdashboard.github.PullRequests
+import com.github.xalvarez.githubteamdashboard.github.Repositories
+import com.github.xalvarez.githubteamdashboard.github.Repository
+import com.github.xalvarez.githubteamdashboard.github.Review
+import com.github.xalvarez.githubteamdashboard.github.ReviewNode
+import com.github.xalvarez.githubteamdashboard.github.Team
+import com.github.xalvarez.githubteamdashboard.github.VulnerabilityAlerts
+import com.github.xalvarez.githubteamdashboard.github.models.CheckState
+import com.github.xalvarez.githubteamdashboard.github.models.Member
+import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
+import com.github.xalvarez.githubteamdashboard.github.models.ReviewState
+import com.github.xalvarez.githubteamdashboard.github.models.SecurityAlert
+import com.github.xalvarez.githubteamdashboard.github.models.TeamModel
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
@@ -42,31 +64,31 @@ internal class IndexControllerTest {
         assertEquals(model["team"], expectedTeamModel)
         assertEquals(pullRequests.size, expectedAmountOfPullRequests)
         assertTrue { (pullRequests[0] as PullRequestModel).repositoryName == "example_repo_3" }
-        assertTrue { (pullRequests[0] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[0] as PullRequestModel).state == ReviewState.PENDING }
         assertTrue { (pullRequests[0] as PullRequestModel).checkState == CheckState.FAILURE }
         assertTrue { (pullRequests[0] as PullRequestModel).repositoryUrl == "example3.com" }
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryName == "example_repo_1" }
-        assertTrue { (pullRequests[1] as PullRequestModel).state == APPROVED }
+        assertTrue { (pullRequests[1] as PullRequestModel).state == ReviewState.APPROVED }
         assertTrue { (pullRequests[1] as PullRequestModel).checkState == CheckState.DRAFT }
         assertTrue { (pullRequests[1] as PullRequestModel).repositoryUrl == "example1.com" }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryName == "example_repo_2" }
-        assertTrue { (pullRequests[2] as PullRequestModel).state == CHANGES_REQUESTED }
+        assertTrue { (pullRequests[2] as PullRequestModel).state == ReviewState.CHANGES_REQUESTED }
         assertTrue { (pullRequests[2] as PullRequestModel).checkState == CheckState.NONE }
         assertTrue { (pullRequests[2] as PullRequestModel).repositoryUrl == "example2.com" }
         assertTrue { (pullRequests[3] as PullRequestModel).repositoryName == "example_repo_4" }
-        assertTrue { (pullRequests[3] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[3] as PullRequestModel).state == ReviewState.PENDING }
         assertTrue { (pullRequests[3] as PullRequestModel).checkState == CheckState.EXPECTED }
         assertTrue { (pullRequests[3] as PullRequestModel).repositoryUrl == "example4.com" }
         assertTrue { (pullRequests[4] as PullRequestModel).repositoryName == "example_repo_5" }
-        assertTrue { (pullRequests[4] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[4] as PullRequestModel).state == ReviewState.PENDING }
         assertTrue { (pullRequests[4] as PullRequestModel).checkState == CheckState.PENDING }
         assertTrue { (pullRequests[4] as PullRequestModel).repositoryUrl == "example5.com" }
         assertTrue { (pullRequests[5] as PullRequestModel).repositoryName == "example_repo_6" }
-        assertTrue { (pullRequests[5] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[5] as PullRequestModel).state == ReviewState.PENDING }
         assertTrue { (pullRequests[5] as PullRequestModel).checkState == CheckState.SUCCESS }
         assertTrue { (pullRequests[5] as PullRequestModel).repositoryUrl == "example6.com" }
         assertTrue { (pullRequests[6] as PullRequestModel).repositoryName == "example_repo_7" }
-        assertTrue { (pullRequests[6] as PullRequestModel).state == PENDING }
+        assertTrue { (pullRequests[6] as PullRequestModel).state == ReviewState.PENDING }
         assertTrue { (pullRequests[6] as PullRequestModel).checkState == CheckState.NONE }
         assertTrue { (pullRequests[6] as PullRequestModel).repositoryUrl == "example7.com" }
         assertEquals(securityAlerts.size, 1)
@@ -96,13 +118,14 @@ internal class IndexControllerTest {
             listOf(
                 Repository("example_repo_1", buildPullRequests(
                     author = author, year = 2010, review = Review(listOf(
-                        ReviewNode(PENDING.name), ReviewNode(APPROVED.name), ReviewNode(PENDING.name)
+                        ReviewNode(ReviewState.PENDING.name), ReviewNode(ReviewState.APPROVED.name), ReviewNode(
+                            ReviewState.PENDING.name)
                     )), isDraft = true, commits = Commits(listOf(
                         CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
                     ))
                 ), "example1.com", VulnerabilityAlerts(arePresent = false)),
                 Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, review = Review(listOf(ReviewNode(CHANGES_REQUESTED.name)
+                    author = author, year = 2012, review = Review(listOf(ReviewNode(ReviewState.CHANGES_REQUESTED.name)
                     )), isDraft = false, commits = Commits(listOf(
                         CommitNode(Commit(null))
                     ))
