@@ -2,7 +2,7 @@ import static org.gradle.api.JavaVersion.VERSION_17
 
 buildscript {
     ext {
-        kotlinVersion = '1.8.22'
+        kotlinVersion = '1.9.0'
         micronautVersion = '3.7.4'
     }
 }
