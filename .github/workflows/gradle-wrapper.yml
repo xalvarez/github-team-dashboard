@@ -14,4 +14,4 @@ jobs:
       - name: Checkout git branch
         uses: actions/checkout@v3.5.3
       - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1.0.6
+        uses: gradle/wrapper-validation-action@v1.1.0
