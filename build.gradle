@@ -1,9 +1,10 @@
 import static org.gradle.api.JavaVersion.VERSION_17
+import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 
 buildscript {
     ext {
         kotlinVersion = '1.9.0'
-        micronautVersion = '3.7.4'
+        micronautVersion = '4.0.1'
     }
 }
 
@@ -11,7 +12,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.kapt" version "$kotlinVersion"
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
-    id "io.micronaut.application" version "4.0.1"
+    id "io.micronaut.application" version "$micronautVersion"
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id "io.gitlab.arturbosch.detekt" version "1.23.0"
 }
@@ -33,6 +34,8 @@ dependencies {
     kapt "io.micronaut:micronaut-http-validation"
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "io.micronaut.views:micronaut-views-thymeleaf"
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.validation:jakarta.validation-api")
     implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut:micronaut-management"
     implementation "io.micronaut:micronaut-runtime"
@@ -58,13 +61,13 @@ allOpen {
 
 tasks {
     compileKotlin {
-        kotlinOptions {
-            jvmTarget = "17"
+        compilerOptions {
+            jvmTarget = JVM_17
         }
     }
     compileTestKotlin {
-        kotlinOptions {
-            jvmTarget = "17"
+        compilerOptions {
+            jvmTarget = JVM_17
         }
     }
 }

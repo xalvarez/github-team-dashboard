@@ -2,7 +2,7 @@ package com.github.xalvarez.githubteamdashboard.github
 
 import io.micronaut.context.annotation.ConfigurationProperties
 import io.micronaut.context.annotation.Context
-import javax.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotEmpty
 
 @ConfigurationProperties(value = GITHUB_PROPERTIES_PREFIX, cliPrefix = [GITHUB_PROPERTIES_PREFIX])
 @Context

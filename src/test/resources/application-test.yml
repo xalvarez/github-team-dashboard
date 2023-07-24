@@ -1,8 +1,0 @@
-wiremock:
-  port: 10909
-
-github:
-  apiUrl: http://localhost:${wiremock.port}/graphql
-  organization: example_organization
-  team: example_team
-  token: example_token
