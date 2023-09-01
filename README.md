@@ -45,7 +45,8 @@ The application will then be available under [http://localhost:8080](http://loca
 
 ### Gradle
 
-**Important: The application requires JDK 17 to run.** 
+> [!IMPORTANT]
+> The application requires JDK 17 to run.
 
 Before starting your application you need to set the following environment variables:
 
