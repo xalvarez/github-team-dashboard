@@ -47,7 +47,7 @@ dependencies {
     runtimeOnly "org.webjars:bootstrap:5.3.1"
     runtimeOnly "org.webjars:popper.js:2.11.7"
 
-    testImplementation "org.wiremock:wiremock:3.0.1"
+    testImplementation "org.wiremock:wiremock:3.0.2"
     testImplementation "io.mockk:mockk:1.13.7"
 }
 
