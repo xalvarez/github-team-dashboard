@@ -21,7 +21,5 @@ class TotalCountSerde: Serde<Boolean> {
         decoder: Decoder,
         context: Deserializer.DecoderContext,
         type: Argument<in Boolean>
-    ): Boolean {
-        return decoder.decodeInt() > 0;
-    }
+    ) = decoder.decodeInt() > 0
 }
