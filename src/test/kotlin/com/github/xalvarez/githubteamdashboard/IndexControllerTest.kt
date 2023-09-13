@@ -173,7 +173,7 @@ internal class IndexControllerTest {
     ) = PullRequests(
             listOf(
                 PullRequestNode(
-                    "http://example.com/1",
+                    "https://example.com/1",
                     createZonedDateTime(year),
                     author,
                     "Add cool feature",

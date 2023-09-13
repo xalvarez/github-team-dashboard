@@ -75,7 +75,7 @@ tasks {
 }
 
 dockerfile {
-    baseImage("eclipse-temurin:17.0.4.1_1-jre-alpine")
+    baseImage("eclipse-temurin:17.0.8.1_1-jre-alpine")
 }
 
 dockerBuild {
