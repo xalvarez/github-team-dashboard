@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout git branch
-        uses: actions/checkout@v4.0.0
+        uses: actions/checkout@v4.1.0
       - name: Install JDK 17
         uses: actions/setup-java@v3.13.0
         with:
