@@ -17,6 +17,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.views.View
+import reactor.core.publisher.Mono
 import java.time.ZoneId.systemDefault
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -26,18 +27,22 @@ class IndexController(private val gitHubService: GitHubService) {
 
     @Get
     @View("index")
-    fun index(): HttpResponse<Any> = HttpResponse.ok()
+    fun index(): Mono<HttpResponse<Any>> = Mono.just(HttpResponse.ok())
 
     @Get("/dashboard")
     @View("dashboard")
-    fun dashboard(): HttpResponse<Any> = HttpResponse.ok(buildDashboardModel())
+    fun dashboard(): Mono<HttpResponse<Any>> = buildDashboardModel()
+        .map { model -> HttpResponse.ok(model) }
 
-    private fun buildDashboardModel(): Map<String, Any> = gitHubService.fetchDashboardData().let {
-        mapOf(
-            Pair("team", buildTeam(it)),
-            Pair("pullRequests", buildPullRequests(it)),
-            Pair("securityAlerts", buildSecurityAlerts(it)))
-    }
+    private fun buildDashboardModel(): Mono<Map<String, Any>> =
+        Mono.from(gitHubService.fetchDashboardData())
+            .map { githubDashboardData ->
+                mapOf(
+                    Pair("team", buildTeam(githubDashboardData)),
+                    Pair("pullRequests", buildPullRequests(githubDashboardData)),
+                    Pair("securityAlerts", buildSecurityAlerts(githubDashboardData))
+                )
+            }
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
         TeamModel(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))

@@ -1,11 +1,13 @@
 package com.github.xalvarez.githubteamdashboard.github
 
 import io.micronaut.context.annotation.Prototype
+import reactor.core.publisher.Mono
 
 @Prototype
 class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
 
-    fun fetchDashboardData(): GithubDashboardData = gitHubClient.fetchDashboardData(buildQuery())
+    fun fetchDashboardData(): Mono<GithubDashboardData> =
+        gitHubClient.fetchDashboardData(buildQuery())
 
     private fun buildQuery() = """
         {
