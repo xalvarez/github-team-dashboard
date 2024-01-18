@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import reactor.core.publisher.Mono
 import java.time.ZoneId.systemDefault
 import java.time.ZonedDateTime
 
@@ -55,8 +56,8 @@ internal class IndexControllerTest {
         val expectedTeamModel = givenExpectedTeamModel()
         val expectedAmountOfPullRequests = 7
 
-        val response = indexController.dashboard()
-        val model = response.body() as HashMap<*, *>
+        val response = indexController.dashboard().block()
+        val model = response?.body() as HashMap<*, *>
         val pullRequests = model["pullRequests"] as List<*>
         val securityAlerts = model["securityAlerts"] as List<*>
 
@@ -98,9 +99,9 @@ internal class IndexControllerTest {
 
     @Test
     fun `should load homepage`() {
-        val response = indexController.index()
+        val response = indexController.index().block()
 
-        assertEquals(response.status(), OK)
+        assertEquals(response?.status(), OK)
     }
 
     private fun givenExpectedTeamModel() = TeamModel(
@@ -112,7 +113,7 @@ internal class IndexControllerTest {
         every { gitHubService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
     }
 
-    private fun buildSuccessfulGitHubDashboardData(): GithubDashboardData {
+    private fun buildSuccessfulGitHubDashboardData(): Mono<GithubDashboardData> {
         val author = Author("example_team_member_1")
         val repositories = Repositories(
             listOf(
@@ -161,7 +162,7 @@ internal class IndexControllerTest {
         val members = Members(listOf(MembersNode("example_team_member_1")))
         val team = Team("example_team", members, repositories)
         val data = Data(Organization(team))
-        return GithubDashboardData(data)
+        return Mono.just(GithubDashboardData(data))
     }
 
     private fun buildPullRequests(

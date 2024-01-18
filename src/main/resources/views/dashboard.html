@@ -43,7 +43,7 @@
             <div class="card text-center">
                 <div class="card-header">Open Pull Requests</div>
                 <div class="card-body">
-                    <div th:replace="legend :: legend"></div>
+                    <div th:replace="~{legend :: legend}"></div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <tr>
@@ -75,7 +75,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div th:insert="legend :: legend" th:if="${#lists.size(pullRequests) > 10}"></div>
+                    <div th:insert="~{legend :: legend}" th:if="${#lists.size(pullRequests) > 10}"></div>
                 </div>
             </div>
         </div>

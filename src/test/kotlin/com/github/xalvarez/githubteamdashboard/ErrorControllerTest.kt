@@ -18,8 +18,8 @@ internal class ErrorControllerTest {
 
     @Test
     fun `should build model`() {
-        val response = errorController.configurationError()
-        val model = response.body() as HashMap<*, *>
+        val response = errorController.configurationError().block()
+        val model = response?.body() as HashMap<*, *>
         val errorModel = model["error"] as ErrorModel
 
         assertEquals(response.status, OK)

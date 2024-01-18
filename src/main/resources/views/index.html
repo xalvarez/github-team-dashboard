@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="always :: header"></head>
+<head th:replace="~{always :: header}"></head>
 
 <body>
   <div id="dashboard">
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div th:replace="always :: footer"></div>
+  <div th:replace="~{always :: footer}"></div>
   <script th:src="@{/dashboard.js}"></script>
 </body>
 

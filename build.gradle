@@ -1,5 +1,5 @@
-import static org.gradle.api.JavaVersion.VERSION_17
-import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+import static org.gradle.api.JavaVersion.VERSION_21
+import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
 
 buildscript {
     ext {
@@ -35,6 +35,7 @@ dependencies {
     ksp "io.micronaut.validation:micronaut-validation-processor"
     implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
+    implementation "io.micronaut.reactor:micronaut-reactor"
     implementation "io.micronaut.serde:micronaut-serde-jackson"
     implementation "io.micronaut.validation:micronaut-validation"
     implementation "io.micronaut.views:micronaut-views-thymeleaf"
@@ -55,7 +56,7 @@ application {
     mainClass.set("com.github.xalvarez.githubteamdashboard.ApplicationKt")
 }
 
-java.sourceCompatibility(VERSION_17)
+java.sourceCompatibility(VERSION_21)
 
 allOpen {
     annotation("io.micronaut.context.annotation.Prototype")
@@ -64,18 +65,18 @@ allOpen {
 tasks {
     compileKotlin {
         compilerOptions {
-            jvmTarget = JVM_17
+            jvmTarget = JVM_21
         }
     }
     compileTestKotlin {
         compilerOptions {
-            jvmTarget = JVM_17
+            jvmTarget = JVM_21
         }
     }
 }
 
 dockerfile {
-    baseImage("eclipse-temurin:17.0.8.1_1-jre-alpine")
+    baseImage("eclipse-temurin:21.0.1_12-jre-alpine")
 }
 
 dockerBuild {

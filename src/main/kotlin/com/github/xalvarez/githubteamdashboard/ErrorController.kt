@@ -4,13 +4,14 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Error
 import io.micronaut.views.View
+import reactor.core.publisher.Mono
 
 @Controller
 class ErrorController {
 
     @Error(global = true)
     @View("error")
-    fun configurationError(): HttpResponse<Any> {
+    fun configurationError(): Mono<HttpResponse<Any>> {
         val model = HashMap<String, Any>()
         model["error"] = ErrorModel(
             title = "Configuration error", message = """
@@ -21,6 +22,6 @@ class ErrorController {
         """.trimIndent()
         )
 
-        return HttpResponse.ok(model)
+        return Mono.just(HttpResponse.ok(model))
     }
 }
