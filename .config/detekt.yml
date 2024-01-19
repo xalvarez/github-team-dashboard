@@ -1,0 +1,3 @@
+complexity:
+  LongMethod:
+    excludes: ['**/test/**']

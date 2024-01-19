@@ -7,7 +7,6 @@ import reactor.core.publisher.Mono
 @BearerToken
 @Client("\${github.apiUrl}")
 interface GitHubClient {
-
     @Post
     fun fetchDashboardData(query: String): Mono<GithubDashboardData>
 }

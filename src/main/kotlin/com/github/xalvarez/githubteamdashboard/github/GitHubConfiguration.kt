@@ -8,8 +8,11 @@ import jakarta.validation.constraints.NotEmpty
 @Context
 interface GitHubConfiguration {
     @get:NotEmpty val organization: String
+
     @get:NotEmpty val team: String
+
     @get:NotEmpty val token: String
+
     @get:NotEmpty val userAgent: String
 }
 

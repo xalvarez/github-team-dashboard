@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test
 
 @MicronautTest
 internal class ErrorControllerRestIntegrationTest : RestIntegrationTest() {
-
     @Test
     fun `should show error page if github request fails`() {
         givenUnsuccessfulGitHubRequest()
@@ -31,8 +30,8 @@ internal class ErrorControllerRestIntegrationTest : RestIntegrationTest() {
             post(WireMock.urlPathEqualTo("/graphql")).willReturn(
                 aResponse()
                     .withStatus(UNAUTHORIZED.code)
-                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-            )
+                    .withHeader(CONTENT_TYPE, APPLICATION_JSON),
+            ),
         )
     }
 }

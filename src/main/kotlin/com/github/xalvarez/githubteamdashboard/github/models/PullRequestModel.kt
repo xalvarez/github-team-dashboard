@@ -8,5 +8,5 @@ data class PullRequestModel(
     val title: String,
     val repositoryName: String,
     val state: ReviewState,
-    val checkState: CheckState
+    val checkState: CheckState,
 )

@@ -18,7 +18,6 @@ import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 
 @TestInstance(PER_CLASS)
 open class RestIntegrationTest {
-
     protected val client: HttpClient by lazy { HttpClient.create(server.url) }
 
     @Inject
@@ -48,8 +47,8 @@ open class RestIntegrationTest {
                 aResponse()
                     .withStatus(OK.code)
                     .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                    .withBodyFile(GITHUB_SUCCESSFUL_REQUEST_STUB_FILE)
-            )
+                    .withBodyFile(GITHUB_SUCCESSFUL_REQUEST_STUB_FILE),
+            ),
         )
     }
 }

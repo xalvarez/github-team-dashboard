@@ -3,7 +3,8 @@ bin/
 out/
 .*
 !.gitignore
-!.github/
+!.github
+!.config
 
 # IntelliJ IDEA
 .idea

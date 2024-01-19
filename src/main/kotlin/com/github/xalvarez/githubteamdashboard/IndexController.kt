@@ -24,15 +24,15 @@ import java.time.format.DateTimeFormatter
 
 @Controller
 class IndexController(private val gitHubService: GitHubService) {
-
     @Get
     @View("index")
     fun index(): Mono<HttpResponse<Any>> = Mono.just(HttpResponse.ok())
 
     @Get("/dashboard")
     @View("dashboard")
-    fun dashboard(): Mono<HttpResponse<Any>> = buildDashboardModel()
-        .map { model -> HttpResponse.ok(model) }
+    fun dashboard(): Mono<HttpResponse<Any>> =
+        buildDashboardModel()
+            .map { model -> HttpResponse.ok(model) }
 
     private fun buildDashboardModel(): Mono<Map<String, Any>> =
         gitHubService.fetchDashboardData()
@@ -40,7 +40,7 @@ class IndexController(private val gitHubService: GitHubService) {
                 mapOf(
                     Pair("team", buildTeam(githubDashboardData)),
                     Pair("pullRequests", buildPullRequests(githubDashboardData)),
-                    Pair("securityAlerts", buildSecurityAlerts(githubDashboardData))
+                    Pair("securityAlerts", buildSecurityAlerts(githubDashboardData)),
                 )
             }
 
@@ -63,7 +63,7 @@ class IndexController(private val gitHubService: GitHubService) {
                         it.title,
                         repository.name,
                         toReviewState(it.reviews),
-                        toCheckState(it.isDraft, it.commits.nodes.first().commit)
+                        toCheckState(it.isDraft, it.commits.nodes.first().commit),
                     )
                 }
             }
@@ -79,10 +79,11 @@ class IndexController(private val gitHubService: GitHubService) {
         datetime.withZoneSameInstant(systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     private fun toReviewState(reviews: Review): ReviewState {
-        val state = reviews.nodes
-            .map { it.state }
-            .find { CHANGES_REQUESTED.name == it || APPROVED.name == it }
-            .orEmpty()
+        val state =
+            reviews.nodes
+                .map { it.state }
+                .find { CHANGES_REQUESTED.name == it || APPROVED.name == it }
+                .orEmpty()
 
         return when (state) {
             CHANGES_REQUESTED.name -> CHANGES_REQUESTED
@@ -91,7 +92,10 @@ class IndexController(private val gitHubService: GitHubService) {
         }
     }
 
-    private fun toCheckState(isDraft: Boolean, commit: Commit): CheckState {
+    private fun toCheckState(
+        isDraft: Boolean,
+        commit: Commit,
+    ): CheckState {
         if (isDraft) {
             return CheckState.DRAFT
         }

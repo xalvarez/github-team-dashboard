@@ -43,7 +43,6 @@ import java.time.ZonedDateTime
 @MicronautTest
 @ExtendWith(MockKExtension::class)
 internal class IndexControllerTest {
-
     @InjectMockKs
     lateinit var indexController: IndexController
 
@@ -104,10 +103,11 @@ internal class IndexControllerTest {
         assertEquals(response?.status(), OK)
     }
 
-    private fun givenExpectedTeamModel() = TeamModel(
-        "example_team",
-        listOf(Member("example_team_member_1"))
-    )
+    private fun givenExpectedTeamModel() =
+        TeamModel(
+            "example_team",
+            listOf(Member("example_team_member_1")),
+        )
 
     private fun givenSuccessfulGitHubServiceResponse() {
         every { gitHubService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
@@ -115,49 +115,139 @@ internal class IndexControllerTest {
 
     private fun buildSuccessfulGitHubDashboardData(): Mono<GithubDashboardData> {
         val author = Author("example_team_member_1")
-        val repositories = Repositories(
-            listOf(
-                Repository("example_repo_1", buildPullRequests(
-                    author = author, year = 2010, review = Review(listOf(
-                        ReviewNode(ReviewState.PENDING.name), ReviewNode(ReviewState.APPROVED.name), ReviewNode(
-                            ReviewState.PENDING.name)
-                    )), isDraft = true, commits = Commits(listOf(
-                        CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
-                    ))
-                ), "example1.com", VulnerabilityAlerts(arePresent = false)),
-                Repository("example_repo_2", buildPullRequests(
-                    author = author, year = 2012, review = Review(listOf(ReviewNode(ReviewState.CHANGES_REQUESTED.name)
-                    )), isDraft = false, commits = Commits(listOf(
-                        CommitNode(Commit(null))
-                    ))
-                ), "example2.com", VulnerabilityAlerts(arePresent = true)),
-                Repository("example_repo_3", buildPullRequests(author, 2008,
-                    isDraft = false, commits = Commits(listOf(
-                    CommitNode(Commit(CommitStatusCheckState("FAILURE")))
-                ))),
-                    "example3.com", VulnerabilityAlerts(arePresent = false)),
-                Repository("example_repo_4", buildPullRequests(author, 2013,
-                    isDraft = false, commits = Commits(listOf(
-                        CommitNode(Commit(CommitStatusCheckState("EXPECTED")))
-                    ))),
-                    "example4.com", VulnerabilityAlerts(arePresent = false)),
-                Repository("example_repo_5", buildPullRequests(author, 2014,
-                    isDraft = false, commits = Commits(listOf(
-                        CommitNode(Commit(CommitStatusCheckState("PENDING")))
-                    ))),
-                    "example5.com", VulnerabilityAlerts(arePresent = false)),
-                Repository("example_repo_6", buildPullRequests(author, 2015,
-                    isDraft = false, commits = Commits(listOf(
-                        CommitNode(Commit(CommitStatusCheckState("SUCCESS")))
-                    ))),
-                    "example6.com", VulnerabilityAlerts(arePresent = false)),
-                Repository("example_repo_7", buildPullRequests(author, 2016,
-                    isDraft = false, commits = Commits(listOf(
-                        CommitNode(Commit(CommitStatusCheckState("UNEXPECTED_STATE")))
-                    ))),
-                    "example7.com", VulnerabilityAlerts(arePresent = false))
+        val repositories =
+            Repositories(
+                listOf(
+                    Repository(
+                        "example_repo_1",
+                        buildPullRequests(
+                            author = author,
+                            year = 2010,
+                            review =
+                                Review(
+                                    listOf(
+                                        ReviewNode(ReviewState.PENDING.name),
+                                        ReviewNode(ReviewState.APPROVED.name),
+                                        ReviewNode(
+                                            ReviewState.PENDING.name,
+                                        ),
+                                    ),
+                                ),
+                            isDraft = true,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("SUCCESS"))),
+                                    ),
+                                ),
+                        ),
+                        "example1.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                    Repository(
+                        "example_repo_2",
+                        buildPullRequests(
+                            author = author,
+                            year = 2012,
+                            review =
+                                Review(
+                                    listOf(
+                                        ReviewNode(ReviewState.CHANGES_REQUESTED.name),
+                                    ),
+                                ),
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(null)),
+                                    ),
+                                ),
+                        ),
+                        "example2.com",
+                        VulnerabilityAlerts(arePresent = true),
+                    ),
+                    Repository(
+                        "example_repo_3",
+                        buildPullRequests(
+                            author,
+                            2008,
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("FAILURE"))),
+                                    ),
+                                ),
+                        ),
+                        "example3.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                    Repository(
+                        "example_repo_4",
+                        buildPullRequests(
+                            author,
+                            2013,
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("EXPECTED"))),
+                                    ),
+                                ),
+                        ),
+                        "example4.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                    Repository(
+                        "example_repo_5",
+                        buildPullRequests(
+                            author,
+                            2014,
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("PENDING"))),
+                                    ),
+                                ),
+                        ),
+                        "example5.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                    Repository(
+                        "example_repo_6",
+                        buildPullRequests(
+                            author,
+                            2015,
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("SUCCESS"))),
+                                    ),
+                                ),
+                        ),
+                        "example6.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                    Repository(
+                        "example_repo_7",
+                        buildPullRequests(
+                            author,
+                            2016,
+                            isDraft = false,
+                            commits =
+                                Commits(
+                                    listOf(
+                                        CommitNode(Commit(CommitStatusCheckState("UNEXPECTED_STATE"))),
+                                    ),
+                                ),
+                        ),
+                        "example7.com",
+                        VulnerabilityAlerts(arePresent = false),
+                    ),
+                ),
             )
-        )
 
         val members = Members(listOf(MembersNode("example_team_member_1")))
         val team = Team("example_team", members, repositories)
@@ -170,23 +260,22 @@ internal class IndexControllerTest {
         year: Int,
         review: Review = Review(emptyList()),
         isDraft: Boolean,
-        commits: Commits
+        commits: Commits,
     ) = PullRequests(
-            listOf(
-                PullRequestNode(
-                    "https://example.com/1",
-                    createZonedDateTime(year),
-                    author,
-                    "Add cool feature",
-                    review,
-                    isDraft,
-                    commits
-                )
-            )
-        )
+        listOf(
+            PullRequestNode(
+                "https://example.com/1",
+                createZonedDateTime(year),
+                author,
+                "Add cool feature",
+                review,
+                isDraft,
+                commits,
+            ),
+        ),
+    )
 
-    private fun createZonedDateTime(year: Int) =
-        ZonedDateTime.of(year, 1, 1, 1, 1, 1, 0, systemDefault())
+    private fun createZonedDateTime(year: Int) = ZonedDateTime.of(year, 1, 1, 1, 1, 1, 0, systemDefault())
 
     @MockBean
     fun gitHubService() = gitHubService
