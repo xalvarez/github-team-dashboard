@@ -6,60 +6,61 @@ import java.time.ZonedDateTime
 
 @Serdeable
 data class GithubDashboardData(
-    val data: Data
+    val data: Data,
 )
 
 @Serdeable
 data class Data(
-    val organization: Organization
+    val organization: Organization,
 )
 
 @Serdeable
 data class Organization(
-    val team: Team
+    val team: Team,
 )
 
 @Serdeable
 data class Team(
     val name: String,
     val members: Members,
-    val repositories: Repositories
+    val repositories: Repositories,
 )
 
 @Serdeable
 data class Members(
-    val nodes: List<MembersNode>
+    val nodes: List<MembersNode>,
 )
 
 @Serdeable
 data class MembersNode(
-    val login: String
+    val login: String,
 )
 
 @Serdeable
 data class Repositories(
-    val nodes: List<Repository>
+    val nodes: List<Repository>,
 )
+
 @Serdeable
 data class Repository(
     val name: String,
     val pullRequests: PullRequests,
     val url: String,
-    val vulnerabilityAlerts: VulnerabilityAlerts
+    val vulnerabilityAlerts: VulnerabilityAlerts,
 ) {
-    val alertsUrl: String by lazy { url +  ALERTS_URL_SUFFIX }
+    val alertsUrl: String by lazy { url + ALERTS_URL_SUFFIX }
 }
 
 @Serdeable
 data class VulnerabilityAlerts(
     @JsonProperty("totalCount")
     @Serdeable.Deserializable(using = TotalCountSerde::class)
-    val arePresent: Boolean
+    val arePresent: Boolean,
 )
 
 @Serdeable
 data class PullRequests(
-    val nodes: List<PullRequestNode>
+    val nodes: List<PullRequestNode>,
 )
 
 @Serdeable
@@ -70,41 +71,42 @@ data class PullRequestNode(
     val title: String,
     val reviews: Review,
     val isDraft: Boolean,
-    val commits: Commits
+    val commits: Commits,
 )
 
 @Serdeable
 data class Author(
-    val login: String
+    val login: String,
 )
 
 @Serdeable
 data class Review(
-    val nodes: List<ReviewNode>
+    val nodes: List<ReviewNode>,
 )
 
 @Serdeable
 data class ReviewNode(
-    val state: String
+    val state: String,
 )
 
 @Serdeable
 data class Commits(
-     val nodes: List<CommitNode>
+    val nodes: List<CommitNode>,
 )
 
 @Serdeable
 data class CommitNode(
-      val commit: Commit
+    val commit: Commit,
 )
+
 @Serdeable
 data class Commit(
-      val statusCheckRollup: CommitStatusCheckState?
+    val statusCheckRollup: CommitStatusCheckState?,
 )
 
 @Serdeable
 data class CommitStatusCheckState(
-      val state: String
+    val state: String,
 )
 
 const val ALERTS_URL_SUFFIX = "/network/alerts"

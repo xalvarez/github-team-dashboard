@@ -15,6 +15,7 @@ plugins {
     id "io.micronaut.application" version "$micronautVersion"
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id "io.gitlab.arturbosch.detekt" version "1.23.4"
+    id "org.jlleitschuh.gradle.ktlint" version "12.1.0"
 }
 
 repositories {
@@ -73,6 +74,11 @@ tasks {
             jvmTarget = JVM_21
         }
     }
+}
+
+detekt {
+    config.setFrom(".config/detekt.yml")
+    buildUponDefaultConfig = true
 }
 
 dockerfile {

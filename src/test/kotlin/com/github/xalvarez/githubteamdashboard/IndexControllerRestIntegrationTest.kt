@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 
 @MicronautTest
 internal class IndexControllerRestIntegrationTest : RestIntegrationTest() {
-
     @Test
     fun `should build index`() {
         givenSuccessfulGitHubRequest()

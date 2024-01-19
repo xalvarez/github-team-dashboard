@@ -18,7 +18,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 internal class TotalCountSerdeTest {
-
     @InjectMockKs
     lateinit var totalCountSerde: TotalCountSerde
 

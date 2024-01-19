@@ -5,11 +5,10 @@ import reactor.core.publisher.Mono
 
 @Prototype
 class GitHubService(private val gitHubClient: GitHubClient, private val gitHubConfiguration: GitHubConfiguration) {
+    fun fetchDashboardData(): Mono<GithubDashboardData> = gitHubClient.fetchDashboardData(buildQuery())
 
-    fun fetchDashboardData(): Mono<GithubDashboardData> =
-        gitHubClient.fetchDashboardData(buildQuery())
-
-    private fun buildQuery() = """
+    private fun buildQuery() =
+        """
         {
           organization(login: "${gitHubConfiguration.organization}") {
             team(slug: "${gitHubConfiguration.team}") {
@@ -56,5 +55,5 @@ class GitHubService(private val gitHubClient: GitHubClient, private val gitHubCo
             }
           }
         }
-    """.trimIndent()
+        """.trimIndent()
 }

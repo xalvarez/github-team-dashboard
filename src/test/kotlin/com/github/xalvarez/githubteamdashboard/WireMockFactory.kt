@@ -8,16 +8,16 @@ import jakarta.inject.Singleton
 
 @Factory
 class WireMockFactory {
-
     @Value("\${wiremock.port}")
     private lateinit var wireMockPort: String
 
     @Singleton
     fun wireMockServer(): WireMockServer {
-        val wireMockConfiguration = WireMockConfiguration
-            .options()
-            .port(wireMockPort.toInt())
-            .usingFilesUnderClasspath(WIREMOCK_CLASSPATH)
+        val wireMockConfiguration =
+            WireMockConfiguration
+                .options()
+                .port(wireMockPort.toInt())
+                .usingFilesUnderClasspath(WIREMOCK_CLASSPATH)
 
         return WireMockServer(wireMockConfiguration)
     }

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 @MicronautTest
 @ExtendWith(MockKExtension::class)
 internal class ErrorControllerTest {
-
     @InjectMockKs
     lateinit var errorController: ErrorController
 

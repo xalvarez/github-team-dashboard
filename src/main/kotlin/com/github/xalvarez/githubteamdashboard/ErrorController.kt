@@ -8,19 +8,21 @@ import reactor.core.publisher.Mono
 
 @Controller
 class ErrorController {
-
     @Error(global = true)
     @View("error")
     fun configurationError(): Mono<HttpResponse<Any>> {
         val model = HashMap<String, Any>()
-        model["error"] = ErrorModel(
-            title = "Configuration error", message = """
-            Please have a look at the project's
-            <a href="https://github.com/xalvarez/github-team-dashboard/blob/master/README.md" target="_blank">README</a>
-            file or <a href="https://github.com/xalvarez/github-team-dashboard/issues" target="_blank">write an
-            issue</a> if you found a bug.
-        """.trimIndent()
-        )
+        model["error"] =
+            ErrorModel(
+                title = "Configuration error",
+                message =
+                    """
+                    Please have a look at the project's
+                    <a href="https://github.com/xalvarez/github-team-dashboard/blob/master/README.md" target="_blank">README</a>
+                    file or <a href="https://github.com/xalvarez/github-team-dashboard/issues" target="_blank">write an
+                    issue</a> if you found a bug.
+                    """.trimIndent(),
+            )
 
         return Mono.just(HttpResponse.ok(model))
     }

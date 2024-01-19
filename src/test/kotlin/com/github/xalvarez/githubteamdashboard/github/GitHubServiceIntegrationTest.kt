@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 
 @MicronautTest
 internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
-
     @Inject
     private lateinit var gitHubService: GitHubService
 
@@ -31,16 +30,17 @@ internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
             { assertTrue { repositories?.all { it.alertsUrl.isNotEmpty() } ?: false } },
             { assertNotNull(repositories?.all { it.vulnerabilityAlerts.arePresent }) },
             { assertNotNull(repositories?.map { it.pullRequests.nodes }) },
-            { assertTrue {
-                repositories
-                    ?.filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
-                    ?.all { repository ->
-                        repository.pullRequests.nodes.all {
-                            it.url.isNotEmpty() && it.author.login.isNotEmpty() && it.title.isNotEmpty()
-                        }
-                    } ?: false
-            } }
+            {
+                assertTrue {
+                    repositories
+                        ?.filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
+                        ?.all { repository ->
+                            repository.pullRequests.nodes.all {
+                                it.url.isNotEmpty() && it.author.login.isNotEmpty() && it.title.isNotEmpty()
+                            }
+                        } ?: false
+                }
+            },
         )
     }
-
 }
