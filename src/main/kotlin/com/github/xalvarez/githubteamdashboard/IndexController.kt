@@ -35,7 +35,7 @@ class IndexController(private val gitHubService: GitHubService) {
         .map { model -> HttpResponse.ok(model) }
 
     private fun buildDashboardModel(): Mono<Map<String, Any>> =
-        Mono.from(gitHubService.fetchDashboardData())
+        gitHubService.fetchDashboardData()
             .map { githubDashboardData ->
                 mapOf(
                     Pair("team", buildTeam(githubDashboardData)),
