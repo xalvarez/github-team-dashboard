@@ -7,7 +7,6 @@ import com.github.xalvarez.githubteamdashboard.github.Review
 import com.github.xalvarez.githubteamdashboard.github.models.CheckState
 import com.github.xalvarez.githubteamdashboard.github.models.Member
 import com.github.xalvarez.githubteamdashboard.github.models.PullRequestModel
-import com.github.xalvarez.githubteamdashboard.github.models.ReviewState
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.APPROVED
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.CHANGES_REQUESTED
 import com.github.xalvarez.githubteamdashboard.github.models.ReviewState.PENDING
@@ -30,17 +29,15 @@ class IndexController(private val gitHubService: GitHubService) {
 
     @Get("/dashboard")
     @View("dashboard")
-    fun dashboard(): Mono<HttpResponse<Any>> =
-        buildDashboardModel()
-            .map { model -> HttpResponse.ok(model) }
+    fun dashboard(): Mono<HttpResponse<Any>> = buildDashboardModel().map { HttpResponse.ok(it) }
 
-    private fun buildDashboardModel(): Mono<Map<String, Any>> =
+    private fun buildDashboardModel() =
         gitHubService.fetchDashboardData()
             .map { githubDashboardData ->
                 mapOf(
-                    Pair("team", buildTeam(githubDashboardData)),
-                    Pair("pullRequests", buildPullRequests(githubDashboardData)),
-                    Pair("securityAlerts", buildSecurityAlerts(githubDashboardData)),
+                    "team" to buildTeam(githubDashboardData),
+                    "pullRequests" to buildPullRequests(githubDashboardData),
+                    "securityAlerts" to buildSecurityAlerts(githubDashboardData),
                 )
             }
 
@@ -52,7 +49,7 @@ class IndexController(private val gitHubService: GitHubService) {
 
     private fun buildPullRequests(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.repositories.nodes
-            .filterNot { repository -> repository.pullRequests.nodes.isEmpty() }
+            .filterNot { it.pullRequests.nodes.isEmpty() }
             .flatMap { repository ->
                 repository.pullRequests.nodes.map {
                     PullRequestModel(
@@ -78,29 +75,20 @@ class IndexController(private val gitHubService: GitHubService) {
     private fun toHumanReadableDatetime(datetime: ZonedDateTime) =
         datetime.withZoneSameInstant(systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    private fun toReviewState(reviews: Review): ReviewState {
-        val state =
-            reviews.nodes
-                .map { it.state }
-                .find { CHANGES_REQUESTED.name == it || APPROVED.name == it }
-                .orEmpty()
-
-        return when (state) {
+    private fun toReviewState(reviews: Review) =
+        when (reviews.nodes.map { it.state }.find { it in listOf(CHANGES_REQUESTED.name, APPROVED.name) }) {
             CHANGES_REQUESTED.name -> CHANGES_REQUESTED
             APPROVED.name -> APPROVED
             else -> PENDING
         }
-    }
 
     private fun toCheckState(
         isDraft: Boolean,
         commit: Commit,
-    ): CheckState {
-        if (isDraft) {
-            return CheckState.DRAFT
-        }
-
-        return when (commit.statusCheckRollup?.state) {
+    ) = if (isDraft) {
+        CheckState.DRAFT
+    } else {
+        when (commit.statusCheckRollup?.state) {
             CheckState.ERROR.name -> CheckState.ERROR
             CheckState.EXPECTED.name -> CheckState.EXPECTED
             CheckState.FAILURE.name -> CheckState.FAILURE
