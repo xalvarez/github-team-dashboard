@@ -94,6 +94,8 @@ internal class IndexControllerTest {
         assertEquals(securityAlerts.size, 1)
         assertEquals((securityAlerts[0] as SecurityAlert).repository, "example_repo_2")
         assertEquals((securityAlerts[0] as SecurityAlert).url, "example2.com/network/alerts")
+        assertTrue { (model["authors"] as List<*>).size == 1 }
+        assertTrue { (model["authors"] as List<*>).contains("example_team_member_1") }
     }
 
     @Test

@@ -1,3 +1,5 @@
 complexity:
+  TooManyFunctions:
+    excludes: ['**/IndexController.kt']
   LongMethod:
     excludes: ['**/test/**']

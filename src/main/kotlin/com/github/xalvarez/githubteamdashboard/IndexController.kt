@@ -37,6 +37,7 @@ class IndexController(private val gitHubService: GitHubService) {
                 mapOf(
                     "team" to buildTeam(githubDashboardData),
                     "pullRequests" to buildPullRequests(githubDashboardData),
+                    "authors" to buildAuthors(githubDashboardData),
                     "securityAlerts" to buildSecurityAlerts(githubDashboardData),
                 )
             }
@@ -65,6 +66,13 @@ class IndexController(private val gitHubService: GitHubService) {
                 }
             }
             .sortedBy { it.createdAt }
+
+    private fun buildAuthors(githubDashboardData: GithubDashboardData) =
+        githubDashboardData.data.organization.team.repositories.nodes
+            .flatMap { repository ->
+                repository.pullRequests.nodes.map { it.author.login }
+            }
+            .distinct()
 
     private fun buildSecurityAlerts(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.repositories.nodes
