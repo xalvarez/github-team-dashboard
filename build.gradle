@@ -82,7 +82,7 @@ detekt {
 }
 
 dockerfile {
-    baseImage("eclipse-temurin:21.0.1_12-jre-alpine")
+    baseImage("eclipse-temurin:21-jre-alpine")
 }
 
 dockerBuild {
