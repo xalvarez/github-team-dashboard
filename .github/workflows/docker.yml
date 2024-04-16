@@ -3,6 +3,9 @@ name: Publish docker image
 on:
   workflow_dispatch:
 
+concurrency:
+  group: docker
+
 jobs:
   docker:
     runs-on: ubuntu-latest
