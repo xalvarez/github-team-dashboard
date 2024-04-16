@@ -50,11 +50,29 @@
                                 <th class="border-bottom" scope="col">#</th>
                                 <th class="border-bottom" scope="col">Review</th>
                                 <th class="border-bottom" scope="col">Repository</th>
-                                <th class="border-bottom" scope="col">Author</th>
+                                <th class="border-bottom dropdown" scope="col">
+                                    <a class="dropdown-toggle text-decoration-none" href="#" role="button" id="authorDropdownLink" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        Author
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="authorDropdownLink">
+                                        <li>
+                                            <label class="form-check form-check-inline d-flex align-items-center">
+                                                <input class="form-check-input me-1" type="checkbox" value="all" onchange="filterRows(this)" checked>
+                                                <span>All</span>
+                                            </label>
+                                            <th:block th:each="author : ${authors}">
+                                                <label class="form-check form-check-inline d-flex align-items-center">
+                                                    <input class="form-check-input me-1" type="checkbox" th:value="${author}" onchange="filterRows(this)" data-author="${author}" checked>
+                                                    <span th:text="${author}"></span>
+                                                </label>
+                                            </th:block>
+                                        </li>
+                                    </ul>
+                                </th>
                                 <th class="border-bottom" scope="col">Title</th>
                                 <th class="border-bottom" scope="col">Creation Date</th>
                             </tr>
-                            <tr th:each="pullRequest,iterStat : ${pullRequests}">
+                            <tr th:each="pullRequest,iterStat : ${pullRequests}" th:data-author="${pullRequest.author}">
                             <th:block th:switch="${pullRequest.checkState.name}">
                                 <td th:case="'NONE'" class="fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
                                 <td th:case="'DRAFT'" class="table-secondary fw-bold" scope="row" th:text="${iterStat.index + 1}"></td>
@@ -74,6 +92,9 @@
                                 <td th:text="${pullRequest.createdAt}"></td>
                             </tr>
                         </table>
+                        <p id="no-authors-selected" style="display: none;">
+                            <span>No authors selected. Please select at least one author.</span>
+                        </p>
                     </div>
                     <div th:insert="~{legend :: legend}" th:if="${#lists.size(pullRequests) > 10}"></div>
                 </div>
