@@ -1,12 +1,17 @@
 version: 2
 updates:
-- package-ecosystem: gradle
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: daily
+    groups:
+      kotlin:
+        patterns:
+          - "com.google.devtools.ksp"
+          - "io.gitlab.arturbosch.detekt"
+          - "org.jetbrains.kotlin:*"
+          - "org.jlleitschuh.gradle.ktlint"
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
