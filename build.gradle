@@ -3,7 +3,7 @@ import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
 
 buildscript {
     ext {
-        kotlinVersion = '1.9.24'
+        kotlinVersion = '2.0.0'
         micronautVersion = '4.3.8'
     }
 }
@@ -11,7 +11,7 @@ buildscript {
 plugins {
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
-    id "com.google.devtools.ksp" version "1.9.24-1.0.20"
+    id "com.google.devtools.ksp" version "2.0.0-1.0.21"
     id "io.micronaut.application" version "4.4.0"
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id "io.gitlab.arturbosch.detekt" version "1.23.6"
