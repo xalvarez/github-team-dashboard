@@ -27,9 +27,10 @@ internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
         assertAll(
             { assertNotNull(team?.name) },
             { assertTrue { members?.all { it.login.isNotEmpty() } ?: false } },
-            { assertTrue { repositories!!.size == 6 } },
+            { assertTrue { repositories?.size == 5 } },
             { assertTrue { repositories?.all { it.name.isNotEmpty() } ?: false } },
             { assertTrue { repositories?.all { it.url.isNotEmpty() } ?: false } },
+            { assertTrue { repositories?.all { !it.isArchived } ?: false } },
             { assertTrue { repositories?.all { it.alertsUrl.isNotEmpty() } ?: false } },
             { assertNotNull(repositories?.all { it.vulnerabilityAlerts.arePresent }) },
             { assertNotNull(repositories?.map { it.pullRequests.nodes }) },
@@ -44,8 +45,8 @@ internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
                         } ?: false
                 }
             },
-            { assertTrue { repositoriesPageInfo!!.endCursor.isEmpty() } },
-            { assertFalse { repositoriesPageInfo!!.hasNextPage } },
+            { assertTrue { repositoriesPageInfo?.endCursor?.isEmpty() ?: false } },
+            { assertFalse { repositoriesPageInfo?.hasNextPage ?: false } },
         )
     }
 
@@ -62,6 +63,6 @@ internal class GitHubServiceIntegrationTest : RestIntegrationTest() {
                 ?.repositories
                 ?.nodes
 
-        assertTrue { repositories!!.size == 12 }
+        assertTrue { repositories?.size == 10 }
     }
 }

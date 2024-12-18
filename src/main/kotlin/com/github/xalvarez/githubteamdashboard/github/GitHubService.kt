@@ -25,6 +25,7 @@ class GitHubService(
 
                 Flux
                     .concat(Flux.fromIterable(initialRepositories), additionalRepositoriesFlux)
+                    .filter { !it.isArchived }
                     .collectList()
                     .map { allRepositories ->
                         GithubDashboardData(
@@ -80,6 +81,7 @@ class GitHubService(
                     nodes {
                       name
                       url
+                      isArchived
                       vulnerabilityAlerts(first: 1, states: [OPEN]) {
                         totalCount
                       }
