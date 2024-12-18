@@ -145,6 +145,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example1.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                     Repository(
@@ -167,6 +168,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example2.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = true),
                     ),
                     Repository(
@@ -183,6 +185,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example3.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                     Repository(
@@ -199,6 +202,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example4.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                     Repository(
@@ -215,6 +219,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example5.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                     Repository(
@@ -231,6 +236,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example6.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                     Repository(
@@ -247,6 +253,7 @@ internal class IndexControllerTest {
                                 ),
                         ),
                         "example7.com",
+                        isArchived = false,
                         VulnerabilityAlerts(arePresent = false),
                     ),
                 ),

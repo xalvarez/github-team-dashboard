@@ -47,6 +47,7 @@ data class Repository(
     val name: String,
     val pullRequests: PullRequests,
     val url: String,
+    val isArchived: Boolean,
     val vulnerabilityAlerts: VulnerabilityAlerts,
 ) {
     val alertsUrl: String by lazy { url + ALERTS_URL_SUFFIX }
