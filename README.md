@@ -39,7 +39,7 @@ E.g.:
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
         --name github-team-dashboard \
-        ghcr.io/xalvarez/github-team-dashboard:4.5.0
+        ghcr.io/xalvarez/github-team-dashboard:4.6.0
 
 The application will then be available under [http://localhost:8080](http://localhost:8080).
 
