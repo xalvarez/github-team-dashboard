@@ -39,6 +39,7 @@ data class MembersNode(
 @Serdeable
 data class Repositories(
     val nodes: List<Repository>,
+    val pageInfo: PageInfo,
 )
 
 @Serdeable
@@ -107,6 +108,12 @@ data class Commit(
 @Serdeable
 data class CommitStatusCheckState(
     val state: String,
+)
+
+@Serdeable
+data class PageInfo(
+    val endCursor: String,
+    val hasNextPage: Boolean,
 )
 
 const val ALERTS_URL_SUFFIX = "/network/alerts"

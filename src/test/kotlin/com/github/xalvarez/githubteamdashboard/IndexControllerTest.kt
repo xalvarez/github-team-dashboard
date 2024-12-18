@@ -11,6 +11,7 @@ import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Members
 import com.github.xalvarez.githubteamdashboard.github.MembersNode
 import com.github.xalvarez.githubteamdashboard.github.Organization
+import com.github.xalvarez.githubteamdashboard.github.PageInfo
 import com.github.xalvarez.githubteamdashboard.github.PullRequestNode
 import com.github.xalvarez.githubteamdashboard.github.PullRequests
 import com.github.xalvarez.githubteamdashboard.github.Repositories
@@ -249,6 +250,7 @@ internal class IndexControllerTest {
                         VulnerabilityAlerts(arePresent = false),
                     ),
                 ),
+                pageInfo = PageInfo("", false),
             )
 
         val members = Members(listOf(MembersNode("example_team_member_1")))

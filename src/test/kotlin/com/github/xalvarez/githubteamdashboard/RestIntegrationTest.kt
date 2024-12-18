@@ -2,6 +2,7 @@ package com.github.xalvarez.githubteamdashboard
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.containing
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import io.micronaut.http.HttpHeaders.CONTENT_TYPE
@@ -51,6 +52,27 @@ open class RestIntegrationTest {
             ),
         )
     }
+
+    protected fun givenPaginatedGitHubRequest() {
+        wireMockServer.stubFor(
+            post(urlPathEqualTo("/graphql")).willReturn(
+                aResponse()
+                    .withStatus(OK.code)
+                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+                    .withBodyFile(GITHUB_SUCCESSFUL_FIRST_PAGE_REQUEST_STUB_FILE),
+            ),
+        )
+        wireMockServer.stubFor(
+            post(urlPathEqualTo("/graphql")).withRequestBody(containing("0123456789")).willReturn(
+                aResponse()
+                    .withStatus(OK.code)
+                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+                    .withBodyFile(GITHUB_SUCCESSFUL_SECOND_PAGE_REQUEST_STUB_FILE),
+            ),
+        )
+    }
 }
 
 private const val GITHUB_SUCCESSFUL_REQUEST_STUB_FILE = "post_github_successful.json"
+private const val GITHUB_SUCCESSFUL_FIRST_PAGE_REQUEST_STUB_FILE = "post_github_successful_first_page.json"
+private const val GITHUB_SUCCESSFUL_SECOND_PAGE_REQUEST_STUB_FILE = "post_github_successful_second_page.json"

@@ -155,7 +155,7 @@
           ],
           "pageInfo": {
             "endCursor": "0123456789",
-            "hasNextPage": false
+            "hasNextPage": true
           }
         }
       }
