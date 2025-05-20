@@ -6,7 +6,9 @@ import io.micronaut.serde.Deserializer
 import io.micronaut.serde.Encoder
 import io.micronaut.serde.Serde
 import io.micronaut.serde.Serializer
+import jakarta.inject.Singleton
 
+@Singleton
 class TotalCountSerde : Serde<Boolean> {
     @Suppress("EmptyFunctionBlock")
     override fun serialize(
