@@ -7,10 +7,11 @@ updates:
     groups:
       kotlin:
         patterns:
-          - "com.google.devtools.ksp"
           - "io.gitlab.arturbosch.detekt"
-          - "org.jetbrains.kotlin:*"
           - "org.jlleitschuh.gradle.ktlint"
+    ignore:
+      - dependency-name: "org.jetbrains.kotlin:*"
+      - dependency-name: "com.google.devtools.ksp"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
