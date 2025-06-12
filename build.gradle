@@ -43,7 +43,7 @@ dependencies {
     runtimeOnly "org.webjars:popper.js:2.11.7"
 
     testImplementation "io.mockk:mockk:1.14.2"
-    testImplementation "org.wiremock:wiremock-jetty12:3.13.0"
+    testImplementation "org.wiremock:wiremock-jetty12:3.13.1"
 }
 
 micronaut {
