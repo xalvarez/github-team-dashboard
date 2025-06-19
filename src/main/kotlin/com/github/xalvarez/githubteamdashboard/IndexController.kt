@@ -22,7 +22,9 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Controller
-class IndexController(private val gitHubService: GitHubService) {
+class IndexController(
+    private val gitHubService: GitHubService,
+) {
     @Get
     @View("index")
     fun index(): Mono<HttpResponse<Any>> = Mono.just(HttpResponse.ok())
@@ -32,7 +34,8 @@ class IndexController(private val gitHubService: GitHubService) {
     fun dashboard(): Mono<HttpResponse<Any>> = buildDashboardModel().map { HttpResponse.ok(it) }
 
     private fun buildDashboardModel() =
-        gitHubService.fetchDashboardData()
+        gitHubService
+            .fetchDashboardData()
             .map { githubDashboardData ->
                 mapOf(
                     "team" to buildTeam(githubDashboardData),
@@ -46,7 +49,8 @@ class IndexController(private val gitHubService: GitHubService) {
         TeamModel(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))
 
     private fun buildMembers(githubDashboardData: GithubDashboardData) =
-        githubDashboardData.data.organization.team.members.nodes.map { Member(it.login) }
+        githubDashboardData.data.organization.team.members.nodes
+            .map { Member(it.login) }
 
     private fun buildPullRequests(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.repositories.nodes
@@ -61,18 +65,21 @@ class IndexController(private val gitHubService: GitHubService) {
                         it.title,
                         repository.name,
                         toReviewState(it.reviews),
-                        toCheckState(it.isDraft, it.commits.nodes.first().commit),
+                        toCheckState(
+                            it.isDraft,
+                            it.commits.nodes
+                                .first()
+                                .commit,
+                        ),
                     )
                 }
-            }
-            .sortedBy { it.createdAt }
+            }.sortedBy { it.createdAt }
 
     private fun buildAuthors(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.repositories.nodes
             .flatMap { repository ->
                 repository.pullRequests.nodes.map { it.author.login }
-            }
-            .distinct()
+            }.distinct()
 
     private fun buildSecurityAlerts(githubDashboardData: GithubDashboardData) =
         githubDashboardData.data.organization.team.repositories.nodes

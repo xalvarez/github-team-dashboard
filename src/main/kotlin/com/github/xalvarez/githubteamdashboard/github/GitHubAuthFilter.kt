@@ -9,7 +9,9 @@ import org.reactivestreams.Publisher
 
 @BearerToken
 @Singleton
-internal class GitHubAuthFilter(private val gitHubConfiguration: GitHubConfiguration) : HttpClientFilter {
+internal class GitHubAuthFilter(
+    private val gitHubConfiguration: GitHubConfiguration,
+) : HttpClientFilter {
     override fun doFilter(
         request: MutableHttpRequest<*>,
         chain: ClientFilterChain,
