@@ -1,10 +1,12 @@
-build/
 bin/
+build/
+node_modules
 out/
 .*
-!.gitignore
-!.github
 !.config
+!.github
+!.gitignore
+!.vscode
 
 # IntelliJ IDEA
 .idea
