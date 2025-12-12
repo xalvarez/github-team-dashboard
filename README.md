@@ -9,10 +9,14 @@ Example screenshot:
 ## Running the application
 
 In order to use this application you need to generate a GitHub personal access token in
-GitHub's settings menu, under _Developer settings_. The token requires these permissions:
+GitHub's settings menu, under _Developer settings_, _Fine-grained tokens_. The token requires these permissions:
 
-* All permissions under _repo_ including itself.
-* _read:org_
+* Organization permissions:
+  * Read access to **Members**
+* Repository permissions:
+  * Read access to **Commit statuses**
+  * Read access to **Contents**
+  * Read access to **Pull requests**
 
 Make sure you store this token somewhere, as you can only see it once.
 
