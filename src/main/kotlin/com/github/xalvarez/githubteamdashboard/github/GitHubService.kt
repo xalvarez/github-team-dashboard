@@ -1,6 +1,7 @@
 package com.github.xalvarez.githubteamdashboard.github
 
 import io.micronaut.context.annotation.Prototype
+import org.slf4j.LoggerFactory
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -9,9 +10,12 @@ class GitHubService(
     private val gitHubClient: GitHubClient,
     private val gitHubConfiguration: GitHubConfiguration,
 ) {
+    private val logger = LoggerFactory.getLogger(GitHubService::class.java)
+
     fun fetchDashboardData(): Mono<GithubDashboardData> =
         gitHubClient
             .fetchDashboardData(buildQuery(""))
+            .doOnError { error -> logger.error("Error fetching data from GitHub: ${error.message}") }
             .flatMap { response ->
                 val organization = response.data.organization
                 val initialRepositories = organization.team.repositories.nodes
@@ -72,12 +76,12 @@ class GitHubService(
               organization(login: "${gitHubConfiguration.organization}") {
                 team(slug: "${gitHubConfiguration.team}") {
                   name
-                  members(first: 100, orderBy: { field: LOGIN, direction: ASC }) {
+                  members(first: 50, orderBy: { field: LOGIN, direction: ASC }) {
                     nodes {
                       login
                     }
                   }
-                  repositories(first: 100, orderBy: { field: NAME, direction: ASC }, after: $afterClause) {
+                  repositories(first: 40, orderBy: { field: NAME, direction: ASC }, after: $afterClause) {
                     nodes {
                       name
                       url
