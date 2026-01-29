@@ -1,3 +1,5 @@
+import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+
 plugins {
     id "com.google.devtools.ksp" version "2.1.20-1.0.32"
     id "com.gradleup.shadow" version "9.3.1"
@@ -33,7 +35,7 @@ dependencies {
     runtimeOnly "org.webjars:popper.js:2.11.7"
 
     testImplementation "io.mockk:mockk:1.14.9"
-    testImplementation "org.wiremock:wiremock-jetty12:3.13.2"
+    testImplementation "org.wiremock:wiremock-standalone:3.13.2"
 }
 
 micronaut {
@@ -51,6 +53,19 @@ application {
 
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
+}
+
+tasks {
+    compileKotlin {
+        compilerOptions {
+            jvmTarget = JVM_21
+        }
+    }
+    compileTestKotlin {
+        compilerOptions {
+            jvmTarget = JVM_21
+        }
+    }
 }
 
 allOpen {
