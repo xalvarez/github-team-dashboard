@@ -1,7 +1,7 @@
 import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
 
 plugins {
-    id "com.google.devtools.ksp" version "2.1.20-1.0.32"
+    id "com.google.devtools.ksp" version "2.3.0"
     id "com.gradleup.shadow" version "9.3.1"
     id "io.gitlab.arturbosch.detekt" version "1.23.8"
     id "io.micronaut.application" version "4.6.1"
