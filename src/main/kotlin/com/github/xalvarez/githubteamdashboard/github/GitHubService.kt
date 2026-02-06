@@ -89,7 +89,7 @@ class GitHubService(
                       vulnerabilityAlerts(first: 1, states: [OPEN]) {
                         totalCount
                       }
-                      pullRequests(states: [OPEN], first: 100) {
+                      pullRequests(states: [OPEN], first: 20, orderBy: { field: CREATED_AT, direction: ASC }) {
                         nodes {
                           url
                           createdAt
