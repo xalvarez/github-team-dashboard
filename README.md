@@ -16,6 +16,7 @@ GitHub's settings menu, under _Developer settings_, _Fine-grained tokens_. The t
 * Repository permissions:
   * Read access to **Commit statuses**
   * Read access to **Contents**
+  * Read access to **Dependabot alerts**
   * Read access to **Pull requests**
 
 Make sure you store this token somewhere, as you can only see it once.
@@ -43,7 +44,7 @@ E.g.:
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
         --name github-team-dashboard \
-        ghcr.io/xalvarez/github-team-dashboard:4.6.0
+        ghcr.io/xalvarez/github-team-dashboard:4.6.2
 
 The application will then be available under [http://localhost:8080](http://localhost:8080).
 
