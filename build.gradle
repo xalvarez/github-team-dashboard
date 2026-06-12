@@ -1,7 +1,6 @@
 plugins {
     id "com.google.devtools.ksp" version "2.3.7"
     id "com.gradleup.shadow" version "9.4.2"
-    id "io.gitlab.arturbosch.detekt" version "1.23.8"
     id "io.micronaut.application" version "5.0.0"
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
@@ -54,11 +53,6 @@ micronaut {
 
 allOpen {
     annotation("io.micronaut.context.annotation.Prototype")
-}
-
-detekt {
-    config.setFrom(".config/detekt.yml")
-    buildUponDefaultConfig = true
 }
 
 dockerfile {
