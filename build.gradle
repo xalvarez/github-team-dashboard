@@ -1,10 +1,7 @@
-import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
-
 plugins {
-    id "com.google.devtools.ksp" version "2.3.0"
+    id "com.google.devtools.ksp" version "2.3.7"
     id "com.gradleup.shadow" version "9.4.2"
-    id "io.gitlab.arturbosch.detekt" version "1.23.8"
-    id "io.micronaut.application" version "4.6.2"
+    id "io.micronaut.application" version "5.0.0"
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
     id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
     id "org.jlleitschuh.gradle.ktlint" version "14.2.0"
@@ -16,7 +13,6 @@ repositories {
 
 dependencies {
     ksp "io.micronaut.serde:micronaut-serde-processor"
-    ksp "io.micronaut.validation:micronaut-validation-processor"
     ksp "io.micronaut:micronaut-http-validation"
 
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
@@ -24,10 +20,10 @@ dependencies {
     implementation "io.micronaut.serde:micronaut-serde-jackson"
     implementation "io.micronaut.validation:micronaut-validation"
     implementation "io.micronaut.views:micronaut-views-thymeleaf"
-    implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut:micronaut-management"
-    implementation "jakarta.validation:jakarta.validation-api"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+
+    compileOnly("io.micronaut:micronaut-http-client")
 
     runtimeOnly "ch.qos.logback:logback-classic"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
@@ -36,6 +32,14 @@ dependencies {
 
     testImplementation "io.mockk:mockk:1.14.11"
     testImplementation "org.wiremock:wiremock-standalone:3.13.2"
+}
+
+application {
+    mainClass.set("com.github.xalvarez.githubteamdashboard.ApplicationKt")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("25")
 }
 
 micronaut {
@@ -47,34 +51,8 @@ micronaut {
     }
 }
 
-application {
-    mainClass.set("com.github.xalvarez.githubteamdashboard.ApplicationKt")
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("21")
-}
-
-tasks {
-    compileKotlin {
-        compilerOptions {
-            jvmTarget = JVM_21
-        }
-    }
-    compileTestKotlin {
-        compilerOptions {
-            jvmTarget = JVM_21
-        }
-    }
-}
-
 allOpen {
     annotation("io.micronaut.context.annotation.Prototype")
-}
-
-detekt {
-    config.setFrom(".config/detekt.yml")
-    buildUponDefaultConfig = true
 }
 
 dockerfile {

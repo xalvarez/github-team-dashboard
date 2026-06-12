@@ -4,7 +4,6 @@ out/
 .*
 !.gitignore
 !.github
-!.config
 
 # IntelliJ IDEA
 .idea
