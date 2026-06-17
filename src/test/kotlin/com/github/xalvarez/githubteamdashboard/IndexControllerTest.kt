@@ -5,8 +5,8 @@ import com.github.xalvarez.githubteamdashboard.github.Commit
 import com.github.xalvarez.githubteamdashboard.github.CommitNode
 import com.github.xalvarez.githubteamdashboard.github.CommitStatusCheckState
 import com.github.xalvarez.githubteamdashboard.github.Commits
+import com.github.xalvarez.githubteamdashboard.github.DashboardService
 import com.github.xalvarez.githubteamdashboard.github.Data
-import com.github.xalvarez.githubteamdashboard.github.GitHubService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Members
 import com.github.xalvarez.githubteamdashboard.github.MembersNode
@@ -48,7 +48,7 @@ internal class IndexControllerTest {
     lateinit var indexController: IndexController
 
     @MockK
-    lateinit var gitHubService: GitHubService
+    lateinit var dashboardService: DashboardService
 
     @Test
     fun `should build model`() {
@@ -113,7 +113,8 @@ internal class IndexControllerTest {
         )
 
     private fun givenSuccessfulGitHubServiceResponse() {
-        every { gitHubService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
+        every { dashboardService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
+        every { dashboardService.getLastUpdatedAt() } returns createZonedDateTime(2020)
     }
 
     private fun buildSuccessfulGitHubDashboardData(): Mono<GithubDashboardData> {
@@ -289,5 +290,5 @@ internal class IndexControllerTest {
     private fun createZonedDateTime(year: Int) = ZonedDateTime.of(year, 1, 1, 1, 1, 1, 0, systemDefault())
 
     @MockBean
-    fun gitHubService() = gitHubService
+    fun dashboardService() = dashboardService
 }

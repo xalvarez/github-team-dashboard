@@ -8,5 +8,8 @@ import reactor.core.publisher.Mono
 @Client("\${github.apiUrl}")
 interface GitHubClient {
     @Post
-    fun fetchDashboardData(query: String): Mono<GithubDashboardData>
+    fun fetchTeamRepositories(query: String): Mono<TeamRepositoriesResponse>
+
+    @Post
+    fun fetchRepositoryPullRequests(query: String): Mono<RepositoryPullRequestsResponse>
 }

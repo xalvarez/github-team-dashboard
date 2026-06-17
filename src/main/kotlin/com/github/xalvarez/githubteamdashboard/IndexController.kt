@@ -1,7 +1,7 @@
 package com.github.xalvarez.githubteamdashboard
 
 import com.github.xalvarez.githubteamdashboard.github.Commit
-import com.github.xalvarez.githubteamdashboard.github.GitHubService
+import com.github.xalvarez.githubteamdashboard.github.DashboardService
 import com.github.xalvarez.githubteamdashboard.github.GithubDashboardData
 import com.github.xalvarez.githubteamdashboard.github.Review
 import com.github.xalvarez.githubteamdashboard.github.models.CheckState
@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter
 
 @Controller
 class IndexController(
-    private val gitHubService: GitHubService,
+    private val dashboardService: DashboardService,
 ) {
     @Get
     @View("index")
@@ -34,7 +34,7 @@ class IndexController(
     fun dashboard(): Mono<HttpResponse<Any>> = buildDashboardModel().map { HttpResponse.ok(it) }
 
     private fun buildDashboardModel() =
-        gitHubService
+        dashboardService
             .fetchDashboardData()
             .map { githubDashboardData ->
                 mapOf(
@@ -42,8 +42,11 @@ class IndexController(
                     "pullRequests" to buildPullRequests(githubDashboardData),
                     "authors" to buildAuthors(githubDashboardData),
                     "securityAlerts" to buildSecurityAlerts(githubDashboardData),
+                    "lastUpdate" to buildLastUpdate(),
                 )
             }
+
+    private fun buildLastUpdate() = dashboardService.getLastUpdatedAt()?.let { toHumanReadableDatetime(it) } ?: ""
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
         TeamModel(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))

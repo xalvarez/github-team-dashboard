@@ -1,6 +1,7 @@
 package com.github.xalvarez.githubteamdashboard
 
 import com.github.tomakehurst.wiremock.WireMockServer
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.containing
 import com.github.tomakehurst.wiremock.client.WireMock.post
@@ -43,36 +44,65 @@ open class RestIntegrationTest {
     }
 
     protected fun givenSuccessfulGitHubRequest() {
-        wireMockServer.stubFor(
-            post(urlPathEqualTo("/graphql")).willReturn(
-                aResponse()
-                    .withStatus(OK.code)
-                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                    .withBodyFile(GITHUB_SUCCESSFUL_REQUEST_STUB_FILE),
-            ),
-        )
+        stubTeamRepositories(GITHUB_TEAM_REPOSITORIES_STUB_FILE)
+        stubPullRequests()
     }
 
     protected fun givenPaginatedGitHubRequest() {
+        stubTeamRepositories(GITHUB_TEAM_REPOSITORIES_FIRST_PAGE_STUB_FILE)
         wireMockServer.stubFor(
-            post(urlPathEqualTo("/graphql")).willReturn(
-                aResponse()
-                    .withStatus(OK.code)
-                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                    .withBodyFile(GITHUB_SUCCESSFUL_FIRST_PAGE_REQUEST_STUB_FILE),
-            ),
+            post(urlPathEqualTo("/graphql"))
+                .atPriority(1)
+                .withRequestBody(containing("team(slug"))
+                .withRequestBody(containing("0123456789"))
+                .willReturn(okJson(GITHUB_TEAM_REPOSITORIES_SECOND_PAGE_STUB_FILE)),
         )
+        stubPullRequests()
+    }
+
+    private fun stubTeamRepositories(stubFile: String) {
         wireMockServer.stubFor(
-            post(urlPathEqualTo("/graphql")).withRequestBody(containing("0123456789")).willReturn(
-                aResponse()
-                    .withStatus(OK.code)
-                    .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                    .withBodyFile(GITHUB_SUCCESSFUL_SECOND_PAGE_REQUEST_STUB_FILE),
-            ),
+            post(urlPathEqualTo("/graphql"))
+                .atPriority(5)
+                .withRequestBody(containing("team(slug"))
+                .willReturn(okJson(stubFile)),
         )
     }
+
+    private fun stubPullRequests() {
+        wireMockServer.stubFor(
+            post(urlPathEqualTo("/graphql"))
+                .atPriority(10)
+                .withRequestBody(containing("repository(owner"))
+                .willReturn(okJson(GITHUB_PULL_REQUESTS_EMPTY_STUB_FILE)),
+        )
+        stubPullRequestsForRepository("example_repo_3", GITHUB_PULL_REQUESTS_REPO_3_STUB_FILE)
+        stubPullRequestsForRepository("example_repo_4", GITHUB_PULL_REQUESTS_REPO_4_STUB_FILE)
+    }
+
+    private fun stubPullRequestsForRepository(
+        repositoryName: String,
+        stubFile: String,
+    ) {
+        wireMockServer.stubFor(
+            post(urlPathEqualTo("/graphql"))
+                .atPriority(1)
+                .withRequestBody(containing("repository(owner"))
+                .withRequestBody(containing("name: \"$repositoryName\""))
+                .willReturn(okJson(stubFile)),
+        )
+    }
+
+    private fun okJson(stubFile: String): ResponseDefinitionBuilder =
+        aResponse()
+            .withStatus(OK.code)
+            .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+            .withBodyFile(stubFile)
 }
 
-private const val GITHUB_SUCCESSFUL_REQUEST_STUB_FILE = "post_github_successful.json"
-private const val GITHUB_SUCCESSFUL_FIRST_PAGE_REQUEST_STUB_FILE = "post_github_successful_first_page.json"
-private const val GITHUB_SUCCESSFUL_SECOND_PAGE_REQUEST_STUB_FILE = "post_github_successful_second_page.json"
+private const val GITHUB_TEAM_REPOSITORIES_STUB_FILE = "post_github_team_repositories.json"
+private const val GITHUB_TEAM_REPOSITORIES_FIRST_PAGE_STUB_FILE = "post_github_team_repositories_first_page.json"
+private const val GITHUB_TEAM_REPOSITORIES_SECOND_PAGE_STUB_FILE = "post_github_team_repositories_second_page.json"
+private const val GITHUB_PULL_REQUESTS_EMPTY_STUB_FILE = "post_github_pull_requests_empty.json"
+private const val GITHUB_PULL_REQUESTS_REPO_3_STUB_FILE = "post_github_pull_requests_repo_3.json"
+private const val GITHUB_PULL_REQUESTS_REPO_4_STUB_FILE = "post_github_pull_requests_repo_4.json"

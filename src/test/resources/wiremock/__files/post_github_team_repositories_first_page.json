@@ -1,0 +1,60 @@
+{
+  "data": {
+    "rateLimit": { "cost": 1, "remaining": 4999 },
+    "organization": {
+      "team": {
+        "name": "example_team",
+        "members": {
+          "nodes": [
+            { "login": "example_team_member_1" },
+            { "login": "example_team_member_2" }
+          ]
+        },
+        "repositories": {
+"nodes": [
+            {
+              "name": "example_repo_1",
+              "url": "https://github.com/example_organization/example_repo_1",
+              "isArchived": false,
+              "vulnerabilityAlerts": { "totalCount": 1 }
+            },
+            {
+              "name": "example_repo_2",
+              "url": "https://github.com/example_organization/example_repo_2",
+              "isArchived": false,
+              "vulnerabilityAlerts": { "totalCount": 0 }
+            },
+            {
+              "name": "example_repo_3",
+              "url": "https://github.com/example_organization/example_repo_3",
+              "isArchived": false,
+              "vulnerabilityAlerts": { "totalCount": 0 }
+            },
+            {
+              "name": "example_repo_4",
+              "url": "https://github.com/example_organization/example_repo_4",
+              "isArchived": false,
+              "vulnerabilityAlerts": { "totalCount": 1 }
+            },
+            {
+              "name": "example_repo_5",
+              "url": "https://github.com/example_organization/example_repo_5",
+              "isArchived": false,
+              "vulnerabilityAlerts": { "totalCount": 0 }
+            },
+            {
+              "name": "example_repo_6",
+              "url": "https://github.com/example_organization/example_repo_6",
+              "isArchived": true,
+              "vulnerabilityAlerts": { "totalCount": 0 }
+            }
+          ],
+          "pageInfo": {
+            "endCursor": "0123456789",
+            "hasNextPage": true
+          }
+        }
+      }
+    }
+  }
+}

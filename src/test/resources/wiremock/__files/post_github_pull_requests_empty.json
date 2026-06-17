@@ -1,0 +1,10 @@
+{
+  "data": {
+    "rateLimit": { "cost": 1, "remaining": 4996 },
+    "repository": {
+      "pullRequests": {
+        "nodes": []
+      }
+    }
+  }
+}
