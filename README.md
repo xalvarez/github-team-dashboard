@@ -66,6 +66,10 @@ After setting the environment variables above you can start the application as f
 Thanks to incremental annotation processing, startup time will improve significantly the next time you run the command
 above.
 
+The dashboard data is fetched from GitHub in the background and cached, so the page loads instantly from the latest
+snapshot. By default the cache is refreshed every 10 minutes. To use a different interval, set the optional
+_GITHUB_DASHBOARD_REFRESH_INTERVAL_ environment variable to a duration (e.g. `5m`, `30s`, `1h`).
+
 Once the application starts you'll find it under [http://localhost:8080](http://localhost:8080).
 If you want it to run on a different port, set the environment variable _MICRONAUT_SERVER_PORT_ to a different port
 before starting the application, e.g.:

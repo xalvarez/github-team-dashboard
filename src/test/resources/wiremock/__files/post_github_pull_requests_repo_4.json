@@ -1,0 +1,38 @@
+{
+  "data": {
+    "rateLimit": { "cost": 1, "remaining": 4997 },
+    "repository": {
+      "pullRequests": {
+        "nodes": [
+          {
+            "url": "https://github.com/example_organization/example_repo_4/pull/128",
+            "createdAt": "2019-08-23T11:19:57Z",
+            "author": {
+              "login": "example_team_member_2"
+            },
+            "title": "fix a bug",
+            "reviews": {
+              "nodes": [
+                {
+                  "state": "APPROVED"
+                }
+              ]
+            },
+            "isDraft": false,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "ERROR"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
