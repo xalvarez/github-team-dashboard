@@ -13,12 +13,15 @@ open class DashboardService(
     private val logger = LoggerFactory.getLogger(DashboardService::class.java)
     private val cachedData = AtomicReference<GithubDashboardData?>()
     private val lastUpdatedAt = AtomicReference<ZonedDateTime?>()
+    private val inFlightRefresh = AtomicReference<Mono<GithubDashboardData>?>()
 
     open fun fetchDashboardData(): Mono<GithubDashboardData> = cachedData.get()?.let { Mono.just(it) } ?: refresh()
 
     open fun getLastUpdatedAt(): ZonedDateTime? = lastUpdatedAt.get()
 
-    open fun refresh(): Mono<GithubDashboardData> =
+    open fun refresh(): Mono<GithubDashboardData> = Mono.defer { inFlightRefresh.updateAndGet { it ?: createRefresh() }!! }
+
+    private fun createRefresh(): Mono<GithubDashboardData> =
         gitHubService
             .fetchDashboardData()
             .doOnNext { data ->
@@ -26,4 +29,6 @@ open class DashboardService(
                 lastUpdatedAt.set(ZonedDateTime.now())
                 logger.info("Dashboard data refreshed from GitHub")
             }.doOnError { error -> logger.error("Failed to refresh dashboard data: ${error.message}") }
+            .doFinally { inFlightRefresh.set(null) }
+            .cache()
 }
