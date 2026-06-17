@@ -114,6 +114,7 @@ internal class IndexControllerTest {
 
     private fun givenSuccessfulGitHubServiceResponse() {
         every { dashboardService.fetchDashboardData() } returns buildSuccessfulGitHubDashboardData()
+        every { dashboardService.getLastUpdatedAt() } returns createZonedDateTime(2020)
     }
 
     private fun buildSuccessfulGitHubDashboardData(): Mono<GithubDashboardData> {
