@@ -6,14 +6,6 @@ import reactor.core.publisher.Mono
 import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicReference
 
-/**
- * Caches the assembled dashboard data so that incoming HTTP requests are served from an in-memory
- * snapshot instead of triggering a (potentially slow) call to GitHub on every request.
- *
- * The snapshot is refreshed in the background by [DashboardRefreshJob]. The very first request
- * (before any snapshot exists) falls back to fetching the data on demand so the dashboard still
- * works immediately after startup.
- */
 @Singleton
 open class DashboardService(
     private val gitHubService: GitHubService,

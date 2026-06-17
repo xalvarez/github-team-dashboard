@@ -14,16 +14,6 @@ class GitHubService(
 ) {
     private val logger = LoggerFactory.getLogger(GitHubService::class.java)
 
-    /**
-     * Fetches all the data required by the dashboard using a two-phase, query-decomposition
-     * strategy:
-     *
-     * 1. A cheap, shallow query lists the team's repositories (paginated). This keeps the GraphQL
-     *    complexity low regardless of how many repositories the team owns.
-     * 2. For every non-archived repository, a small per-repository query fetches its open pull
-     *    requests. These requests run concurrently (with bounded parallelism) so the overall
-     *    latency stays low without tripping GitHub's secondary rate limits.
-     */
     fun fetchDashboardData(): Mono<GithubDashboardData> =
         fetchTeamWithRepositories()
             .flatMap { team ->
