@@ -56,7 +56,7 @@ allOpen {
 }
 
 dockerfile {
-    baseImage("eclipse-temurin:21-jre-alpine")
+    baseImage("eclipse-temurin:25-jre-alpine")
 }
 
 dockerBuild {
