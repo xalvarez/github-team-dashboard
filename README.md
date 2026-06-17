@@ -1,6 +1,6 @@
 # GitHub Team Dashboard
 
-Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualize
+Whether it is in your laptop or in a big screen, _GitHub Team Dashboard_ will allow you to comfortably visualise
 useful information related to your GitHub team.
 
 Example screenshot:
@@ -44,14 +44,14 @@ E.g.:
         -e GITHUB_DASHBOARD_TEAM=<your_team> \
         -e GITHUB_DASHBOARD_ORGANIZATION=<your_org> \
         --name github-team-dashboard \
-        ghcr.io/xalvarez/github-team-dashboard:4.6.2
+        ghcr.io/xalvarez/github-team-dashboard:5.0.0
 
 The application will then be available under [http://localhost:8080](http://localhost:8080).
 
 ### Gradle
 
 > [!IMPORTANT]
-> The application requires JDK 21 to run.
+> The application requires JDK 25 to run.
 
 Before starting your application you need to set the following environment variables:
 
@@ -67,7 +67,7 @@ Thanks to incremental annotation processing, startup time will improve significa
 above.
 
 The dashboard data is fetched from GitHub in the background and cached, so the page loads instantly from the latest
-snapshot. By default the cache is refreshed every 10 minutes. To use a different interval, set the optional
+snapshot. By default, the cache is refreshed every 10 minutes. To use a different interval, set the optional
 _GITHUB_DASHBOARD_REFRESH_INTERVAL_ environment variable to a duration (e.g. `5m`, `30s`, `1h`).
 
 Once the application starts you'll find it under [http://localhost:8080](http://localhost:8080).
