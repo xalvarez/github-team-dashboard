@@ -1,11 +1,21 @@
 const REFRESH_INTERVAL = 600000
+const RETRY_INTERVAL = 5000
 
 function refreshDashboard () {
   fetch('/dashboard')
-    .then(response => response.text())
-    .then(responseBody => dashboard.innerHTML = responseBody)
-
-  setTimeout(refreshDashboard, REFRESH_INTERVAL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`)
+      }
+      return response.text()
+    })
+    .then(responseBody => {
+      dashboard.innerHTML = responseBody
+      setTimeout(refreshDashboard, REFRESH_INTERVAL)
+    })
+    .catch(() => {
+      setTimeout(refreshDashboard, RETRY_INTERVAL)
+    })
 }
 
 function filterRows(element) {
