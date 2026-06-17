@@ -46,8 +46,7 @@ class IndexController(
                 )
             }
 
-    private fun buildLastUpdate() =
-        dashboardService.getLastUpdatedAt()?.let { toHumanReadableDatetime(it) } ?: ""
+    private fun buildLastUpdate() = dashboardService.getLastUpdatedAt()?.let { toHumanReadableDatetime(it) } ?: ""
 
     private fun buildTeam(githubDashboardData: GithubDashboardData) =
         TeamModel(githubDashboardData.data.organization.team.name, buildMembers(githubDashboardData))
