@@ -24,10 +24,6 @@ open class DashboardService(
 
     open fun fetchDashboardData(): Mono<GithubDashboardData> = cachedData.get()?.let { Mono.just(it) } ?: refresh()
 
-    /**
-     * Returns the instant at which the cached dashboard data was last refreshed from GitHub, or
-     * `null` if no successful refresh has happened yet.
-     */
     open fun getLastUpdatedAt(): ZonedDateTime? = lastUpdatedAt.get()
 
     open fun refresh(): Mono<GithubDashboardData> =
