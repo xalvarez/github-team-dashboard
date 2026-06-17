@@ -1,5 +1,5 @@
 const REFRESH_INTERVAL = 600000
-const RETRY_INTERVAL = 15000
+const RETRY_INTERVAL = 5000
 
 function refreshDashboard () {
   fetch('/dashboard')
